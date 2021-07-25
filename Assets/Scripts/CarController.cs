@@ -5,15 +5,10 @@ public class CarController : MonoBehaviour
 {
 	public float MaxSpeed;
 
-	public WheelCollider FrontLeft;
-	public WheelCollider FrontRight;
-	public WheelCollider RearLeft;
-	public WheelCollider RearRight;
-
-	private void FixedUpdate()
-	{
-
-	}
+	public Wheel FrontLeft;
+	public Wheel FrontRight;
+	public Wheel RearLeft;
+	public Wheel RearRight;
 
 	public void SetSpeed(WheelType wheel, float normalizedSpeed)
 	{
@@ -22,16 +17,16 @@ public class CarController : MonoBehaviour
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				FrontLeft.motorTorque = speed;
+				FrontLeft.SetTorque(speed);
 				break;
 			case WheelType.FrontRight:
-				FrontRight.motorTorque = speed;
+				FrontRight.SetTorque(speed);
 				break;
 			case WheelType.RearLeft:
-				RearLeft.motorTorque = speed;
+				RearLeft.SetTorque(speed);
 				break;
 			case WheelType.RearRight:
-				RearRight.motorTorque = speed;
+				RearRight.SetTorque(speed);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
