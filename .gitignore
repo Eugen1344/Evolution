@@ -1,0 +1,59 @@
+# =============== #
+# Unity generated #
+# =============== #
+
+Logs/
+Temp/
+Library/
+packages/ProjectSettings/ProjectVersion.txt
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+.vs
+_ReSharper*/
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+*csharp.sln*
+/*.sln
+*.user
+*.unityproj
+*.booproj
+*.stackdump
+*.ide
+*.ide-wal
+*.ide-shm
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ========== #
+# Additional #
+# ========== #
+
+Assets/StreamingAssets/build_info.txt
+Assets/StreamingAssets/GameVersionInfo.txt
+Assets/StreamingAssets/GameVersionInfo.txt.meta
+Assets/StreamingAssetsTemp/
+Assets/StreamingAssetsTemp.meta
+
+
+# ===================================== #
+# installer settings                    #
+# ===================================== #
+
+build/
+installer/
