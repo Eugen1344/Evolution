@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 827828110178390888}
   - {fileID: 8407138611374400138}
@@ -43,6 +44,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6309735682228561876}
+  - component: {fileID: 5067435517137559977}
+  - component: {fileID: 1498113815733910494}
   - component: {fileID: 7249546690472652996}
   - component: {fileID: 998564928589763612}
   m_Layer: 0
@@ -62,12 +65,42 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6414116175939223968}
   - {fileID: 2930065447146884051}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5067435517137559977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598093964624196669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521cb3e651e31e34aa38cd4ce34cc69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionsPerSecond: 2
+  MovementController: {fileID: 7249546690472652996}
+  FoodController: {fileID: 1498113815733910494}
+--- !u!114 &1498113815733910494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598093964624196669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327f0b3c957453942b9567745ebc2327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentFood: 0
+  MaxFood: 100
 --- !u!114 &7249546690472652996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +110,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6598093964624196669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 044608db1c677b64889b5c47965055c3, type: 3}
+  m_Script: {fileID: 11500000, guid: ab67e2e81c9572e41b8501b5b3af3f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed: 2000
+  Rigidbody: {fileID: 998564928589763612}
   FrontLeft: {fileID: 7120031490449023744}
   FrontRight: {fileID: 2098202073735238370}
   RearLeft: {fileID: 1495220301960796110}
@@ -130,6 +164,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.81114, y: 0.13, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309735682228561876}
   m_RootOrder: 0
@@ -153,6 +188,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -280,7 +316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a179f690814c9a4bb8066286c93a9ec, type: 3}
+  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1791486401729097195
@@ -367,7 +403,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a179f690814c9a4bb8066286c93a9ec, type: 3}
+  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8293552435917731507
@@ -454,7 +490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a179f690814c9a4bb8066286c93a9ec, type: 3}
+  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8846974734393078687
@@ -541,6 +577,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a179f690814c9a4bb8066286c93a9ec, type: 3}
+  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
