@@ -15,7 +15,7 @@ public class CarBrain : MonoBehaviour
 
 	private void Awake()
 	{
-		Network = NeuralNetwork.Random(new NeuralNetworkSettings(InputNeuronsCount, 100, 100, 100, 100, OutputNeuronsCount));
+		Network = NeuralNetwork.Random(new NeuralNetworkSettings(InputNeuronsCount, 1000, 1000, 1000, 1000, 1000, OutputNeuronsCount));
 	}
 
 	private void Update()

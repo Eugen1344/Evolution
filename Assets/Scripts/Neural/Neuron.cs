@@ -28,10 +28,10 @@ public class Neuron
 
 		for (int i = 0; i < input.Length; i++)
 		{
-			sum += Activation(Weights[i] * input[i]);
+			sum += Weights[i] * input[i];
 		}
 
-		return sum;
+		return Activation(sum);
 	}
 
 	private float Activation(float value)
@@ -46,7 +46,7 @@ public class Neuron
 
 		for (int i = 0; i < Weights.Length; i++)
 		{
-			Weights[i] = Random.Range(-MaxWeight, MaxWeight);
+			Weights[i] = Random.Range(-1.0f, 1.0f);
 		}
 	}
 }

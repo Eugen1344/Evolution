@@ -6,6 +6,7 @@ Logs/
 Temp/
 Library/
 packages/ProjectSettings/ProjectVersion.txt
+UserSettings/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #

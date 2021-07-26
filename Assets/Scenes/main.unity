@@ -355,6 +355,10 @@ PrefabInstance:
       propertyPath: m_RenderingPathCustomFrameSettings.msaaMode
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1452573055, guid: 758460f5fa7e270488fe9c4bf5e13891, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1907175285642654167, guid: 758460f5fa7e270488fe9c4bf5e13891,
         type: 3}
       propertyPath: MaxSpeed
@@ -429,6 +433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648918718817630925, guid: 758460f5fa7e270488fe9c4bf5e13891,
+        type: 3}
+      propertyPath: CurrentFood
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8302289278320825615, guid: 758460f5fa7e270488fe9c4bf5e13891,
         type: 3}
@@ -632,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1570341351
 MonoBehaviour:
   m_ObjectHideFlags: 0
