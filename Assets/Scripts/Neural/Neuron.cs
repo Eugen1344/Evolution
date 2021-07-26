@@ -46,7 +46,7 @@ public class Neuron
 
 		for (int i = 0; i < Weights.Length; i++)
 		{
-			Weights[i] = Random.Range(-1.0f, 1.0f);
+			Weights[i] = Random.Range(-MaxWeight, MaxWeight);
 		}
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
 	public float MaxSpeed;
+	public float MaxSteeringAngle;
 
 	public Rigidbody Rigidbody;
 	public Wheel FrontLeft;
@@ -28,6 +29,52 @@ public class CarController : MonoBehaviour
 				break;
 			case WheelType.RearRight:
 				RearRight.SetTorque(speed);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
+		}
+	}
+
+	public void SetBrake(WheelType wheel, float normalizedBrakeForce)
+	{
+		float brakeForce = MaxSpeed * normalizedBrakeForce;
+
+		switch (wheel)
+		{
+			case WheelType.FrontLeft:
+				FrontLeft.SetBrake(brakeForce);
+				break;
+			case WheelType.FrontRight:
+				FrontRight.SetBrake(brakeForce);
+				break;
+			case WheelType.RearLeft:
+				RearLeft.SetBrake(brakeForce);
+				break;
+			case WheelType.RearRight:
+				RearRight.SetBrake(brakeForce);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
+		}
+	}
+
+	public void SetSteering(WheelType wheel, float normalizedSteeringFactor)
+	{
+		float steeringAngle = MaxSteeringAngle * normalizedSteeringFactor;
+
+		switch (wheel)
+		{
+			case WheelType.FrontLeft:
+				FrontLeft.SetSteeringAngle(steeringAngle);
+				break;
+			case WheelType.FrontRight:
+				FrontRight.SetSteeringAngle(steeringAngle);
+				break;
+			case WheelType.RearLeft:
+				RearLeft.SetSteeringAngle(steeringAngle);
+				break;
+			case WheelType.RearRight:
+				RearRight.SetSteeringAngle(steeringAngle);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");

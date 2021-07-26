@@ -30,4 +30,14 @@ public class Wheel : MonoBehaviour
 	{
 		Collider.motorTorque = torque;
 	}
+
+	public void SetBrake(float brakeTorque)
+	{
+		Collider.brakeTorque = brakeTorque;
+	}
+
+	public void SetSteeringAngle(float steeringAngle)
+	{
+		Collider.steerAngle = steeringAngle;
+	}
 }

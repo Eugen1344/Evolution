@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentFood: 0
-  MaxFood: 100
+  MaxFood: 10
 --- !u!114 &7249546690472652996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed: 2000
+  MaxSteeringAngle: 45
   Rigidbody: {fileID: 998564928589763612}
   FrontLeft: {fileID: 7120031490449023744}
   FrontRight: {fileID: 2098202073735238370}
