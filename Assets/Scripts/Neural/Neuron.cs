@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class Neuron
 {
-	public const float MaxWeight = 10.0f;
+	public const float MaxWeight = 1.0f;
 
 	public float[] Weights;
 
