@@ -4,17 +4,26 @@ using System.Collections.Generic;
 [Serializable]
 public class NeuralNetwork
 {
-	public List<Neuron[]> Neurons;
+	public readonly NeuralNetworkSettings Settings;
 
-	private NeuralNetworkSettings _settings;
+	public List<Neuron[]> Neurons;
 
 	public NeuralNetwork(NeuralNetworkSettings settings)
 	{
-		_settings = settings;
+		Settings = settings;
 
 		Neurons = new List<Neuron[]>();
 
-		InitializeNeurons();
+		InitializeNeurons(settings);
+	}
+
+	public NeuralNetwork(NeuralNetwork network)
+	{
+		Settings = network.Settings;
+
+		Neurons = new List<Neuron[]>();
+
+		InitializeNeurons(network);
 	}
 
 	public float[] Calculate(float[] input)
@@ -50,11 +59,26 @@ public class NeuralNetwork
 		return network;
 	}
 
-	private void InitializeNeurons()
+	private void InitializeNeurons(NeuralNetwork network)
+	{
+		foreach (Neuron[] originalLayer in network.Neurons)
+		{
+			Neuron[] copiedLayer = new Neuron[originalLayer.Length];
+
+			for (int j = 0; j < copiedLayer.Length; j++)
+			{
+				copiedLayer[j] = new Neuron(originalLayer[j]);
+			}
+
+			Neurons.Add(copiedLayer);
+		}
+	}
+
+	private void InitializeNeurons(NeuralNetworkSettings settings)
 	{
 		int prevLayerCount = 0;
 
-		foreach (int count in _settings.NeuronsCount)
+		foreach (int count in Settings.NeuronsCount)
 		{
 			Neuron[] layer = new Neuron[count];
 
@@ -74,6 +98,20 @@ public class NeuralNetwork
 
 			prevLayerCount = count;
 		}
+	}
+
+	public void IntroduceRandomError()
+	{
+		if (Neurons.Count <= 1)
+			return;
+
+		int randomLayerIndex = UnityEngine.Random.Range(1, Neurons.Count);
+		Neuron[] randomLayer = Neurons[randomLayerIndex];
+
+		int randomNeuronIndex = UnityEngine.Random.Range(0, randomLayer.Length);
+		Neuron randomNeuron = randomLayer[randomNeuronIndex];
+
+		randomNeuron.IntroduceRandomError(UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient));
 	}
 
 	private void RandomizeAllWeights()

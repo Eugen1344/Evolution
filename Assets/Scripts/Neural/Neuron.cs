@@ -9,14 +9,27 @@ public class Neuron
 
 	public float[] Weights;
 
-	public Neuron()
-	{
-		Weights = null;
-	}
-
 	public Neuron(int weightsCount)
 	{
 		Weights = new float[weightsCount];
+	}
+
+	public Neuron(float[] weights)
+	{
+		Weights = weights;
+	}
+
+	public Neuron(Neuron neuron)
+	{
+		if (neuron.Weights == null)
+			Weights = null;
+		else
+			Weights = (float[])neuron.Weights.Clone();
+	}
+
+	public Neuron()
+	{
+		Weights = null;
 	}
 
 	public float Calculate(float[] input)
@@ -48,5 +61,20 @@ public class Neuron
 		{
 			Weights[i] = Random.Range(-1.0f, 1.0f);
 		}
+	}
+
+	public void IntroduceRandomError(float errorCoefficient)
+	{
+		if (Weights == null)
+			return;
+
+		int randomWeightIndex = Random.Range(0, Weights.Length);
+		bool isErrorPositive = Random.value < 0.5f;
+
+		float weight = Weights[randomWeightIndex];
+		float weightDelta = MaxWeight * errorCoefficient;
+		float newWeight = Mathf.Clamp(isErrorPositive ? weight + weightDelta : weight - weightDelta, -MaxWeight, MaxWeight);
+
+		Weights[randomWeightIndex] = newWeight;
 	}
 }

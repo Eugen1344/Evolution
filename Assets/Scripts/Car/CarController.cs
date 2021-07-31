@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-	public float MaxSpeed;
+	public float MaxTorque;
 	public float MaxSteeringAngle;
+	public float MaxCarSpeed;
 
 	public Rigidbody Rigidbody;
 	public Wheel FrontLeft;
@@ -14,7 +15,7 @@ public class CarController : MonoBehaviour
 
 	public void SetSpeed(WheelType wheel, float normalizedSpeed)
 	{
-		float speed = MaxSpeed * normalizedSpeed;
+		float speed = MaxTorque * normalizedSpeed;
 
 		switch (wheel)
 		{
@@ -37,7 +38,7 @@ public class CarController : MonoBehaviour
 
 	public void SetBrake(WheelType wheel, float normalizedBrakeForce)
 	{
-		float brakeForce = MaxSpeed * normalizedBrakeForce;
+		float brakeForce = MaxTorque * normalizedBrakeForce;
 
 		switch (wheel)
 		{
@@ -83,7 +84,7 @@ public class CarController : MonoBehaviour
 
 	public float GetTotalNormalizedSpeed()
 	{
-		return GetTotalSpeed() / MaxSpeed;
+		return Mathf.Clamp(GetTotalSpeed() / MaxCarSpeed, -1.0f, 1.0f);
 	}
 
 	public float GetTotalSpeed()

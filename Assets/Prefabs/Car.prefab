@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2930065447146884051}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,11 +44,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6309735682228561876}
+  - component: {fileID: 4432495669392959698}
   - component: {fileID: 5067435517137559977}
   - component: {fileID: 1498113815733910494}
   - component: {fileID: 7249546690472652996}
   - component: {fileID: 998564928589763612}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,6 +73,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4432495669392959698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598093964624196669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 303a2596b12839b4586694dfe0baa370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brain: {fileID: 5067435517137559977}
+  Movement: {fileID: 7249546690472652996}
+  Food: {fileID: 1498113815733910494}
 --- !u!114 &5067435517137559977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,8 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionsPerSecond: 2
-  MovementController: {fileID: 7249546690472652996}
-  FoodController: {fileID: 1498113815733910494}
+  Car: {fileID: 4432495669392959698}
 --- !u!114 &1498113815733910494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentFood: 0
   MaxFood: 10
+  FoodDecayPerSecond: 1
+  Car: {fileID: 4432495669392959698}
 --- !u!114 &7249546690472652996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,8 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67e2e81c9572e41b8501b5b3af3f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 2000
+  MaxTorque: 2000
   MaxSteeringAngle: 45
+  MaxCarSpeed: 6
   Rigidbody: {fileID: 998564928589763612}
   FrontLeft: {fileID: 7120031490449023744}
   FrontRight: {fileID: 2098202073735238370}
@@ -148,7 +166,7 @@ GameObject:
   - component: {fileID: 4832061278063076844}
   - component: {fileID: 5637801768121879152}
   - component: {fileID: 4806147192114766103}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,6 +318,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrontLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 5441352544165476428, guid: 4d3938ee723fc3b46bbe46e21bd835ad,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d3938ee723fc3b46bbe46e21bd835ad, type: 3}
 --- !u!4 &827828110178390888 stripped
@@ -386,6 +409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RearRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441352544165476428, guid: 4d3938ee723fc3b46bbe46e21bd835ad,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d3938ee723fc3b46bbe46e21bd835ad, type: 3}
@@ -474,6 +502,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RearLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 5441352544165476428, guid: 4d3938ee723fc3b46bbe46e21bd835ad,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d3938ee723fc3b46bbe46e21bd835ad, type: 3}
 --- !u!4 &9039412042923534246 stripped
@@ -560,6 +593,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FrontRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5441352544165476428, guid: 4d3938ee723fc3b46bbe46e21bd835ad,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d3938ee723fc3b46bbe46e21bd835ad, type: 3}
