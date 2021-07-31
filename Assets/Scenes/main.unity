@@ -152,11 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8626553615814234b8d6d318662758fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpeciesCount: 500
+  InitialSpeciesCount: 1
   SpeciesPerGeneration: 200
-  BestSpeciesPerGeneration: 3
+  BestSpeciesPerGeneration: 1
   NeuralNetworkSettings:
-    NeuronsCount: 030000000a00000006000000
+    NeuronsCount: 030000000300000006000000
     MinRandomErrorCoefficient: 0.01
     MaxRandomErrorCoefficient: 0.5
   CarPrefab: {fileID: 4432495669392959698, guid: d2652bce968b16241875cde7867ec6be,

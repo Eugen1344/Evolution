@@ -54,6 +54,7 @@ public class GenerationsEvolution : MonoBehaviour
 			NeuralNetwork prevBestGenome = bestLifeResults[prevBestCarIndex].Genome; //TEMP currently genome is equivalent to network
 
 			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome);
+			newGenome.Settings = NeuralNetworkSettings;
 			newGenome.IntroduceRandomError();
 
 			Car newCar = SpawnCar();

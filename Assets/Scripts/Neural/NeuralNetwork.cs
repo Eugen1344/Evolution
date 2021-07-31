@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class NeuralNetwork
 {
-	public readonly NeuralNetworkSettings Settings;
+	public NeuralNetworkSettings Settings;
 
 	public List<Neuron[]> Neurons;
 
