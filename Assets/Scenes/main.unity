@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8626553615814234b8d6d318662758fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpeciesCount: 1
+  InitialSpeciesCount: 500
   SpeciesPerGeneration: 200
-  BestSpeciesPerGeneration: 1
+  BestSpeciesPerGeneration: 5
   NeuralNetworkSettings:
     NeuronsCount: 030000000300000006000000
     MinRandomErrorCoefficient: 0.01

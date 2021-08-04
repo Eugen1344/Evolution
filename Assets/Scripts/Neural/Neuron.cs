@@ -63,17 +63,16 @@ public class Neuron
 		}
 	}
 
-	public void IntroduceRandomError(float errorCoefficient)
+	public void IntroduceError(float errorCoefficient)
 	{
 		if (Weights == null)
 			return;
 
 		int randomWeightIndex = Random.Range(0, Weights.Length);
-		bool isErrorPositive = Random.value < 0.5f;
 
 		float weight = Weights[randomWeightIndex];
 		float weightDelta = MaxWeight * errorCoefficient;
-		float newWeight = Mathf.Clamp(isErrorPositive ? weight + weightDelta : weight - weightDelta, -MaxWeight, MaxWeight);
+		float newWeight = Mathf.Clamp(weight + weightDelta, -MaxWeight, MaxWeight);
 
 		Weights[randomWeightIndex] = newWeight;
 	}
