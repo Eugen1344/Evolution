@@ -14,6 +14,19 @@ public class CarFood : MonoBehaviour
 		CurrentFood = MaxFood;
 	}
 
+	private void OnTriggerEnter(Collider obj)
+	{
+		Food food = obj.GetComponent<Food>();
+
+		if (food)
+		{
+			float foodAmount = food.Pickup();
+
+			CurrentFood += foodAmount;
+			TotalAcquiredFood += foodAmount;
+		}
+	}
+
 	private void Update()
 	{
 		if (CurrentFood == 0)

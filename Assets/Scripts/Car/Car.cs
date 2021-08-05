@@ -7,12 +7,15 @@ public class Car : MonoBehaviour
 	public CarController Movement;
 	public CarFood Food;
 
-	public event Action<Car> OnDestroy;
+	public event Action<Car> OnFinishLife;
 
 	public void Destroy()
 	{
-		OnDestroy?.Invoke(this);
-
 		Destroy(gameObject);
+	}
+
+	private void OnDestroy()
+	{
+		OnFinishLife?.Invoke(this);
 	}
 }
