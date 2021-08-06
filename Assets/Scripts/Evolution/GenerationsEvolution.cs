@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class GenerationsEvolution : MonoBehaviour
@@ -42,6 +44,12 @@ public class GenerationsEvolution : MonoBehaviour
 	private void SpawnNextGeneration()
 	{
 		List<CarLifeResult> bestLifeResults = FinishCurrentGeneration();
+
+		TextWriter w = new StreamWriter(new FileStream("test_car.txt", FileMode.Create));
+		string s = JsonConvert.SerializeObject(_currentGeneration);
+
+		w.Write(s);
+		w.Close();
 
 		Generation++;
 

@@ -1,12 +1,15 @@
 ﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
+[JsonObject(MemberSerialization.OptOut)]
 public class Neuron
 {
 	public const float MaxWeight = 1.0f;
 
+	[JsonProperty("weights")]
 	public float[] Weights;
 
 	public Neuron(int weightsCount)

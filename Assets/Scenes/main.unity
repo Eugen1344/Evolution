@@ -155,6 +155,7 @@ MonoBehaviour:
   InitialSpeciesCount: 500
   SpeciesPerGeneration: 200
   BestSpeciesPerGeneration: 5
+  BestSpeciesPerGenerationClones: 1
   NeuralNetworkSettings:
     NeuronsCount: 030000000a00000006000000
     MinRandomErrorCoefficient: 0.01

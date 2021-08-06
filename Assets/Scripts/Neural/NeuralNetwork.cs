@@ -6,7 +6,9 @@ using Newtonsoft.Json;
 [JsonObject(MemberSerialization.OptIn)]
 public class NeuralNetwork
 {
+	[JsonProperty("settings")]
 	public NeuralNetworkSettings Settings;
+	[JsonProperty("neurons")]
 	public List<Neuron[]> Neurons;
 
 	public NeuralNetwork(NeuralNetworkSettings settings)

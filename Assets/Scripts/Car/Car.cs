@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [JsonObject(MemberSerialization.OptIn)]
-public class Car : MonoBehaviour, IJsonSerializable
+public class Car : MonoBehaviour
 {
-	[JsonProperty("")]
+	[JsonProperty("brain")]
 	public CarBrain Brain;
 	public CarController Movement;
 	public CarFood Food;
@@ -21,15 +21,5 @@ public class Car : MonoBehaviour, IJsonSerializable
 	private void OnDestroy()
 	{
 		OnFinishLife?.Invoke(this);
-	}
-
-	public JsonData Serialize()
-	{
-		return Brain.Serialize();
-	}
-
-	public void Deserialize(JsonData data)
-	{
-		Brain.Deserialize(data);
 	}
 }

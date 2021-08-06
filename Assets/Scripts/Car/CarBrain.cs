@@ -1,11 +1,13 @@
-using LitJsonSrc;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class CarBrain : MonoBehaviour, IJsonSerializable
+[JsonObject(MemberSerialization.OptIn)]
+public class CarBrain : MonoBehaviour
 {
 	public float DecisionsPerSecond;
 	public Car Car;
 
+	[JsonProperty("network")]
 	public NeuralNetwork Network;
 
 	private float _prevDecisionRealtimeSinceStartup;
@@ -47,15 +49,5 @@ public class CarBrain : MonoBehaviour, IJsonSerializable
 	private float[] GetInputData()
 	{
 		return new[] { 1, Car.Food.GetNormalizedFoodAmount(), Car.Movement.GetTotalNormalizedSpeed() };
-	}
-
-	public JsonData Serialize()
-	{
-		return JsonMapper.ToJson(Network);
-	}
-
-	public void Deserialize(JsonData data)
-	{
-		Network = JsonMapper.ToObject<NeuralNetwork>(new JsonReader(data.ToString()));
 	}
 }
