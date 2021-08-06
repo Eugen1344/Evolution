@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 [Serializable]
+[JsonObject(MemberSerialization.OptIn)]
 public class NeuralNetwork
 {
 	public NeuralNetworkSettings Settings;
-
 	public List<Neuron[]> Neurons;
 
 	public NeuralNetwork(NeuralNetworkSettings settings)

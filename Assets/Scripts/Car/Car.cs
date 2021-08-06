@@ -1,8 +1,12 @@
 using System;
+using LitJsonSrc;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+[JsonObject(MemberSerialization.OptIn)]
+public class Car : MonoBehaviour, IJsonSerializable
 {
+	[JsonProperty("")]
 	public CarBrain Brain;
 	public CarController Movement;
 	public CarFood Food;
@@ -17,5 +21,15 @@ public class Car : MonoBehaviour
 	private void OnDestroy()
 	{
 		OnFinishLife?.Invoke(this);
+	}
+
+	public JsonData Serialize()
+	{
+		return Brain.Serialize();
+	}
+
+	public void Deserialize(JsonData data)
+	{
+		Brain.Deserialize(data);
 	}
 }
