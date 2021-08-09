@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8626553615814234b8d6d318662758fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpeciesCount: 500
+  InitialSpeciesCount: 1000
   SpeciesPerGeneration: 200
   BestSpeciesPerGeneration: 5
   BestSpeciesPerGenerationClones: 1

@@ -45,12 +45,6 @@ public class GenerationsEvolution : MonoBehaviour
 	{
 		List<CarLifeResult> bestLifeResults = FinishCurrentGeneration();
 
-		TextWriter w = new StreamWriter(new FileStream("test_car.txt", FileMode.Create));
-		string s = JsonConvert.SerializeObject(_currentGeneration);
-
-		w.Write(s);
-		w.Close();
-
 		Generation++;
 
 		Debug.Log($"Generation: {Generation}. Spawning cars: {SpeciesPerGeneration}");
