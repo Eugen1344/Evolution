@@ -4,7 +4,7 @@ using UnityEngine;
 namespace GenericPanels
 {
 	[RequireComponent(typeof(CanvasGroup))]
-	public abstract class UiPanel<T> : MonoBehaviourSingleton<T> where T : UiPanel<T>, IUiPanel
+	public abstract class UiPanel<T> : MonoBehaviourSingleton<T>, IUiPanel where T : UiPanel<T>
 	{
 		public event EventHandler OnShow;
 		public event EventHandler OnHide;

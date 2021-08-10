@@ -4,10 +4,10 @@ namespace GenericPanels
 {
 	public interface IUiPanel
 	{
-		public UiPanelState PanelState { get; }
+		public UiPanelState State { get; }
 		public event EventHandler OnShow;
 		public event EventHandler OnHide;
-		public void Show(bool useTween = true);
-		public void Hide(bool useTween = true);
+		public void Show();
+		public void Hide();
 	}
 }
