@@ -103,10 +103,10 @@ public class NeuralNetwork
 		}
 	}
 
-	public void IntroduceRandomError()
+	public float IntroduceRandomError()
 	{
 		if (Neurons.Count <= 1)
-			return;
+			return 0;
 
 		int randomLayerIndex = UnityEngine.Random.Range(1, Neurons.Count);
 		Neuron[] randomLayer = Neurons[randomLayerIndex];
@@ -121,6 +121,8 @@ public class NeuralNetwork
 			randomError *= -1;
 
 		randomNeuron.IntroduceError(randomError);
+
+		return randomError;
 	}
 
 	private void RandomizeAllWeights()

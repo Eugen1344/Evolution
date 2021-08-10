@@ -47,7 +47,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 		Generation++;
 
-		Debug.Log($"Generation: {Generation}. Spawning cars: {SpeciesPerGeneration}");
+		//Debug.Log($"Generation: {Generation}. Spawning cars: {SpeciesPerGeneration}");
 
 		ResetCurrentGeneration();
 
@@ -61,16 +61,22 @@ public class GenerationsEvolution : MonoBehaviour
 			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome);
 			newGenome.Settings = NeuralNetworkSettings;
 
+			string name = i.ToString();
+
 			if (clonesToSpawn > 0)
 			{
 				clonesToSpawn--;
+
+				name += $" - Clone ({prevBestCarIndex})";
 			}
 			else
 			{
-				newGenome.IntroduceRandomError();
+				float error = newGenome.IntroduceRandomError();
+
+				name += $" - Error ({error})";
 			}
 
-			Car newCar = SpawnCar(i.ToString());
+			Car newCar = SpawnCar(name);
 			newCar.Brain.Network = newGenome;
 		}
 	}
