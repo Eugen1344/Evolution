@@ -94,17 +94,12 @@ namespace Develop
 		// Apply requested cursor state
 		private void SetCursorState()
 		{
-			if (_cursorMode == CursorLockMode.None)
-				return;
-
-			if (Input.GetKeyDown(KeyCode.Escape))
+			if (Input.GetKeyDown(KeyCode.LeftControl))
 			{
-				Cursor.lockState = _currentCursorMode = CursorLockMode.None;
-			}
-
-			if (Input.GetMouseButtonDown(0))
-			{
-				_currentCursorMode = CursorLockMode.Locked;
+				if (_currentCursorMode == CursorLockMode.Locked)
+					_currentCursorMode = CursorLockMode.None;
+				else if (_currentCursorMode == CursorLockMode.None)
+					_currentCursorMode = CursorLockMode.Locked;
 			}
 
 			// Apply cursor state
