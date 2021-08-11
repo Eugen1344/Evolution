@@ -19,7 +19,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private List<Car> _currentGeneration = new List<Car>();
 	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
-	private int _aliveCars;
+	private List<Car> _aliveCars = new List<Car>();
 
 	private void Start()
 	{
@@ -37,7 +37,7 @@ public class GenerationsEvolution : MonoBehaviour
 		for (int i = 0; i < InitialSpeciesCount; i++)
 		{
 			Car newCar = SpawnCar(i.ToString());
-			newCar.Brain.Network = NeuralNetwork.Random(NeuralNetworkSettings);
+			newCar.SetGenome(NeuralNetwork.Random(NeuralNetworkSettings));
 		}
 	}
 
@@ -51,15 +51,15 @@ public class GenerationsEvolution : MonoBehaviour
 
 		ResetCurrentGeneration();
 
-		int clonesToSpawn = BestSpeciesPerGenerationClones * BestSpeciesPerGeneration;
+		int possibleBestSpeciesPerGeneration = Mathf.Min(bestLifeResults.Count, BestSpeciesPerGeneration);
+		int clonesToSpawn = BestSpeciesPerGenerationClones * possibleBestSpeciesPerGeneration;
 
 		for (int i = 0; i < SpeciesPerGeneration + clonesToSpawn; i++)
 		{
-			int prevBestCarIndex = i % BestSpeciesPerGeneration;
+			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
 			NeuralNetwork prevBestGenome = bestLifeResults[prevBestCarIndex].Genome; //TEMP currently genome is just network
 
-			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome);
-			newGenome.Settings = NeuralNetworkSettings;
+			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome) { Settings = NeuralNetworkSettings };
 
 			string name = i.ToString();
 
@@ -77,7 +77,7 @@ public class GenerationsEvolution : MonoBehaviour
 			}
 
 			Car newCar = SpawnCar(name);
-			newCar.Brain.Network = newGenome;
+			newCar.SetGenome(newGenome);
 		}
 	}
 
@@ -102,7 +102,13 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private void ResetCurrentGeneration()
 	{
-		_aliveCars = 0;
+		foreach (Car aliveCar in _aliveCars)
+		{
+			aliveCar.OnFinishLife -= OnCarFinishLife;
+			aliveCar.Destroy();
+		}
+
+		_aliveCars.Clear();
 		_currentGeneration.Clear();
 		_lifeResults.Clear();
 	}
@@ -115,7 +121,7 @@ public class GenerationsEvolution : MonoBehaviour
 		newCar.OnFinishLife += OnCarFinishLife;
 
 		_currentGeneration.Add(newCar);
-		_aliveCars++;
+		_aliveCars.Add(newCar);
 
 		return newCar;
 	}
@@ -126,11 +132,37 @@ public class GenerationsEvolution : MonoBehaviour
 
 		car.OnFinishLife -= OnCarFinishLife;
 
-		_aliveCars--;
+		_aliveCars.Remove(car);
 
-		if (_aliveCars == 0)
+		if (_aliveCars.Count == 0)
 		{
 			SpawnNextGeneration();
 		}
+	}
+
+	public void SerializeCurrentPopulation(StreamWriter writer)
+	{
+		List<NeuralNetwork> carData = _currentGeneration.Select(car => car.GetGenome()).ToList();
+
+		JsonSerializer serializer = new JsonSerializer { Formatting = Formatting.Indented };
+		serializer.Serialize(writer, carData);
+	}
+
+	public void LoadPopulation(List<NeuralNetwork> population)
+	{
+		ResetCurrentGeneration();
+
+		for (int i = 0; i < population.Count; i++)
+		{
+			Car car = SpawnCar(i.ToString());
+			car.SetGenome(population[i]);
+		}
+	}
+
+	public List<NeuralNetwork> DeserializePopulation(StreamReader reader)
+	{
+		JsonSerializer serializer = new JsonSerializer();
+
+		return serializer.Deserialize<List<NeuralNetwork>>(new JsonTextReader(reader));
 	}
 }

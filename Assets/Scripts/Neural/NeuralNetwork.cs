@@ -11,6 +11,11 @@ public class NeuralNetwork
 	[JsonProperty("neurons")]
 	public List<Neuron[]> Neurons;
 
+	public NeuralNetwork()
+	{
+
+	}
+
 	public NeuralNetwork(NeuralNetworkSettings settings)
 	{
 		Settings = settings;
@@ -31,7 +36,6 @@ public class NeuralNetwork
 
 	public float[] Calculate(float[] input)
 	{
-		//float[] output = CalculateLayer(Neurons[0], input);
 		float[] output = input;
 
 		for (int i = 1; i < Neurons.Count; i++)

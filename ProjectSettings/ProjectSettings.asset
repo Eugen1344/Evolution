@@ -694,7 +694,21 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3
+    Android: CT_FB;CT_FB_PRO
+    CloudRendering: CT_FB;CT_FB_PRO
+    EmbeddedLinux: CT_FB;CT_FB_PRO
+    GameCoreXboxOne: CT_FB;CT_FB_PRO
+    Lumin: CT_FB;CT_FB_PRO
+    Nintendo Switch: CT_FB;CT_FB_PRO
+    PS4: CT_FB;CT_FB_PRO
+    PS5: CT_FB;CT_FB_PRO
+    Stadia: CT_FB;CT_FB_PRO
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;CT_FB;CT_FB_PRO
+    WebGL: CT_FB;CT_FB_PRO
+    Windows Store Apps: CT_FB;CT_FB_PRO
+    XboxOne: CT_FB;CT_FB_PRO
+    iPhone: CT_FB;CT_FB_PRO
+    tvOS: CT_FB;CT_FB_PRO
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

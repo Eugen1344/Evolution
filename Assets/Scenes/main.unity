@@ -276,6 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880fcc755dd3a6846a521910141b4582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialState: 3
+  Evolution: {fileID: 355013979}
 --- !u!1 &323584715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,6 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e756cf13ef5ffe478c56d83e00cc701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialState: 1
 --- !u!1 &1963081822
 GameObject:
   m_ObjectHideFlags: 0

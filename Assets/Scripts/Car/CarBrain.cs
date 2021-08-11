@@ -1,13 +1,10 @@
-using Newtonsoft.Json;
 using UnityEngine;
 
-[JsonObject(MemberSerialization.OptIn)]
 public class CarBrain : MonoBehaviour
 {
 	public float DecisionsPerSecond;
 	public Car Car;
 
-	[JsonProperty("network")]
 	public NeuralNetwork Network;
 
 	private float _prevDecisionRealtimeSinceStartup;

@@ -1,11 +1,8 @@
 using System;
-using Newtonsoft.Json;
 using UnityEngine;
 
-[JsonObject(MemberSerialization.OptIn)]
 public class Car : MonoBehaviour
 {
-	[JsonProperty("brain")]
 	public CarBrain Brain;
 	public CarController Movement;
 	public CarFood Food;
@@ -20,5 +17,15 @@ public class Car : MonoBehaviour
 	private void OnDestroy()
 	{
 		OnFinishLife?.Invoke(this);
+	}
+
+	public NeuralNetwork GetGenome() //TODO temp - make new class for CarGenome
+	{
+		return Brain.Network;
+	}
+
+	public void SetGenome(NeuralNetwork data)
+	{
+		Brain.Network = data;
 	}
 }

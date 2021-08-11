@@ -11,6 +11,8 @@ namespace GenericPanels
 
 		public UiPanelState State { get; protected set; }
 
+		public UiPanelState InitialState = UiPanelState.Hidden;
+
 		private CanvasGroup _canvasGroup;
 		public CanvasGroup CanvasGroup
 		{
@@ -22,6 +24,25 @@ namespace GenericPanels
 				}
 
 				return _canvasGroup;
+			}
+		}
+
+		protected override void Awake()
+		{
+			base.Awake();
+
+			switch (InitialState)
+			{
+				case UiPanelState.Showing:
+				case UiPanelState.Shown:
+					Show();
+					break;
+				case UiPanelState.Hiding:
+				case UiPanelState.Hidden:
+					Hide();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 
