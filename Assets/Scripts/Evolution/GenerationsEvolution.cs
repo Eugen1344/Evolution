@@ -83,9 +83,10 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private List<CarLifeResult> FinishCurrentGeneration()
 	{
-		IEnumerable<CarLifeResult> bestCars = GetBestResults();
+		List<CarLifeResult> bestCars = GetBestResults().ToList();
+		float bestFitness = bestCars.Max(car => car.TotalAcquiredFood);
 
-		Debug.Log($"Generation: {Generation}. Average fitness: {GetAverageFitness()}");
+		Debug.Log($"Generation: {Generation}. Best fitness: {bestFitness}. Average fitness: {GetAverageFitness()}");
 
 		return bestCars.ToList();
 	}
