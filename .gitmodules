@@ -1,0 +1,3 @@
+[submodule "Assets/Submodules/odin_inspector"]
+	path = Assets/Submodules/odin_inspector
+	url = https://git.universinet.org/bristar/odin_inspector.git

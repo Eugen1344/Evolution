@@ -73,7 +73,7 @@ public class GenerationsEvolution : MonoBehaviour
 			{
 				float error = newGenome.IntroduceRandomError();
 
-				name += $" - Error ({error})";
+				name += $" - Error ({prevBestCarIndex}) [{error}]";
 			}
 
 			Car newCar = SpawnCar(name);
@@ -84,9 +84,9 @@ public class GenerationsEvolution : MonoBehaviour
 	private List<CarLifeResult> FinishCurrentGeneration()
 	{
 		List<CarLifeResult> bestCars = GetBestResults().ToList();
-		float bestFitness = bestCars.Max(car => car.TotalAcquiredFood);
+		CarLifeResult bestCar = bestCars.Max();
 
-		Debug.Log($"Generation: {Generation}. Best fitness: {bestFitness}. Average fitness: {GetAverageFitness()}");
+		Debug.Log($"Generation: {Generation}. Best fitness: {bestCar.TotalAcquiredFood} ({bestCar.Name}). Average fitness: {GetAverageFitness()}");
 
 		return bestCars.ToList();
 	}
@@ -99,6 +99,14 @@ public class GenerationsEvolution : MonoBehaviour
 	private float GetAverageFitness()
 	{
 		return _lifeResults.Average(result => result.TotalAcquiredFood);
+	}
+
+	public void ForceFinishCurrentGeneration()
+	{
+		foreach (Car aliveCar in _aliveCars)
+		{
+			aliveCar.Destroy();
+		}
 	}
 
 	private void ResetCurrentGeneration()
@@ -129,7 +137,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private void OnCarFinishLife(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult { Genome = car.Brain.Network, TotalAcquiredFood = car.Food.TotalAcquiredFood });
+		_lifeResults.Add(new CarLifeResult { Genome = car.Brain.Network, TotalAcquiredFood = car.Food.TotalAcquiredFood, Name = car.gameObject.name });
 
 		car.OnFinishLife -= OnCarFinishLife;
 

@@ -36,4 +36,11 @@ public class MenuPanel : UiPanel<MenuPanel>
 
 		Hide();
 	}
+
+	public void ClickFinishGeneration()
+	{
+		Evolution.ForceFinishCurrentGeneration();
+
+		Hide();
+	}
 }

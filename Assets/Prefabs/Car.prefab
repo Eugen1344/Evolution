@@ -102,6 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionsPerSecond: 2
   Car: {fileID: 4432495669392959698}
+  Network:
+    Settings:
+      NeuronsCount: 
+      MinRandomErrorCoefficient: 0
+      MaxRandomErrorCoefficient: 0
 --- !u!114 &1498113815733910494
 MonoBehaviour:
   m_ObjectHideFlags: 0

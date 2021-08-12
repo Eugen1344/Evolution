@@ -14,7 +14,10 @@ public class Neuron
 
 	public Neuron(int weightsCount)
 	{
-		Weights = new float[weightsCount];
+		if (weightsCount == 0)
+			Weights = null;
+		else
+			Weights = new float[weightsCount];
 	}
 
 	public Neuron(float[] weights)

@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 [JsonObject(MemberSerialization.OptIn)]
 public class NeuralNetwork
 {
+	[JsonProperty("neurons")]
+	public List<Layer> NeuronLayers;
 	[JsonProperty("settings")]
 	public NeuralNetworkSettings Settings;
-	[JsonProperty("neurons")]
-	public List<Neuron[]> Neurons;
 
 	public NeuralNetwork()
 	{
@@ -20,7 +20,7 @@ public class NeuralNetwork
 	{
 		Settings = settings;
 
-		Neurons = new List<Neuron[]>();
+		NeuronLayers = new List<Layer>();
 
 		InitializeNeurons(settings);
 	}
@@ -29,7 +29,7 @@ public class NeuralNetwork
 	{
 		Settings = network.Settings;
 
-		Neurons = new List<Neuron[]>();
+		NeuronLayers = new List<Layer>();
 
 		InitializeNeurons(network);
 	}
@@ -38,21 +38,9 @@ public class NeuralNetwork
 	{
 		float[] output = input;
 
-		for (int i = 1; i < Neurons.Count; i++)
+		for (int i = 1; i < NeuronLayers.Count; i++)
 		{
-			output = CalculateLayer(Neurons[i], output);
-		}
-
-		return output;
-	}
-
-	private float[] CalculateLayer(Neuron[] layer, float[] input)
-	{
-		float[] output = new float[layer.Length];
-
-		for (int i = 0; i < output.Length; i++)
-		{
-			output[i] = layer[i].Calculate(input);
+			output = NeuronLayers[i].Calculate(output);
 		}
 
 		return output;
@@ -68,16 +56,11 @@ public class NeuralNetwork
 
 	private void InitializeNeurons(NeuralNetwork network)
 	{
-		foreach (Neuron[] originalLayer in network.Neurons)
+		foreach (Layer layer in network.NeuronLayers)
 		{
-			Neuron[] copiedLayer = new Neuron[originalLayer.Length];
+			Layer copiedLayer = new Layer(layer);
 
-			for (int j = 0; j < copiedLayer.Length; j++)
-			{
-				copiedLayer[j] = new Neuron(originalLayer[j]);
-			}
-
-			Neurons.Add(copiedLayer);
+			NeuronLayers.Add(copiedLayer);
 		}
 	}
 
@@ -85,23 +68,11 @@ public class NeuralNetwork
 	{
 		int prevLayerCount = 0;
 
-		foreach (int count in Settings.NeuronsCount)
+		foreach (int count in settings.NeuronsCount)
 		{
-			Neuron[] layer = new Neuron[count];
+			Layer layer = new Layer(count, prevLayerCount);
 
-			for (int i = 0; i < layer.Length; i++)
-			{
-				if (prevLayerCount != 0)
-				{
-					layer[i] = new Neuron(prevLayerCount);
-				}
-				else
-				{
-					layer[i] = new Neuron();
-				}
-			}
-
-			Neurons.Add(layer);
+			NeuronLayers.Add(layer);
 
 			prevLayerCount = count;
 		}
@@ -109,14 +80,14 @@ public class NeuralNetwork
 
 	public float IntroduceRandomError()
 	{
-		if (Neurons.Count <= 1)
+		if (NeuronLayers.Count <= 1)
 			return 0;
 
-		int randomLayerIndex = UnityEngine.Random.Range(1, Neurons.Count);
-		Neuron[] randomLayer = Neurons[randomLayerIndex];
+		int randomLayerIndex = UnityEngine.Random.Range(1, NeuronLayers.Count);
+		Layer randomLayer = NeuronLayers[randomLayerIndex];
 
-		int randomNeuronIndex = UnityEngine.Random.Range(0, randomLayer.Length);
-		Neuron randomNeuron = randomLayer[randomNeuronIndex];
+		int randomNeuronIndex = UnityEngine.Random.Range(0, randomLayer.Size);
+		Neuron randomNeuron = randomLayer.Neurons[randomNeuronIndex];
 
 		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
 
@@ -131,12 +102,9 @@ public class NeuralNetwork
 
 	private void RandomizeAllWeights()
 	{
-		foreach (Neuron[] layer in Neurons)
+		foreach (Layer layer in NeuronLayers)
 		{
-			foreach (Neuron neuron in layer)
-			{
-				neuron.SetRandomWeights();
-			}
+			layer.RandomizeAllWeights();
 		}
 	}
 }
