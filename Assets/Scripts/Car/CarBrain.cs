@@ -9,11 +9,6 @@ public class CarBrain : MonoBehaviour
 
 	private float _prevDecisionRealtimeSinceStartup;
 
-	private void Awake()
-	{
-		//Network = NeuralNetwork.Random();
-	}
-
 	private void Update()
 	{
 		if (!TimeToMakeDecision())

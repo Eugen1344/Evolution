@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 844038675}
   - component: {fileID: 844038674}
   - component: {fileID: 844038676}
-  - component: {fileID: 844038677}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -200,21 +199,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!114 &844038677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 844038672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76bedaa6fb300a04caa99e3be79241ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RaysCount: {x: 10, y: 10}
-  SampleCountPerSecond: 5
-  ViewCamera: {fileID: 844038674}
 --- !u!114 &1452573055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +219,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1498113815733910494, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: FoodDecayPerSecond
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067435517137559977, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_RootOrder
@@ -243,17 +237,17 @@ PrefabInstance:
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1375.0278
+      value: 32.9
       objectReference: {fileID: 0}
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 140.22423
+      value: 1.103
       objectReference: {fileID: 0}
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1096.4264
+      value: 11.66
       objectReference: {fileID: 0}
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
@@ -294,6 +288,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MyCar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388880250747310717, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: DebugLines
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: MaxViewAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: MaxDebugLines
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}

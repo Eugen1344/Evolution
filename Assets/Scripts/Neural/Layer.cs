@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 [Serializable]
-[JsonObject(MemberSerialization.OptOut)]
+[JsonObject(MemberSerialization.OptIn)]
 public class Layer
 {
+	[JsonProperty("neurons")]
 	public List<Neuron> Neurons;
 
 	public int Size => Neurons.Count;
+
+	public Layer()
+	{
+		Neurons = null;
+	}
 
 	public Layer(int neuronsCount, int prevLayerNeuronsCount)
 	{

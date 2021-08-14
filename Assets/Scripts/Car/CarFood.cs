@@ -48,7 +48,7 @@ public class CarFood : MonoBehaviour
 
 	public float GetFoodReward(float speed)
 	{
-		return 0;
+		//return 0;
 		return speed * FoodDecayPerSecond;
 	}
 
