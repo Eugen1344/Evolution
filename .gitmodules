@@ -1,3 +1,6 @@
 [submodule "Assets/Submodules/odin_inspector"]
 	path = Assets/Submodules/odin_inspector
 	url = https://git.universinet.org/bristar/odin_inspector.git
+[submodule "Assets/Submodules/editor_extensions"]
+	path = Assets/Submodules/editor_extensions
+	url = https://git.universinet.org/bristar/editor_extensions.git
