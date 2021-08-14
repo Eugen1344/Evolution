@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &439158358636497730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 646580513074684392}
+  - component: {fileID: 5764525505821229505}
+  - component: {fileID: 2410055948127782458}
+  m_Layer: 0
+  m_Name: Brain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &646580513074684392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439158358636497730}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6309735682228561876}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5764525505821229505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439158358636497730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521cb3e651e31e34aa38cd4ce34cc69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionsPerSecond: 2
+  Car: {fileID: 4432495669392959698}
+  StaticSignalModule: {fileID: 2410055948127782458}
+  Network:
+    NeuronLayers: []
+    Settings:
+      NeuronsCount: 
+      MinRandomErrorCoefficient: 0
+      MaxRandomErrorCoefficient: 0
+--- !u!114 &2410055948127782458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439158358636497730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0103111a6fd336a44b8063642d7745f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Signals:
+  - 1
 --- !u!1 &1263585269711138891
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,7 +98,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8187683351346632439
 MonoBehaviour:
@@ -84,7 +152,7 @@ Transform:
   - {fileID: 9039412042923534246}
   - {fileID: 1636583234524069118}
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6598093964624196669
 GameObject:
@@ -96,7 +164,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6309735682228561876}
   - component: {fileID: 4432495669392959698}
-  - component: {fileID: 5067435517137559977}
   - component: {fileID: 1498113815733910494}
   - component: {fileID: 7249546690472652996}
   - component: {fileID: 998564928589763612}
@@ -119,9 +186,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 646580513074684392}
+  - {fileID: 7388880250747310717}
   - {fileID: 6414116175939223968}
   - {fileID: 2930065447146884051}
-  - {fileID: 7388880250747310717}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -137,29 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303a2596b12839b4586694dfe0baa370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Brain: {fileID: 5067435517137559977}
+  Brain: {fileID: 5764525505821229505}
   Movement: {fileID: 7249546690472652996}
   Food: {fileID: 1498113815733910494}
---- !u!114 &5067435517137559977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598093964624196669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521cb3e651e31e34aa38cd4ce34cc69b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionsPerSecond: 2
-  Car: {fileID: 4432495669392959698}
-  Network:
-    NeuronLayers: []
-    Settings:
-      NeuronsCount: 
-      MinRandomErrorCoefficient: 0
-      MaxRandomErrorCoefficient: 0
 --- !u!114 &1498113815733910494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4832061278063076844
 MeshFilter:

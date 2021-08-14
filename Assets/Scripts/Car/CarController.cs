@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralModule
 {
 	public float MaxTorque;
 	public float MaxSteeringAngle;
@@ -93,5 +94,24 @@ public class CarController : MonoBehaviour
 		float speed = Vector3.Dot(projectedVelocity, Rigidbody.transform.forward) < 0 ? -projectedVelocity.magnitude : projectedVelocity.magnitude;
 
 		return speed;
+	}
+
+	public int InputNeuronCount => 1;
+
+	public IEnumerable<float> GetInput()
+	{
+		yield return GetTotalNormalizedSpeed();
+	}
+
+	public int OutputNeuronCount => 6;
+
+	public void SetOutput(float[] output, int startingIndex)
+	{
+		SetSpeed(WheelType.FrontLeft, output[startingIndex]);
+		SetSpeed(WheelType.RearLeft, output[startingIndex + 1]);
+		SetSpeed(WheelType.FrontRight, output[startingIndex + 2]);
+		SetSpeed(WheelType.RearRight, output[startingIndex + 3]);
+		SetSteering(WheelType.FrontLeft, output[startingIndex + 4]);
+		SetSteering(WheelType.FrontRight, output[startingIndex + 5]);
 	}
 }

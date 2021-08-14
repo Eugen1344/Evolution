@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CarFood : MonoBehaviour
+public class CarFood : MonoBehaviour, IInputNeuralModule
 {
 	public float CurrentFood;
 	public float MaxFood;
@@ -55,5 +56,12 @@ public class CarFood : MonoBehaviour
 	public float GetNormalizedFoodAmount()
 	{
 		return CurrentFood / MaxFood;
+	}
+
+	public int InputNeuronCount => 1;
+
+	public IEnumerable<float> GetInput()
+	{
+		yield return GetNormalizedFoodAmount();
 	}
 }

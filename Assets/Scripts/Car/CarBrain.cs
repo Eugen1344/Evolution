@@ -1,13 +1,27 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CarBrain : MonoBehaviour
 {
 	public float DecisionsPerSecond;
 	public Car Car;
+	public StaticSignalInputModule StaticSignalModule;
 
 	public NeuralNetwork Network;
+	public List<IInputNeuralModule> InputModules;
+	public List<IOutputNeuralModule> OutputModules;
 
 	private float _prevDecisionRealtimeSinceStartup;
+
+	private void Awake()
+	{
+		InputModules.Add(StaticSignalModule);
+		InputModules.Add(Car.Food);
+		InputModules.Add(Car.Movement);
+
+		OutputModules.Add(Car.Movement);
+	}
 
 	private void Update()
 	{
@@ -27,19 +41,18 @@ public class CarBrain : MonoBehaviour
 	private void UpdateNetwork()
 	{
 		float[] result = Network.Calculate(GetInputData());
+		int startingIndex = 0;
 
-		//Debug.Log($"Wheel (Front Left): {result[0]}; Wheel (Rear Left): {result[1]};  Wheel (Front Right): {result[2]};  Wheel (Rear Right): {result[3]}; Steering (Left): {result[4]}; Steering (Right): {result[5]}");
+		foreach (IOutputNeuralModule outputModule in OutputModules)
+		{
+			outputModule.SetOutput(result, startingIndex);
 
-		Car.Movement.SetSpeed(WheelType.FrontLeft, result[0]);
-		Car.Movement.SetSpeed(WheelType.RearLeft, result[1]);
-		Car.Movement.SetSpeed(WheelType.FrontRight, result[2]);
-		Car.Movement.SetSpeed(WheelType.RearRight, result[3]);
-		Car.Movement.SetSteering(WheelType.FrontLeft, result[4]);
-		Car.Movement.SetSteering(WheelType.FrontRight, result[5]);
+			startingIndex += outputModule.OutputNeuronCount;
+		}
 	}
 
 	private float[] GetInputData()
 	{
-		return new[] { 1, Car.Food.GetNormalizedFoodAmount(), Car.Movement.GetTotalNormalizedSpeed() };
+		return InputModules.SelectMany(module => module.GetInput()).ToArray();
 	}
 }
