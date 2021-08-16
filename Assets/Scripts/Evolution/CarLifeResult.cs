@@ -4,7 +4,7 @@ public struct CarLifeResult : IComparable<CarLifeResult>
 {
 	public NeuralNetwork Genome;
 	public float TotalAcquiredFood;
-	public string Name;
+	public int Index;
 	
 	public int CompareTo(CarLifeResult other)
 	{

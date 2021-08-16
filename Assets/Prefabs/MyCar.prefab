@@ -219,6 +219,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 439158358636497730, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1498113815733910494, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: FoodDecayPerSecond
@@ -284,6 +289,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6414116175939223968, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6598093964624196669, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_Name
@@ -292,22 +302,12 @@ PrefabInstance:
     - target: {fileID: 7388880250747310717, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: DebugLines
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
-        type: 3}
-      propertyPath: MaxViewAngle
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
-        type: 3}
-      propertyPath: MaxDebugLines
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}

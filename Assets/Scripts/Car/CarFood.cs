@@ -10,6 +10,8 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 	public float TotalAcquiredFood { get; private set; } = 0;
 
+	private List<Food> _acquiredFood = new List<Food>();
+
 	private void Awake()
 	{
 		CurrentFood = MaxFood;
@@ -19,12 +21,15 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 	{
 		Food food = obj.GetComponent<Food>();
 
-		if (food)
+		if (food && !_acquiredFood.Contains(food))
 		{
 			float foodAmount = food.Pickup();
 
 			CurrentFood += foodAmount;
 			TotalAcquiredFood += foodAmount;
+
+			_acquiredFood.Add(food);
+			Car.Eye.DisableSeeingObject(food);
 		}
 	}
 
@@ -49,8 +54,8 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 	public float GetFoodReward(float speed)
 	{
-		//return 0;
-		return speed * FoodDecayPerSecond;
+		return 0;
+		//return speed * FoodDecayPerSecond;
 	}
 
 	public float GetNormalizedFoodAmount()

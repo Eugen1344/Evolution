@@ -9,8 +9,8 @@ public class CarBrain : MonoBehaviour
 	public StaticSignalInputModule StaticSignalModule;
 
 	public NeuralNetwork Network;
-	public List<IInputNeuralModule> InputModules;
-	public List<IOutputNeuralModule> OutputModules;
+	public List<IInputNeuralModule> InputModules = new List<IInputNeuralModule>();
+	public List<IOutputNeuralModule> OutputModules = new List<IOutputNeuralModule>();
 
 	private float _prevDecisionRealtimeSinceStartup;
 
@@ -19,23 +19,27 @@ public class CarBrain : MonoBehaviour
 		InputModules.Add(StaticSignalModule);
 		InputModules.Add(Car.Food);
 		InputModules.Add(Car.Movement);
+		InputModules.Add(Car.Eye);
 
 		OutputModules.Add(Car.Movement);
+
+		int inputNeuronsCount = InputModules.Sum(module => module.InputNeuronCount);
+		int outputNeuronsCount = OutputModules.Sum(module => module.OutputNeuronCount);
 	}
 
 	private void Update()
 	{
-		if (!TimeToMakeDecision())
+		if (!IsTimeToMakeDecision())
 			return;
 
 		UpdateNetwork();
 
-		_prevDecisionRealtimeSinceStartup = Time.realtimeSinceStartup;
+		_prevDecisionRealtimeSinceStartup = Time.time;
 	}
 
-	private bool TimeToMakeDecision()
+	private bool IsTimeToMakeDecision()
 	{
-		return Time.realtimeSinceStartup >= _prevDecisionRealtimeSinceStartup + 1.0f / DecisionsPerSecond;
+		return Time.time >= _prevDecisionRealtimeSinceStartup + 1.0f / DecisionsPerSecond;
 	}
 
 	private void UpdateNetwork()

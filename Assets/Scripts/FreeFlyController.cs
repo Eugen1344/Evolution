@@ -110,7 +110,7 @@ namespace Develop
 
 		private void CalculateCurrentIncrease(bool moving)
 		{
-			_currentIncrease = Time.deltaTime;
+			_currentIncrease = Time.fixedDeltaTime;
 
 			if (!_enableSpeedAcceleration || _enableSpeedAcceleration && !moving)
 			{
@@ -118,8 +118,8 @@ namespace Develop
 				return;
 			}
 
-			_currentIncreaseMem += Time.deltaTime * (_speedAccelerationFactor - 1);
-			_currentIncrease = Time.deltaTime + Mathf.Pow(_currentIncreaseMem, 3) * Time.deltaTime;
+			_currentIncreaseMem += Time.fixedDeltaTime * (_speedAccelerationFactor - 1);
+			_currentIncrease = Time.fixedDeltaTime + Mathf.Pow(_currentIncreaseMem, 3) * Time.fixedDeltaTime;
 		}
 
 		private void Update()
@@ -135,7 +135,7 @@ namespace Develop
 			// Translation
 			if (_enableTranslation)
 			{
-				transform.Translate(Vector3.forward * (Input.mouseScrollDelta.y * Time.deltaTime * _translationSpeed));
+				transform.Translate(Vector3.forward * (Input.mouseScrollDelta.y * Time.fixedDeltaTime * _translationSpeed));
 			}
 
 			// Movement

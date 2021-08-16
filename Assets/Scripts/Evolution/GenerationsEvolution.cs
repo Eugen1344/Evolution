@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -11,19 +12,24 @@ public class GenerationsEvolution : MonoBehaviour
 	public int BestSpeciesPerGeneration;
 	public int BestSpeciesPerGenerationClones;
 	public NeuralNetworkSettings NeuralNetworkSettings;
-
-	public Car CarPrefab;
-	public Transform CarParent;
+	public CarSpawner CarSpawner;
+	public FoodSpawner FoodSpawner;
+	public float TimeScale;
+	public bool RespawnFoodEachGeneration;
 
 	public int Generation;
 
 	private List<Car> _currentGeneration = new List<Car>();
 	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
-	private List<Car> _aliveCars = new List<Car>();
 
 	private void Start()
 	{
 		InitialSpawn();
+	}
+
+	private void Update()
+	{
+		Time.timeScale = TimeScale;
 	}
 
 	private void InitialSpawn()
@@ -36,9 +42,11 @@ public class GenerationsEvolution : MonoBehaviour
 
 		for (int i = 0; i < InitialSpeciesCount; i++)
 		{
-			Car newCar = SpawnCar(i.ToString());
+			Car newCar = SpawnCar(i.ToString(), i);
 			newCar.SetGenome(NeuralNetwork.Random(NeuralNetworkSettings));
 		}
+
+		FoodSpawner.SpawnMaxObjects();
 	}
 
 	private void SpawnNextGeneration()
@@ -57,7 +65,8 @@ public class GenerationsEvolution : MonoBehaviour
 		for (int i = 0; i < SpeciesPerGeneration + clonesToSpawn; i++)
 		{
 			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
-			NeuralNetwork prevBestGenome = bestLifeResults[prevBestCarIndex].Genome; //TEMP currently genome is just network
+			CarLifeResult lifeResult = bestLifeResults[prevBestCarIndex];
+			NeuralNetwork prevBestGenome = lifeResult.Genome; //TEMP currently genome is just network
 
 			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome) { Settings = NeuralNetworkSettings };
 
@@ -67,18 +76,21 @@ public class GenerationsEvolution : MonoBehaviour
 			{
 				clonesToSpawn--;
 
-				name += $" - Clone ({prevBestCarIndex})";
+				name += $" - Clone ({lifeResult.Index})";
 			}
 			else
 			{
 				float error = newGenome.IntroduceRandomError();
 
-				name += $" - Error ({prevBestCarIndex}) [{error}]";
+				name += $" - Error ({lifeResult.Index}) [{error}]";
 			}
 
-			Car newCar = SpawnCar(name);
+			Car newCar = SpawnCar(name, i);
 			newCar.SetGenome(newGenome);
 		}
+
+		if (RespawnFoodEachGeneration)
+			FoodSpawner.SpawnMaxObjects();
 	}
 
 	private List<CarLifeResult> FinishCurrentGeneration()
@@ -86,7 +98,7 @@ public class GenerationsEvolution : MonoBehaviour
 		List<CarLifeResult> bestCars = GetBestResults().ToList();
 		CarLifeResult bestCar = bestCars.Max();
 
-		Debug.Log($"Generation: {Generation}. Best fitness: {bestCar.TotalAcquiredFood} ({bestCar.Name}). Average fitness: {GetAverageFitness()}");
+		Debug.Log($"Generation: {Generation}. Best fitness: {bestCar.TotalAcquiredFood} ({bestCar.Index}). Average fitness: {GetAverageFitness()}");
 
 		return bestCars.ToList();
 	}
@@ -103,47 +115,36 @@ public class GenerationsEvolution : MonoBehaviour
 
 	public void ForceFinishCurrentGeneration()
 	{
-		foreach (Car aliveCar in _aliveCars)
-		{
-			aliveCar.Destroy();
-		}
+		CarSpawner.DespawnObjects();
 	}
 
 	private void ResetCurrentGeneration()
 	{
-		foreach (Car aliveCar in _aliveCars)
-		{
-			aliveCar.OnFinishLife -= OnCarFinishLife;
-			aliveCar.Destroy();
-		}
+		CarSpawner.DespawnObjects();
 
-		_aliveCars.Clear();
 		_currentGeneration.Clear();
 		_lifeResults.Clear();
 	}
 
-	private Car SpawnCar(string name)
+	private Car SpawnCar(string name, int index)
 	{
-		Car newCar = Instantiate(CarPrefab, CarParent);
-		newCar.gameObject.name = name;
+		Car newCar = CarSpawner.SpawnObject(name);
+		newCar.Index = index;
 
-		newCar.OnFinishLife += OnCarFinishLife;
+		newCar.OnDespawn += OnCarFinishLife;
 
 		_currentGeneration.Add(newCar);
-		_aliveCars.Add(newCar);
 
 		return newCar;
 	}
 
 	private void OnCarFinishLife(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult { Genome = car.Brain.Network, TotalAcquiredFood = car.Food.TotalAcquiredFood, Name = car.gameObject.name });
+		_lifeResults.Add(new CarLifeResult { Genome = car.Brain.Network, TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
 
-		car.OnFinishLife -= OnCarFinishLife;
+		car.OnDespawn -= OnCarFinishLife;
 
-		_aliveCars.Remove(car);
-
-		if (_aliveCars.Count == 0)
+		if (CarSpawner.AliveObjects == 0)
 		{
 			SpawnNextGeneration();
 		}
@@ -163,7 +164,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 		for (int i = 0; i < population.Count; i++)
 		{
-			Car car = SpawnCar(i.ToString());
+			Car car = SpawnCar(i.ToString(), i);
 			car.SetGenome(population[i]);
 		}
 	}
