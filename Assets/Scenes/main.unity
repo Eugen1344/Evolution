@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialSpeciesCount: 500
-  SpeciesPerGeneration: 20
+  SpeciesPerGeneration: 35
   BestSpeciesPerGeneration: 5
   BestSpeciesPerGenerationClones: 1
   NeuralNetworkSettings:
