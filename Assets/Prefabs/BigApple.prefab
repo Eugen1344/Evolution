@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: 1
-  FoodAmount: 20
+  FoodAmount: 50
   DestroyAfterPickup: 1
 --- !u!33 &3644957702750299686
 MeshFilter:

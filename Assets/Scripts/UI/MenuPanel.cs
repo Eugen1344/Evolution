@@ -43,4 +43,11 @@ public class MenuPanel : UiPanel<MenuPanel>
 
 		Hide();
 	}
+
+	public void ClickNewPopulation()
+	{
+		Evolution.InitialSpawn();
+
+		Hide();
+	}
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GenerationsEvolution : MonoBehaviour
 {
@@ -22,17 +23,12 @@ public class GenerationsEvolution : MonoBehaviour
 	private List<Car> _currentGeneration = new List<Car>();
 	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 
-	private void Start()
-	{
-		InitialSpawn();
-	}
-
 	private void Update()
 	{
 		Time.timeScale = TimeScale;
 	}
 
-	private void InitialSpawn()
+	public void InitialSpawn()
 	{
 		Generation = 0;
 
@@ -105,7 +101,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private IEnumerable<CarLifeResult> GetBestResults()
 	{
-		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).Take(BestSpeciesPerGeneration);
+		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).ThenBy(_ => Random.value).Take(BestSpeciesPerGeneration);
 	}
 
 	private float GetAverageFitness()
