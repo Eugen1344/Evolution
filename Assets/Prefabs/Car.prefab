@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentFood: 0
   MaxFood: 100
-  FoodDecayPerSecond: 1
+  FoodDecayPerSecond: 0.5
   Car: {fileID: 4432495669392959698}
 --- !u!114 &7249546690472652996
 MonoBehaviour:
