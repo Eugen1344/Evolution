@@ -205,6 +205,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigApple
       objectReference: {fileID: 0}
+    - target: {fileID: 3644957702750299866, guid: bc031379e3da5e043a658143254c6ddc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc031379e3da5e043a658143254c6ddc, type: 3}
 --- !u!1 &244528414
@@ -1229,7 +1234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &430464354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1263,7 +1268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 64b81ec5986c5ad4085d58aad35c72bb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2056,7 +2061,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 64b81ec5986c5ad4085d58aad35c72bb, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2490,7 +2495,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 10000
+  far clip plane: 100000
   field of view: 80
   orthographic: 0
   orthographic size: 5
@@ -2516,14 +2521,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570341350}
-  m_LocalRotation: {x: -0.44569105, y: 0.52306455, z: -0.37449127, w: -0.62251043}
-  m_LocalPosition: {x: -0.09261962, y: 7035, z: 39.1412}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.09261962, y: 11074, z: 39.1412}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1570341356
 MonoBehaviour:
   m_ObjectHideFlags: 0
