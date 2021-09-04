@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public class CarEye : MonoBehaviour, IInputNeuralModule
 {
@@ -7,6 +8,8 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public float MaxViewAngleYaw;
 	public float MaxViewAnglePitch;
 	public LayerMask VisibleLayers;
+	public Camera Camera;
+	public Shader EyeGlobalShader;
 
 	public bool DebugLines;
 	public int MaxDebugLines;
@@ -16,6 +19,13 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public int InputNeuronCount => 4;
 
 	private HashSet<VisibleObject> _invisibleObjects = new HashSet<VisibleObject>();
+
+	private void Awake()
+	{
+		Camera.targetTexture = new RenderTexture(10, 10, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt);
+
+		Camera.forceIntoRenderTexture = true;
+	}
 
 	public IEnumerable<float> GetInput()
 	{
@@ -29,6 +39,8 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 
 	public void UpdateViewData()
 	{
+		Camera.Render();
+
 		VisibleObject closestObj = ClosestObjectAround(out Vector3 closestPoint, out float distance);
 
 		if (closestObj == null)

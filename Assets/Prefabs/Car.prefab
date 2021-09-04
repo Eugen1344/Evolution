@@ -120,6 +120,8 @@ MonoBehaviour:
   VisibleLayers:
     serializedVersion: 2
     m_Bits: 64
+  Camera: {fileID: 6348165960727663675}
+  EyeGlobalShader: {fileID: 0}
   DebugLines: 0
   MaxDebugLines: 100
 --- !u!20 &6348165960727663675
