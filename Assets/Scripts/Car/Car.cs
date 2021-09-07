@@ -11,6 +11,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	public int Index;
 
 	public event Action<Car> OnDespawn;
+	public static event Action<Car> OnClick;
 
 	public void Destroy()
 	{
@@ -20,6 +21,11 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	private void OnDestroy()
 	{
 		OnDespawn?.Invoke(this);
+	}
+
+	private void OnMouseUpAsButton()
+	{
+		OnClick?.Invoke(this);
 	}
 
 	public NeuralNetwork GetGenome() //TODO temp - make new class for CarGenome

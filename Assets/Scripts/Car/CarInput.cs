@@ -3,9 +3,12 @@ using UnityEngine;
 public class CarInput : MonoBehaviour
 {
 	public CarController Controller;
+	public CarEye Eye;
 
 	private void Update()
 	{
+		Eye.UpdateViewData();
+
 		if (Input.GetKey(KeyCode.W))
 		{
 			SetLeftSpeed(1);

@@ -9,22 +9,26 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public float MaxViewAnglePitch;
 	public LayerMask VisibleLayers;
 	public Camera Camera;
-	public Shader EyeGlobalShader;
 
 	public bool DebugLines;
 	public int MaxDebugLines;
 
 	public readonly ViewData CurrentViewData = new ViewData();
+	public RenderTexture RenderTexture { get; private set; }
 
 	public int InputNeuronCount => 4;
 
-	private HashSet<VisibleObject> _invisibleObjects = new HashSet<VisibleObject>();
+	private readonly HashSet<VisibleObject> _invisibleObjects = new HashSet<VisibleObject>();
 
 	private void Awake()
 	{
-		Camera.targetTexture = new RenderTexture(10, 10, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt);
+		RenderTexture = new RenderTexture(64, 36, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
+		{
+			filterMode = FilterMode.Point
+		};
 
 		Camera.forceIntoRenderTexture = true;
+		Camera.targetTexture = RenderTexture;
 	}
 
 	public IEnumerable<float> GetInput()
