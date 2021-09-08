@@ -8,6 +8,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public float MaxViewAngleYaw;
 	public float MaxViewAnglePitch;
 	public LayerMask VisibleLayers;
+	public int PixelMultiplier;
 	public Camera Camera;
 
 	public bool DebugLines;
@@ -22,7 +23,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 
 	private void Awake()
 	{
-		RenderTexture = new RenderTexture(64, 36, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
+		RenderTexture = new RenderTexture(16 * PixelMultiplier, 9 * PixelMultiplier, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
 		{
 			filterMode = FilterMode.Point
 		};
