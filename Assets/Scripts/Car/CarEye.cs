@@ -23,7 +23,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 
 	private void Awake()
 	{
-		RenderTexture = new RenderTexture(16 * PixelMultiplier, 9 * PixelMultiplier, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
+		RenderTexture = new RenderTexture(16 * PixelMultiplier, 10 * PixelMultiplier, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
 		{
 			filterMode = FilterMode.Point
 		};
@@ -45,6 +45,8 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public void UpdateViewData()
 	{
 		Camera.Render();
+
+		return;
 
 		VisibleObject closestObj = ClosestObjectAround(out Vector3 closestPoint, out float distance);
 

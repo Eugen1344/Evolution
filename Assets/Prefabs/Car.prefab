@@ -120,7 +120,7 @@ MonoBehaviour:
   VisibleLayers:
     serializedVersion: 2
     m_Bits: 64
-  PixelMultiplier: 2
+  PixelMultiplier: 10
   Camera: {fileID: 6348165960727663675}
   DebugLines: 0
   MaxDebugLines: 100
