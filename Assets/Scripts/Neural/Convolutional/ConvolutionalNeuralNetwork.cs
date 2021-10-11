@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public class ConvolutionalNeuralNetwork
 {
 	[JsonProperty("layers")]
-	public List<Layer> NeuronLayers;
+	public List<ConvolutionalLayer> NeuronLayers;
 	[JsonProperty("settings")]
 	public NeuralNetworkSettings Settings;
 
@@ -22,7 +22,7 @@ public class ConvolutionalNeuralNetwork
 		InitializeNeurons(settings);
 	}
 
-	public NeuralNetwork(NeuralNetwork network)
+	public ConvolutionalNeuralNetwork(NeuralNetwork network)
 	{
 		Settings = network.Settings;
 
