@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 public class ConvolutionalLayer
 {
 	[JsonProperty("neurons")]
-	public List<Neuron> Neurons;
+	public Neuron[,] Neurons;
 
 	public int Size => Neurons.Count;
 
@@ -16,13 +16,16 @@ public class ConvolutionalLayer
 		Neurons = null;
 	}
 
-	public ConvolutionalLayer(int neuronsCount, int prevLayerNeuronsCount)
+	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY, int filterSizeX, int filterSizeY)
 	{
-		Neurons = new List<Neuron>();
+		Neurons = new Neuron[neuronsCountX, neuronsCountY];
 
-		for (int i = 0; i < neuronsCount; i++)
+		for (int i = 0; i < neuronsCountX; i++)
 		{
-			Neurons.Add(new Neuron(prevLayerNeuronsCount));
+			for (int j = 0; j < neuronsCountY; j++)
+			{
+				Neurons[i, j] = new Neuron()
+			}
 		}
 	}
 
@@ -36,16 +39,20 @@ public class ConvolutionalLayer
 		}
 	}
 
-	public float[] Calculate(float[] input)
+	public float[,] Calculate(float[,] input)
 	{
-		float[] output = new float[Neurons.Count];
+		int newSizeX = Neurons.GetLength(0) / ;
 
-		for (int i = 0; i < output.Length; i++)
-		{
-			output[i] = Neurons[i].Calculate(input);
-		}
+		float[,] output = new float[Neurons.GetLength()];
 
-		return output;
+
+	}
+
+	public float ApplyFilter(float[,] input, int i, int j)
+	{
+		// вернуть охуенный результату
+
+		return 0192371902312;
 	}
 
 	public void RandomizeAllWeights()
