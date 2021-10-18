@@ -12,12 +12,15 @@ public class ConvolutionalNeuron
 	[JsonProperty("weights")]
 	public float[,] Weights;
 
-	public ConvolutionalNeuron(int weightsCountX, int weight)
+	public int WeightsLengthX => Weights.GetLength(0);
+	public int WeightsLengthY => Weights.GetLength(1);
+
+	public ConvolutionalNeuron(int weightsLengthX, int weightsLengthY)
 	{
-		if (weightsCount == 0)
+		if (weightsLengthX == 0 || weightsLengthY == 0)
 			Weights = null;
 		else
-			Weights = new float[,];
+			Weights = new float[weightsLengthX, weightsLengthY];
 	}
 
 	public ConvolutionalNeuron(float[,] weights)
@@ -25,12 +28,12 @@ public class ConvolutionalNeuron
 		Weights = weights;
 	}
 
-	public ConvolutionalNeuron(Neuron neuron)
+	public ConvolutionalNeuron(ConvolutionalNeuron neuron)
 	{
 		if (neuron.Weights == null)
 			Weights = null;
 		else
-			Weights = (float[])neuron.Weights.Clone();
+			Weights = (float[,])neuron.Weights.Clone();
 	}
 
 	public ConvolutionalNeuron()
@@ -38,16 +41,22 @@ public class ConvolutionalNeuron
 		Weights = null;
 	}
 
-	public float Calculate(float[] input)
+	public float Calculate(float[,] input, int maskPositionX, int maskPositionY)
 	{
 		float sum = 0;
 
-		if (Weights.Length != input.Length)
-			throw new ArgumentException("Wrong neuron count");
-
-		for (int i = 0; i < input.Length; i++)
+		for (int i = 0; i < WeightsLengthX; i++)
 		{
-			sum += Weights[i] * input[i];
+			for (int j = 0; j < WeightsLengthY; j++)
+			{
+				int inputX = i + maskPositionX;
+				int inputY = j + maskPositionY;
+
+				if (inputX >= input.GetLength(0) || inputY >= input.GetLength(1))
+					continue;
+
+				sum += input[inputX, inputY] * Weights[i, j];
+			}
 		}
 
 		return Activation(sum);
@@ -55,7 +64,23 @@ public class ConvolutionalNeuron
 
 	private float Activation(float value)
 	{
-		return 2.0f / (1 + Mathf.Exp(-value)) - 1.0f;
+		return 1.0f / (1 + Mathf.Exp(-value));
+	}
+
+	public void SetInitialWeights()
+	{
+		if (Weights == null)
+			return;
+
+		float averageWeight = 1.0f / (WeightsLengthX * WeightsLengthY);
+
+		for (int i = 0; i < WeightsLengthX; i++)
+		{
+			for (int j = 0; j < WeightsLengthY; j++)
+			{
+				Weights[i, j] = averageWeight;
+			}
+		}
 	}
 
 	public void SetRandomWeights()
@@ -63,9 +88,12 @@ public class ConvolutionalNeuron
 		if (Weights == null)
 			return;
 
-		for (int i = 0; i < Weights.Length; i++)
+		for (int i = 0; i < WeightsLengthX; i++)
 		{
-			Weights[i] = Random.Range(-1.0f, 1.0f);
+			for (int j = 0; j < WeightsLengthY; j++)
+			{
+				Weights[i, j] = Random.Range(-1.0f, 1.0f);
+			}
 		}
 	}
 
@@ -74,12 +102,13 @@ public class ConvolutionalNeuron
 		if (Weights == null)
 			return;
 
-		int randomWeightIndex = Random.Range(0, Weights.Length);
+		int randomWeightIndexX = Random.Range(0, WeightsLengthX);
+		int randomWeightIndexY = Random.Range(0, WeightsLengthY);
 
-		float weight = Weights[randomWeightIndex];
+		float weight = Weights[randomWeightIndexX, randomWeightIndexY];
 		float weightDelta = MaxWeight * errorCoefficient;
 		float newWeight = Mathf.Clamp(weight + weightDelta, -MaxWeight, MaxWeight);
 
-		Weights[randomWeightIndex] = newWeight;
+		Weights[randomWeightIndexX, randomWeightIndexY] = newWeight;
 	}
 }

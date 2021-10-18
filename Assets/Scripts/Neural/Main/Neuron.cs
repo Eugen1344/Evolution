@@ -47,7 +47,7 @@ public class Neuron
 
 		for (int i = 0; i < input.Length; i++)
 		{
-			sum += Weights[i] * input[i];
+			sum += input[i] * Weights[i];
 		}
 
 		return Activation(sum);
