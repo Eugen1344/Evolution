@@ -114,16 +114,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b404537163e0949a66390a756a7a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewDistance: 100
-  MaxViewAngleYaw: 90
-  MaxViewAnglePitch: 30
-  VisibleLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  Network:
+    NeuronLayers: []
+    Settings:
+      NeuronsCount: []
+      FilterSize: {x: 0, y: 0}
+      MinRandomErrorCoefficient: 0
+      MaxRandomErrorCoefficient: 0
+  PixelBaseSize: {x: 16, y: 10}
   PixelMultiplier: 10
   Camera: {fileID: 6348165960727663675}
-  DebugLines: 0
-  MaxDebugLines: 100
 --- !u!20 &6348165960727663675
 Camera:
   m_ObjectHideFlags: 0

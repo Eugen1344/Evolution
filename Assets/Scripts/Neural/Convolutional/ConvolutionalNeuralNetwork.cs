@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
+[Serializable]
+[JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalNeuralNetwork
 {
 	[JsonProperty("layers")]
@@ -31,9 +35,9 @@ public class ConvolutionalNeuralNetwork
 		InitializeNeurons(network);
 	}
 
-	public float[] Calculate(float[] input)
+	public float[,] Calculate(float[,] input)
 	{
-		float[] output = input;
+		float[,] output = input;
 
 		for (int i = 1; i < NeuronLayers.Count; i++)
 		{
@@ -41,6 +45,14 @@ public class ConvolutionalNeuralNetwork
 		}
 
 		return output;
+	}
+
+	public static ConvolutionalNeuralNetwork Initial(ConvolutionalNeuralNetworkSettings settings)
+	{
+		ConvolutionalNeuralNetwork network = new ConvolutionalNeuralNetwork(settings);
+		network.SetInitialWeights();
+
+		return network;
 	}
 
 	public static ConvolutionalNeuralNetwork Random(ConvolutionalNeuralNetworkSettings settings)
@@ -53,9 +65,9 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetwork network)
 	{
-		foreach (Layer layer in network.NeuronLayers)
+		foreach (ConvolutionalLayer layer in network.NeuronLayers)
 		{
-			Layer copiedLayer = new Layer(layer);
+			ConvolutionalLayer copiedLayer = new ConvolutionalLayer(layer);
 
 			NeuronLayers.Add(copiedLayer);
 		}
@@ -63,15 +75,11 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetworkSettings settings)
 	{
-		int prevLayerCount = 0;
-
-		foreach (int count in settings.NeuronsCount)
+		foreach (Vector2Int count in settings.NeuronsCount)
 		{
-			Layer layer = new Layer(count, prevLayerCount);
+			ConvolutionalLayer layer = new ConvolutionalLayer(count.x, count.y, settings.FilterSize.x, settings.FilterSize.y);
 
 			NeuronLayers.Add(layer);
-
-			prevLayerCount = count;
 		}
 	}
 
@@ -81,10 +89,11 @@ public class ConvolutionalNeuralNetwork
 			return 0;
 
 		int randomLayerIndex = UnityEngine.Random.Range(1, NeuronLayers.Count);
-		Layer randomLayer = NeuronLayers[randomLayerIndex];
+		ConvolutionalLayer randomLayer = NeuronLayers[randomLayerIndex];
 
-		int randomNeuronIndex = UnityEngine.Random.Range(0, randomLayer.Size);
-		Neuron randomNeuron = randomLayer.Neurons[randomNeuronIndex];
+		int randomNeuronIndexX = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeX);
+		int randomNeuronIndexY = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeY);
+		ConvolutionalNeuron randomNeuron = randomLayer.Neurons[randomNeuronIndexX, randomNeuronIndexY];
 
 		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
 
@@ -97,9 +106,17 @@ public class ConvolutionalNeuralNetwork
 		return randomError;
 	}
 
+	private void SetInitialWeights()
+	{
+		foreach (ConvolutionalLayer layer in NeuronLayers)
+		{
+			layer.SetInitialWeights();
+		}
+	}
+
 	private void RandomizeAllWeights()
 	{
-		foreach (Layer layer in NeuronLayers)
+		foreach (ConvolutionalLayer layer in NeuronLayers)
 		{
 			layer.RandomizeAllWeights();
 		}

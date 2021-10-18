@@ -31,8 +31,8 @@ public class MenuPanel : UiPanel<MenuPanel>
 
 		using FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 
-		List<NeuralNetwork> population = Evolution.DeserializePopulation(new StreamReader(inFile));
-		Evolution.LoadPopulation(population);
+		List<CarGenome> genomes = Evolution.DeserializePopulation(new StreamReader(inFile));
+		Evolution.LoadPopulation(genomes);
 
 		Hide();
 	}

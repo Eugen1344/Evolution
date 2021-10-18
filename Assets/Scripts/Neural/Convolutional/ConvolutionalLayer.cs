@@ -51,14 +51,11 @@ public class ConvolutionalLayer
 
 	public float[,] Calculate(float[,] input)
 	{
-		int newSizeX = Mathf.CeilToInt((float)NeuronsSizeX / FilterSizeX);
-		int newSizeY = Mathf.CeilToInt((float)NeuronsSizeY / FilterSizeY);
+		float[,] output = new float[NeuronsSizeX, NeuronsSizeY];
 
-		float[,] output = new float[newSizeX, newSizeY];
-
-		for (int i = 0; i < newSizeX; i++)
+		for (int i = 0; i < NeuronsSizeX; i++)
 		{
-			for (int j = 0; j < newSizeY; j++)
+			for (int j = 0; j < NeuronsSizeY; j++)
 			{
 				output[i, j] = Neurons[i, j].Calculate(input, i * FilterSizeX, j * FilterSizeY);
 			}

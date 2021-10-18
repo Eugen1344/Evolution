@@ -13,6 +13,7 @@ public class GenerationsEvolution : MonoBehaviour
 	public int BestSpeciesPerGeneration;
 	public int BestSpeciesPerGenerationClones;
 	public NeuralNetworkSettings NeuralNetworkSettings;
+	public ConvolutionalNeuralNetworkSettings EyeNeuralNetworkSettings;
 	public CarSpawner CarSpawner;
 	public FoodSpawner FoodSpawner;
 	public float TimeScale;
@@ -39,7 +40,8 @@ public class GenerationsEvolution : MonoBehaviour
 		for (int i = 0; i < InitialSpeciesCount; i++)
 		{
 			Car newCar = SpawnCar(i.ToString(), i);
-			newCar.SetGenome(NeuralNetwork.Random(NeuralNetworkSettings));
+			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(NeuralNetworkSettings), ConvolutionalNeuralNetwork.Initial(EyeNeuralNetworkSettings));
+			newCar.SetGenome(newGenome);
 		}
 
 		FoodSpawner.SpawnMaxObjects();
@@ -62,9 +64,9 @@ public class GenerationsEvolution : MonoBehaviour
 		{
 			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
 			CarLifeResult lifeResult = bestLifeResults[prevBestCarIndex];
-			NeuralNetwork prevBestGenome = lifeResult.Genome; //TEMP currently genome is just network
+			CarGenome prevBestGenome = lifeResult.Genome; //TEMP currently genome is just network
 
-			NeuralNetwork newGenome = new NeuralNetwork(prevBestGenome) { Settings = NeuralNetworkSettings };
+			CarGenome newGenome = new CarGenome(prevBestGenome);
 
 			string name = i.ToString();
 
@@ -136,7 +138,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private void OnCarFinishLife(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult { Genome = car.Brain.Network, TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
 
 		car.OnDespawn -= OnCarFinishLife;
 
@@ -148,27 +150,27 @@ public class GenerationsEvolution : MonoBehaviour
 
 	public void SerializeCurrentPopulation(StreamWriter writer)
 	{
-		List<NeuralNetwork> carData = _currentGeneration.Select(car => car.GetGenome()).ToList();
+		List<CarGenome> genomes = _currentGeneration.Select(car => car.GetGenome()).ToList();
 
 		JsonSerializer serializer = new JsonSerializer { Formatting = Formatting.Indented };
-		serializer.Serialize(writer, carData);
+		serializer.Serialize(writer, genomes);
 	}
 
-	public void LoadPopulation(List<NeuralNetwork> population)
+	public void LoadPopulation(List<CarGenome> genomes)
 	{
 		ResetCurrentGeneration();
 
-		for (int i = 0; i < population.Count; i++)
+		for (int i = 0; i < genomes.Count; i++)
 		{
 			Car car = SpawnCar(i.ToString(), i);
-			car.SetGenome(population[i]);
+			car.SetGenome(genomes[i]);
 		}
 	}
 
-	public List<NeuralNetwork> DeserializePopulation(StreamReader reader)
+	public List<CarGenome> DeserializePopulation(StreamReader reader)
 	{
 		JsonSerializer serializer = new JsonSerializer();
 
-		return serializer.Deserialize<List<NeuralNetwork>>(new JsonTextReader(reader));
+		return serializer.Deserialize<List<CarGenome>>(new JsonTextReader(reader));
 	}
 }

@@ -28,13 +28,14 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 		OnClick?.Invoke(this);
 	}
 
-	public NeuralNetwork GetGenome() //TODO temp - make new class for CarGenome
+	public CarGenome GetGenome()
 	{
-		return Brain.Network;
+		return new CarGenome(Brain.Network, Eye.Network);
 	}
 
-	public void SetGenome(NeuralNetwork data)
+	public void SetGenome(CarGenome genome)
 	{
-		Brain.Network = data;
+		Brain.Network = genome.BrainNetwork;
+		Eye.Network = genome.EyeNetwork;
 	}
 }

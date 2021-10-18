@@ -9,7 +9,7 @@ public class ConvolutionalNeuralNetworkSettings
 	[JsonProperty("layers")]
 	public Vector2Int[] NeuronsCount;
 	[JsonProperty("mask")]
-	public Vector2Int MaskSize;
+	public Vector2Int FilterSize;
 	[JsonProperty("error_min")]
 	public float MinRandomErrorCoefficient;
 	[JsonProperty("error_max")]

@@ -1,9 +1,15 @@
+using System;
 using UnityEngine;
 
 public class CarInput : MonoBehaviour
 {
 	public CarController Controller;
 	public CarEye Eye;
+
+	private void Awake()
+	{
+		Eye.Network = ConvolutionalNeuralNetwork.Initial(Eye.Network.Settings);
+	}
 
 	private void Update()
 	{
