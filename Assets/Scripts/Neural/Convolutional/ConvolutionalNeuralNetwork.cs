@@ -6,27 +6,27 @@ public class ConvolutionalNeuralNetwork
 	[JsonProperty("layers")]
 	public List<ConvolutionalLayer> NeuronLayers;
 	[JsonProperty("settings")]
-	public NeuralNetworkSettings Settings;
+	public ConvolutionalNeuralNetworkSettings Settings;
 
 	public ConvolutionalNeuralNetwork()
 	{
 
 	}
 
-	public ConvolutionalNeuralNetwork(NeuralNetworkSettings settings)
+	public ConvolutionalNeuralNetwork(ConvolutionalNeuralNetworkSettings settings)
 	{
 		Settings = settings;
 
-		NeuronLayers = new List<Layer>();
+		NeuronLayers = new List<ConvolutionalLayer>();
 
 		InitializeNeurons(settings);
 	}
 
-	public ConvolutionalNeuralNetwork(NeuralNetwork network)
+	public ConvolutionalNeuralNetwork(ConvolutionalNeuralNetwork network)
 	{
 		Settings = network.Settings;
 
-		NeuronLayers = new List<Layer>();
+		NeuronLayers = new List<ConvolutionalLayer>();
 
 		InitializeNeurons(network);
 	}
@@ -43,15 +43,15 @@ public class ConvolutionalNeuralNetwork
 		return output;
 	}
 
-	public static NeuralNetwork Random(NeuralNetworkSettings settings)
+	public static ConvolutionalNeuralNetwork Random(ConvolutionalNeuralNetworkSettings settings)
 	{
-		NeuralNetwork network = new NeuralNetwork(settings);
+		ConvolutionalNeuralNetwork network = new ConvolutionalNeuralNetwork(settings);
 		network.RandomizeAllWeights();
 
 		return network;
 	}
 
-	private void InitializeNeurons(NeuralNetwork network)
+	private void InitializeNeurons(ConvolutionalNeuralNetwork network)
 	{
 		foreach (Layer layer in network.NeuronLayers)
 		{
@@ -61,7 +61,7 @@ public class ConvolutionalNeuralNetwork
 		}
 	}
 
-	private void InitializeNeurons(NeuralNetworkSettings settings)
+	private void InitializeNeurons(ConvolutionalNeuralNetworkSettings settings)
 	{
 		int prevLayerCount = 0;
 
