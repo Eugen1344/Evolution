@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-[JsonObject(MemberSerialization.OptOut)]
+[JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalNeuron
 {
 	public const float MaxWeight = 1.0f;
