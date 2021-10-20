@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class CarBrain : MonoBehaviour
 	public List<IInputNeuralModule> InputModules = new List<IInputNeuralModule>();
 	public List<IOutputNeuralModule> OutputModules = new List<IOutputNeuralModule>();
 
+	public event Action<Car> OnMadeDecision;
+
 	private float _prevDecisionRealtimeSinceStartup;
 
 	private void Awake()
@@ -22,9 +25,6 @@ public class CarBrain : MonoBehaviour
 		InputModules.Add(Car.Eye);
 
 		OutputModules.Add(Car.Movement);
-
-		int inputNeuronsCount = InputModules.Sum(module => module.InputNeuronCount);
-		int outputNeuronsCount = OutputModules.Sum(module => module.OutputNeuronCount);
 	}
 
 	private void Update()
@@ -35,6 +35,8 @@ public class CarBrain : MonoBehaviour
 		UpdateNetwork();
 
 		_prevDecisionRealtimeSinceStartup = Time.time;
+
+		OnMadeDecision?.Invoke(Car);
 	}
 
 	private bool IsTimeToMakeDecision()
@@ -53,6 +55,9 @@ public class CarBrain : MonoBehaviour
 
 			startingIndex += outputModule.OutputNeuronCount;
 		}
+
+		int inputNeuronsCount = InputModules.Sum(module => module.InputNeuronCount);
+		int outputNeuronsCount = OutputModules.Sum(module => module.OutputNeuronCount);
 	}
 
 	private float[] GetInputData()

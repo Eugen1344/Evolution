@@ -15,6 +15,11 @@ public class ConvolutionalNeuron
 	public int WeightsLengthX => Weights.GetLength(0);
 	public int WeightsLengthY => Weights.GetLength(1);
 
+	public ConvolutionalNeuron()
+	{
+		Weights = null;
+	}
+
 	public ConvolutionalNeuron(int weightsLengthX, int weightsLengthY)
 	{
 		if (weightsLengthX == 0 || weightsLengthY == 0)
@@ -34,11 +39,6 @@ public class ConvolutionalNeuron
 			Weights = null;
 		else
 			Weights = (float[,])neuron.Weights.Clone();
-	}
-
-	public ConvolutionalNeuron()
-	{
-		Weights = null;
 	}
 
 	public float Calculate(float[,] input, int maskPositionX, int maskPositionY)
@@ -64,7 +64,13 @@ public class ConvolutionalNeuron
 
 	private float Activation(float value)
 	{
-		return 1.0f / (1 + Mathf.Exp(-value));
+		if (value <= 0)
+			return 0;
+
+		float exp = Mathf.Exp(value);
+		float inverseExp = Mathf.Exp(-value);
+
+		return (exp - inverseExp) / (exp + inverseExp);
 	}
 
 	public void SetInitialWeights()

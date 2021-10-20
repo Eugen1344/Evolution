@@ -14,7 +14,6 @@ public class ConvolutionalNeuralNetwork
 
 	public ConvolutionalNeuralNetwork()
 	{
-
 	}
 
 	public ConvolutionalNeuralNetwork(ConvolutionalNeuralNetworkSettings settings)
@@ -39,7 +38,7 @@ public class ConvolutionalNeuralNetwork
 	{
 		float[,] output = input;
 
-		for (int i = 1; i < NeuronLayers.Count; i++)
+		for (int i = 0; i < NeuronLayers.Count; i++)
 		{
 			output = NeuronLayers[i].Calculate(output);
 		}
@@ -75,9 +74,10 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetworkSettings settings)
 	{
-		foreach (Vector2Int count in settings.NeuronsCount)
+		for (int i = 0; i < settings.NeuronsCount.Length; i++)
 		{
-			ConvolutionalLayer layer = new ConvolutionalLayer(count.x, count.y, settings.FilterSize.x, settings.FilterSize.y);
+			Vector2Int count = settings.NeuronsCount[i];
+			ConvolutionalLayer layer = i == 0 ? new ConvolutionalLayer(count.x, count.y) : new ConvolutionalLayer(count.x, count.y, settings.FilterSize.x, settings.FilterSize.y);
 
 			NeuronLayers.Add(layer);
 		}
@@ -120,5 +120,15 @@ public class ConvolutionalNeuralNetwork
 		{
 			layer.RandomizeAllWeights();
 		}
+	}
+
+	public int GetOutputLayerNeuronCount()
+	{
+		if (NeuronLayers == null || NeuronLayers.Count == 0)
+			return 0;
+
+		ConvolutionalLayer lastLayer = NeuronLayers[^1];
+
+		return lastLayer.NeuronsSizeX * lastLayer.NeuronsSizeY;
 	}
 }

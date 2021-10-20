@@ -228,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: Network.Settings.NeuronsCount.Array.size
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
@@ -259,6 +259,56 @@ PrefabInstance:
         type: 3}
       propertyPath: Network.Settings.NeuronsCount.Array.data[1].y
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[2].x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[2].y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[3].x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[3].y
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[4].x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[4].y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[5].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[5].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[6].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: Network.Settings.NeuronsCount.Array.data[6].y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}

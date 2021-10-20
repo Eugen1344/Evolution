@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -13,7 +14,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public RenderTexture RenderTexture { get; private set; }
 
 	public Vector2Int PixelCount => PixelBaseSize * PixelMultiplier;
-	public int InputNeuronCount => 4;
+	public int InputNeuronCount => Network.GetOutputLayerNeuronCount();
 
 	private Texture2D _internalTexture;
 	private readonly HashSet<VisibleObject> _invisibleObjects = new HashSet<VisibleObject>();
@@ -62,9 +63,12 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 		{
 			for (int j = 0; j < PixelCount.y; j++)
 			{
-				data[i, j] = _internalTexture.GetPixel(i, j).r;
+				int flatArrayIndex = j * PixelCount.x + i;
+				data[i, j] = (float)pixelData[flatArrayIndex].r / byte.MaxValue;
 			}
 		}
+
+		RenderTexture.active = null;
 
 		return data;
 	}

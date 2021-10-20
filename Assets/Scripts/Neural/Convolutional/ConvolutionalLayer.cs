@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using UnityEngine;
 
 [Serializable]
 [JsonObject(MemberSerialization.OptIn)]
@@ -16,9 +14,23 @@ public class ConvolutionalLayer
 	public readonly int FilterSizeX;
 	public readonly int FilterSizeY;
 
+	public float[,] PrevOutput;
+
 	public ConvolutionalLayer()
 	{
-		Neurons = null;
+	}
+
+	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY) //first layer
+	{
+		Neurons = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
+
+		for (int i = 0; i < neuronsCountX; i++)
+		{
+			for (int j = 0; j < neuronsCountY; j++)
+			{
+				Neurons[i, j] = new ConvolutionalNeuron();
+			}
+		}
 	}
 
 	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY, int filterSizeX, int filterSizeY)
@@ -39,6 +51,8 @@ public class ConvolutionalLayer
 	public ConvolutionalLayer(ConvolutionalLayer layer)
 	{
 		Neurons = new ConvolutionalNeuron[layer.NeuronsSizeX, layer.NeuronsSizeY];
+		FilterSizeX = layer.FilterSizeX;
+		FilterSizeY = layer.FilterSizeY;
 
 		for (int i = 0; i < NeuronsSizeX; i++)
 		{
@@ -57,9 +71,19 @@ public class ConvolutionalLayer
 		{
 			for (int j = 0; j < NeuronsSizeY; j++)
 			{
-				output[i, j] = Neurons[i, j].Calculate(input, i * FilterSizeX, j * FilterSizeY);
+				ConvolutionalNeuron neuron = Neurons[i, j];
+				float result;
+
+				if (neuron.Weights == null)
+					result = input[i, j];
+				else
+					result = neuron.Calculate(input, i * FilterSizeX, j * FilterSizeY);
+
+				output[i, j] = result;
 			}
 		}
+
+		PrevOutput = output;
 
 		return output;
 	}

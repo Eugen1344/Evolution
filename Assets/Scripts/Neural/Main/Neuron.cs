@@ -55,7 +55,10 @@ public class Neuron
 
 	private float Activation(float value)
 	{
-		return 2.0f / (1 + Mathf.Exp(-value)) - 1.0f;
+		float exp = Mathf.Exp(value);
+		float inverseExp = Mathf.Exp(-value);
+
+		return (exp - inverseExp) / (exp + inverseExp);
 	}
 
 	public void SetRandomWeights()
