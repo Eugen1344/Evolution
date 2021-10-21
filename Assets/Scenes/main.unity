@@ -770,7 +770,7 @@ MonoBehaviour:
     MaxRandomErrorCoefficient: 1
   CarSpawner: {fileID: 897941376}
   FoodSpawner: {fileID: 1000871551}
-  TimeScale: 10
+  TimeScale: 1
   RespawnFoodEachGeneration: 0
   Generation: 0
 --- !u!4 &355013980

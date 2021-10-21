@@ -4,3 +4,9 @@
 [submodule "Assets/Submodules/editor_extensions"]
 	path = Assets/Submodules/editor_extensions
 	url = https://git.universinet.org/bristar/editor_extensions.git
+[submodule "Assets/Submodules/quantum_console"]
+	path = Assets/Submodules/quantum_console
+	url = https://git.universinet.org/bristar/quantum_console.git
+[submodule "Assets/Submodules/command_bar"]
+	path = Assets/Submodules/command_bar
+	url = https://git.universinet.org/bristar/command_bar.git
