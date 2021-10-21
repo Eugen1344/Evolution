@@ -753,7 +753,7 @@ MonoBehaviour:
   BestSpeciesPerGeneration: 4
   BestSpeciesPerGenerationClones: 1
   NeuralNetworkSettings:
-    NeuronsCount: 090000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a00000014000000
+    NeuronsCount: 17000000140000000f0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a00000006000000
     MinRandomErrorCoefficient: 0.1
     MaxRandomErrorCoefficient: 1
   EyeNeuralNetworkSettings:
