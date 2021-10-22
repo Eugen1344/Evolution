@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CarPanel : UiPanel<CarPanel>
 {
+	public bool AutoSelectBestCar;	
 	public Car CurrentCar;
 	public int PreviewLayer;
 	public RawImage EyePreview;

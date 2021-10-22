@@ -1,6 +1,6 @@
 using GenericPanels;
 
-public class MenuButtonPanel : UiPanel<MenuButtonPanel>
+public class MenuButtonsPanel : UiPanel<MenuButtonsPanel>
 {
 	public void ClickMenuButton()
 	{
@@ -9,4 +9,9 @@ public class MenuButtonPanel : UiPanel<MenuButtonPanel>
 		else
 			MenuPanel.Instance.Hide();
 	}
+
+    public void ClickCommandBarButton()
+    {
+		CommandBar.Instance.Toggle();
+    }
 }
