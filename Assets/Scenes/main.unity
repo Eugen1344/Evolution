@@ -883,12 +883,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8626553615814234b8d6d318662758fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpeciesCount: 200
+  InitialSpeciesCount: 500
   SpeciesPerGeneration: 10
   BestSpeciesPerGeneration: 4
   BestSpeciesPerGenerationClones: 1
   NeuralNetworkSettings:
-    NeuronsCount: 090000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a00000006000000
+    NeuronsCount: 17000000140000000f0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a00000006000000
     MinRandomErrorCoefficient: 0.1
     MaxRandomErrorCoefficient: 1
   EyeNeuralNetworkSettings:
@@ -899,7 +899,6 @@ MonoBehaviour:
     - {x: 20, y: 13}
     - {x: 10, y: 7}
     - {x: 5, y: 4}
-    - {x: 3, y: 2}
     FilterSize: {x: 2, y: 2}
     MinRandomErrorCoefficient: 0.1
     MaxRandomErrorCoefficient: 1
@@ -1794,8 +1793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 10
-  SpawnRadiusMax: 80
-  ObjectsCountMax: 20
+  SpawnRadiusMax: 50
+  ObjectsCountMax: 10
   AutoSpawn: 1
   SpawnIntervalSeconds: 1
   Prefab: {fileID: 3644957702750299681, guid: bc031379e3da5e043a658143254c6ddc, type: 3}

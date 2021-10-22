@@ -29,7 +29,7 @@ public class CarGenome
 
 	public float IntroduceRandomError() //TODO maybe should not introduce both error simultaneously
 	{
-		EyeNetwork.IntroduceRandomError();
+		//EyeNetwork.IntroduceRandomError();
 		return BrainNetwork.IntroduceRandomError();
 	}
 }
