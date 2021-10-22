@@ -31,9 +31,9 @@ public class CarPanel : UiPanel<CarPanel>
 	{
 		Show();
 
-		ShowCarInfo(car);
-
 		ClearCurrentCar();
+
+		ShowCarInfo(car);
 
 		car.Brain.OnMadeDecision += UpdatePreviewImage;
 	}
