@@ -1,33 +1,43 @@
 using GenericPanels;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class CarPanel : UiPanel<CarPanel>
 {
-	public bool AutoSelectBestCar;	
+	public bool AutoSelectNextCar;
 	public Car CurrentCar;
 	public int PreviewLayer;
 	public RawImage EyePreview;
 	public Button PreviewLayerUp;
 	public Button PreviewLayerDown;
+	public GenerationsEvolution Evolution;
 
 	private Texture2D _internalEyePreviewTexture;
 
 	protected override void Awake()
 	{
-		Car.OnClick += ClickOnCar;
+		Car.OnClick += SelectCar;
+		Evolution.OnSpawnGeneration += OnSpawnGeneration;
 
 		base.Awake();
 	}
 
 	private void OnDestroy()
 	{
-		Car.OnClick -= ClickOnCar;
+		Car.OnClick -= SelectCar;
+		Evolution.OnSpawnGeneration -= OnSpawnGeneration;
 	}
 
-	private void ClickOnCar(Car car)
+	private void OnSpawnGeneration(int generation)
+	{
+		if (CurrentCar == null && AutoSelectNextCar)
+		{
+			SelectNextCar();
+		}
+	}
+
+	private void SelectCar(Car car)
 	{
 		Show();
 
@@ -84,9 +94,22 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void DespawnCar(Car car)
 	{
-		Hide();
+		if (AutoSelectNextCar)
+		{
+			SelectNextCar();
+		}
+		else
+		{
+			ClearCurrentCar();
 
-		ClearCurrentCar();
+			Hide();
+		}
+	}
+
+	private void SelectNextCar()
+	{
+		Car nextCar = Evolution.GetCurrentBestCar();
+		SelectCar(nextCar);
 	}
 
 	private void UpdatePreviewImage(Car car)
@@ -97,6 +120,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void WriteImage(Texture2D texture, float[,] data)
 	{
+		if (data == null)
+			return;
+
 		for (int i = 0; i < data.GetLength(0); i++)
 		{
 			for (int j = 0; j < data.GetLength(1); j++)

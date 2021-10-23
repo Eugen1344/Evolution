@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable<T>
 {
@@ -14,6 +16,8 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable<T>
 	public T Prefab;
 
 	public int AliveObjects => _spawnedObjects.Count;
+
+	public event Action<T> OnSpawn;
 
 	private List<T> _spawnedObjects = new List<T>();
 	private float _prevSpawnTime = 0;
@@ -48,6 +52,8 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable<T>
 		T obj = InstantiateObject(name);
 		obj.transform.localPosition = RandomAllowedLocalPosition();
 		obj.OnDespawn += OnDespawnObject;
+
+		OnSpawn?.Invoke(obj);
 
 		return obj;
 	}

@@ -2987,12 +2987,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialState: 3
-  AutoSelectBestCar: 0
+  AutoSelectNextCar: 1
   CurrentCar: {fileID: 0}
   PreviewLayer: 0
   EyePreview: {fileID: 2063711187}
   PreviewLayerUp: {fileID: 6348390334796009495}
   PreviewLayerDown: {fileID: 1736740512}
+  Evolution: {fileID: 355013979}
 --- !u!1 &1905890472
 GameObject:
   m_ObjectHideFlags: 0

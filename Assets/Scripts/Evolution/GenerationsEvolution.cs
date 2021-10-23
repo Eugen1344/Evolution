@@ -21,6 +21,8 @@ public class GenerationsEvolution : MonoBehaviour
 
 	public int Generation;
 
+	public event Action<int> OnSpawnGeneration;
+
 	private List<Car> _currentGeneration = new List<Car>();
 	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 
@@ -40,11 +42,13 @@ public class GenerationsEvolution : MonoBehaviour
 		for (int i = 0; i < InitialSpeciesCount; i++)
 		{
 			Car newCar = SpawnCar(i.ToString(), i);
-			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(NeuralNetworkSettings), ConvolutionalNeuralNetwork.Initial(EyeNeuralNetworkSettings));
+			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(NeuralNetworkSettings), EyeNeuralNetworkSettings);
 			newCar.SetGenome(newGenome);
 		}
 
 		FoodSpawner.SpawnMaxObjects();
+
+		OnSpawnGeneration?.Invoke(0);
 	}
 
 	private void SpawnNextGeneration()
@@ -64,7 +68,7 @@ public class GenerationsEvolution : MonoBehaviour
 		{
 			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
 			CarLifeResult lifeResult = bestLifeResults[prevBestCarIndex];
-			CarGenome prevBestGenome = lifeResult.Genome; //TEMP currently genome is just network
+			CarGenome prevBestGenome = lifeResult.Genome;
 
 			CarGenome newGenome = new CarGenome(prevBestGenome);
 
@@ -89,6 +93,8 @@ public class GenerationsEvolution : MonoBehaviour
 
 		if (RespawnFoodEachGeneration)
 			FoodSpawner.SpawnMaxObjects();
+
+		OnSpawnGeneration?.Invoke(Generation);
 	}
 
 	private List<CarLifeResult> FinishCurrentGeneration()
@@ -104,6 +110,11 @@ public class GenerationsEvolution : MonoBehaviour
 	private IEnumerable<CarLifeResult> GetBestResults()
 	{
 		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).ThenBy(_ => Random.value).Take(BestSpeciesPerGeneration);
+	}
+
+	public Car GetCurrentBestCar()
+	{
+		return _currentGeneration.OrderByDescending(car => car.Food.TotalAcquiredFood).FirstOrDefault();
 	}
 
 	private float GetAverageFitness()

@@ -30,7 +30,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 
 	public CarGenome GetGenome()
 	{
-		return new CarGenome(Brain.Network, Eye.Network);
+		return new CarGenome(Brain.Network, Eye.Network.Settings);
 	}
 
 	public void SetGenome(CarGenome genome)

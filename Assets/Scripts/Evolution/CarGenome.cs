@@ -7,18 +7,18 @@ public class CarGenome
 {
 	[JsonProperty("brain_network")]
 	public NeuralNetwork BrainNetwork;
-	[JsonProperty("eye_network")]
+	//[JsonProperty("eye_network")]
 	public ConvolutionalNeuralNetwork EyeNetwork;
-	
+
 	public CarGenome()
 	{
 
 	}
 
-	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetwork eye)
+	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetworkSettings eyeSettings)
 	{
 		BrainNetwork = brain;
-		EyeNetwork = eye;
+		EyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
 	}
 
 	public CarGenome(CarGenome genome)
