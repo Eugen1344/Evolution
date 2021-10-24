@@ -43,6 +43,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 		ClearCurrentCar();
 
+		car.Select();
 		ShowCarInfo(car);
 
 		car.Brain.OnMadeDecision += UpdatePreviewImage;
@@ -80,6 +81,7 @@ public class CarPanel : UiPanel<CarPanel>
 		if (CurrentCar == null)
 			return;
 
+		CurrentCar.Unselect();
 		CurrentCar.Brain.OnMadeDecision -= UpdatePreviewImage;
 		CurrentCar.OnDespawn -= DespawnCar;
 	}

@@ -7,6 +7,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	public CarEye Eye;
 	public CarController Movement;
 	public CarFood Food;
+	public GameObject SelectionIndicator;
 
 	public int Index;
 
@@ -37,5 +38,15 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	{
 		Brain.Network = genome.BrainNetwork;
 		Eye.Network = genome.EyeNetwork;
+	}
+
+	public void Select()
+	{
+		SelectionIndicator.SetActive(true);
+	}
+
+	public void Unselect()
+	{
+		SelectionIndicator.SetActive(false);
 	}
 }
