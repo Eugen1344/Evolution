@@ -17,7 +17,7 @@ public class CarBrain : MonoBehaviour
 
 	private float _prevDecisionRealtimeSinceStartup;
 
-	private void Awake()
+	private void Start()
 	{
 		InputModules.Add(StaticSignalModule);
 		InputModules.Add(Car.Food);

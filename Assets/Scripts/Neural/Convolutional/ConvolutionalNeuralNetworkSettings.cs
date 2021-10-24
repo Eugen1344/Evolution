@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [Serializable]
-[JsonObject(MemberSerialization.OptOut)]
+[JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalNeuralNetworkSettings
 {
 	[JsonProperty("layers")]

@@ -173,6 +173,8 @@ public class GenerationsEvolution : MonoBehaviour
 
 		for (int i = 0; i < genomes.Count; i++)
 		{
+			genomes[i].EyeNetwork = ConvolutionalNeuralNetwork.Initial(EyeNeuralNetworkSettings);
+
 			Car car = SpawnCar(i.ToString(), i);
 			car.SetGenome(genomes[i]);
 		}

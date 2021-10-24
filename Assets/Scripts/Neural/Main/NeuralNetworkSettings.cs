@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 
 [Serializable]
-[JsonObject(MemberSerialization.OptOut)]
+[JsonObject(MemberSerialization.OptIn)]
 public class NeuralNetworkSettings
 {
 	[JsonProperty("layers")]
