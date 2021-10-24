@@ -17,7 +17,6 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public int InputNeuronCount => Network.GetOutputLayerNeuronCount();
 
 	private Texture2D _internalTexture;
-	private readonly HashSet<VisibleObject> _invisibleObjects = new HashSet<VisibleObject>();
 
 	private void Awake()
 	{
@@ -71,10 +70,5 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 		RenderTexture.active = null;
 
 		return data;
-	}
-
-	public void DisableSeeingObject(VisibleObject obj)
-	{
-		_invisibleObjects.Add(obj);
 	}
 }

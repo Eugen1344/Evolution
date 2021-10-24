@@ -29,7 +29,6 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 			TotalAcquiredFood += foodAmount;
 
 			_acquiredFood.Add(food);
-			Car.Eye.DisableSeeingObject(food);
 		}
 	}
 

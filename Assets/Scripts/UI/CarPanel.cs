@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class CarPanel : UiPanel<CarPanel>
 {
 	public bool AutoSelectNextCar;
+	public bool ViewLeftEye;
 	public Car CurrentCar;
 	public int PreviewLayer;
 	public RawImage EyePreview;
 	public Button PreviewLayerUp;
 	public Button PreviewLayerDown;
 	public GenerationsEvolution Evolution;
+
+	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.LetEye : CurrentCar.RightEye;
 
 	private Texture2D _internalEyePreviewTexture;
 
@@ -69,7 +72,7 @@ public class CarPanel : UiPanel<CarPanel>
 		if (CurrentCar == null)
 			return;
 
-		if (PreviewLayer < CurrentCar.Eye.Network.NeuronLayers.Count - 1)
+		if (PreviewLayer < CurrentEye.Network.NeuronLayers.Count - 1)
 			PreviewLayerDown.interactable = true;
 
 		if (PreviewLayer > 0)
@@ -116,7 +119,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void UpdatePreviewImage(Car car)
 	{
-		ConvolutionalLayer currentLayer = car.Eye.Network.NeuronLayers[PreviewLayer];
+		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[PreviewLayer];
 		WriteImage(_internalEyePreviewTexture, currentLayer.PrevOutput);
 	}
 
@@ -143,7 +146,7 @@ public class CarPanel : UiPanel<CarPanel>
 		if (CurrentCar == null)
 			return;
 
-		if (PreviewLayer < 0 || PreviewLayer >= CurrentCar.Eye.Network.NeuronLayers.Count)
+		if (PreviewLayer < 0 || PreviewLayer >= CurrentEye.Network.NeuronLayers.Count)
 			PreviewLayer = 0;
 
 		_internalEyePreviewTexture = CreateEyePreviewTexture(CurrentCar, PreviewLayer);
@@ -155,7 +158,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private Texture2D CreateEyePreviewTexture(Car car, int depth)
 	{
-		ConvolutionalLayer currentLayer = car.Eye.Network.NeuronLayers[depth];
+		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[depth];
 
 		return CreateEyePreviewTexture(currentLayer.NeuronsSizeX, currentLayer.NeuronsSizeY);
 	}
