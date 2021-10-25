@@ -1,5 +1,4 @@
 [TODO]
-two eyes
 command bar
 console
 RGB eyesight
@@ -8,3 +7,4 @@ cluster computing
 
 [DONE]
 mark selected car
+two eyes

@@ -8,16 +8,9 @@ using Random = UnityEngine.Random;
 
 public class GenerationsEvolution : MonoBehaviour
 {
-	public int InitialSpeciesCount;
-	public int SpeciesPerGeneration;
-	public int BestSpeciesPerGeneration;
-	public int BestSpeciesPerGenerationClones;
-	public NeuralNetworkSettings NeuralNetworkSettings;
-	public ConvolutionalNeuralNetworkSettings EyeNeuralNetworkSettings;
+	public GenerationsEvolutionSettings Settings;
 	public CarSpawner CarSpawner;
 	public FoodSpawner FoodSpawner;
-	public float TimeScale;
-	public bool RespawnFoodEachGeneration;
 
 	public int Generation;
 
@@ -26,23 +19,28 @@ public class GenerationsEvolution : MonoBehaviour
 	private List<Car> _currentGeneration = new List<Car>();
 	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 
+	private void Start()
+	{
+		Settings.InitializeCommandBarFields();
+	}
+
 	private void Update()
 	{
-		Time.timeScale = TimeScale;
+		Time.timeScale = Settings.TimeScale; //TODO bad solution
 	}
 
 	public void InitialSpawn()
 	{
 		Generation = 0;
 
-		Debug.Log($"Initial spawning cars: {InitialSpeciesCount}");
+		Debug.Log($"Initial spawning cars: {Settings.InitialSpeciesCount}");
 
 		ResetCurrentGeneration();
 
-		for (int i = 0; i < InitialSpeciesCount; i++)
+		for (int i = 0; i < Settings.InitialSpeciesCount; i++)
 		{
 			Car newCar = SpawnCar(i.ToString(), i);
-			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(NeuralNetworkSettings), EyeNeuralNetworkSettings);
+			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(Settings.NeuralNetworkSettings), Settings.EyeNeuralNetworkSettings);
 			newCar.SetGenome(newGenome);
 		}
 
@@ -61,10 +59,10 @@ public class GenerationsEvolution : MonoBehaviour
 
 		ResetCurrentGeneration();
 
-		int possibleBestSpeciesPerGeneration = Mathf.Min(bestLifeResults.Count, BestSpeciesPerGeneration);
-		int clonesToSpawn = BestSpeciesPerGenerationClones * possibleBestSpeciesPerGeneration;
+		int possibleBestSpeciesPerGeneration = Mathf.Min(bestLifeResults.Count, Settings.BestSpeciesPerGeneration);
+		int clonesToSpawn = Settings.BestSpeciesPerGenerationClones * possibleBestSpeciesPerGeneration;
 
-		for (int i = 0; i < SpeciesPerGeneration + clonesToSpawn; i++)
+		for (int i = 0; i < Settings.SpeciesPerGeneration + clonesToSpawn; i++)
 		{
 			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
 			CarLifeResult lifeResult = bestLifeResults[prevBestCarIndex];
@@ -91,7 +89,7 @@ public class GenerationsEvolution : MonoBehaviour
 			newCar.SetGenome(newGenome);
 		}
 
-		if (RespawnFoodEachGeneration)
+		if (Settings.RespawnFoodEachGeneration)
 			FoodSpawner.SpawnMaxObjects();
 
 		OnSpawnGeneration?.Invoke(Generation);
@@ -109,7 +107,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 	private IEnumerable<CarLifeResult> GetBestResults()
 	{
-		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).ThenBy(_ => Random.value).Take(BestSpeciesPerGeneration);
+		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).ThenBy(_ => Random.value).Take(Settings.BestSpeciesPerGeneration);
 	}
 
 	public Car GetCurrentBestCar()
@@ -173,7 +171,7 @@ public class GenerationsEvolution : MonoBehaviour
 
 		for (int i = 0; i < genomes.Count; i++)
 		{
-			genomes[i].EyeNetwork = ConvolutionalNeuralNetwork.Initial(EyeNeuralNetworkSettings);
+			genomes[i].EyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
 
 			Car car = SpawnCar(i.ToString(), i);
 			car.SetGenome(genomes[i]);
