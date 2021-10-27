@@ -1,4 +1,5 @@
 using GenericPanels;
+using QFSW.QC;
 
 public class MenuButtonsPanel : UiPanel<MenuButtonsPanel>
 {
@@ -13,5 +14,10 @@ public class MenuButtonsPanel : UiPanel<MenuButtonsPanel>
     public void ClickCommandBarButton()
     {
 		CommandBar.Instance.Toggle();
+    }
+
+    public void ClickConsoleButton()
+    {
+		QuantumConsole.Instance.Toggle();
     }
 }
