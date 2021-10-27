@@ -2012,7 +2012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 10
   SpawnRadiusMax: 50
-  ObjectsCountMax: 10
+  ObjectsCountMax: 5
   AutoSpawn: 1
   SpawnIntervalSeconds: 1
   Prefab: {fileID: 3644957702750299681, guid: bc031379e3da5e043a658143254c6ddc, type: 3}
