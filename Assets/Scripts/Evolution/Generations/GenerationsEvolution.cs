@@ -40,7 +40,7 @@ public class GenerationsEvolution : MonoBehaviour
 		for (int i = 0; i < Settings.InitialSpeciesCount; i++)
 		{
 			Car newCar = SpawnCar(i.ToString(), i);
-			CarGenome newGenome = new CarGenome(NeuralNetwork.Random(Settings.NeuralNetworkSettings), Settings.EyeNeuralNetworkSettings);
+			CarGenome newGenome = new CarGenome(Settings.NeuralNetworkSettings, Settings.EyeNeuralNetworkSettings);
 			newCar.SetGenome(newGenome);
 		}
 
@@ -171,7 +171,8 @@ public class GenerationsEvolution : MonoBehaviour
 
 		for (int i = 0; i < genomes.Count; i++)
 		{
-			genomes[i].EyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
+			genomes[i].LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
+			genomes[i].RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
 
 			Car car = SpawnCar(i.ToString(), i);
 			car.SetGenome(genomes[i]);

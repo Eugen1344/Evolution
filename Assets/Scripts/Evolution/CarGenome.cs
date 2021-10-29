@@ -8,23 +8,37 @@ public class CarGenome
 	[JsonProperty("brain_network")]
 	public NeuralNetwork BrainNetwork;
 	//[JsonProperty("eye_network")]
-	public ConvolutionalNeuralNetwork EyeNetwork;
+	public ConvolutionalNeuralNetwork LeftEyeNetwork;
+	public ConvolutionalNeuralNetwork RightEyeNetwork;
+	[JsonProperty("generation")]
+	public int Generation;
 
 	public CarGenome()
 	{
 
 	}
 
-	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetworkSettings eyeSettings)
+	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetwork leftEye, ConvolutionalNeuralNetwork rightEye)
 	{
 		BrainNetwork = brain;
-		EyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
+		LeftEyeNetwork = leftEye;
+		RightEyeNetwork = rightEye;
+	}
+
+	public CarGenome(NeuralNetworkSettings brainSettings, ConvolutionalNeuralNetworkSettings eyeSettings)
+	{
+		BrainNetwork = NeuralNetwork.Random(brainSettings);
+		LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
+		RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
+		Generation = 0;
 	}
 
 	public CarGenome(CarGenome genome)
 	{
 		BrainNetwork = new NeuralNetwork(genome.BrainNetwork);
-		EyeNetwork = new ConvolutionalNeuralNetwork(genome.EyeNetwork);
+		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.LeftEyeNetwork);
+		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
+		Generation = genome.Generation + 1;
 	}
 
 	public float IntroduceRandomError() //TODO maybe should not introduce both error simultaneously
