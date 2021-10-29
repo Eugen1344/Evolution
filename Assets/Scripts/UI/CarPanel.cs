@@ -12,7 +12,7 @@ public class CarPanel : UiPanel<CarPanel>
 	public RawImage EyePreview;
 	public Button PreviewLayerUp;
 	public Button PreviewLayerDown;
-	public GenerationsEvolution Evolution;
+	public ContinuousEvolution Evolution;
 
 	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.LetEye : CurrentCar.RightEye;
 

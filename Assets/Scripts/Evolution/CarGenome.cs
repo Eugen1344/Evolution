@@ -37,7 +37,7 @@ public class CarGenome
 	{
 		BrainNetwork = new NeuralNetwork(genome.BrainNetwork);
 		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.LeftEyeNetwork);
-		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
+		RightEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
 		Generation = genome.Generation + 1;
 	}
 

@@ -72,6 +72,7 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
 
+		car.Food.OnPickupFood -= OnCarPickupFood;
 		car.OnDespawn -= OnCarFinishLife;
 	}
 

@@ -554,8 +554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327f0b3c957453942b9567745ebc2327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxFood: 300
-  FoodStoreRatio: 0.1
+  MaxFood: 100
+  FoodStoreRatio: 0.5
   FoodDecayPerSecond: 1
   Car: {fileID: 4432495669392959698}
   _currentFood: 0

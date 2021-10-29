@@ -5,7 +5,7 @@ using GenericPanels;
 
 public class MenuPanel : UiPanel<MenuPanel>
 {
-	public GenerationsEvolution Evolution;
+	public ContinuousEvolution Evolution;
 
 	public void ClickSavePopulation()
 	{
