@@ -35,7 +35,7 @@ public class ContinuousEvolution : MonoBehaviour
 
 		for (_lastCarIndex = 0; _lastCarIndex < Settings.InitialSpeciesCount; _lastCarIndex++)
 		{
-			Car newCar = SpawnCar(_lastCarIndex.ToString(), _lastCarIndex);
+			Car newCar = SpawnCar(_lastCarIndex.ToString());
 			CarGenome newGenome = new CarGenome(Settings.NeuralNetworkSettings, Settings.EyeNeuralNetworkSettings);
 			newGenome.Generation = 0;
 			newCar.SetGenome(newGenome);
@@ -46,10 +46,11 @@ public class ContinuousEvolution : MonoBehaviour
 		OnSpawnGeneration?.Invoke(0);
 	}
 
-	private Car SpawnCar(string name, int index)
+	private Car SpawnCar(string name)
 	{
 		Car newCar = CarSpawner.SpawnObject(name);
-		newCar.Index = index;
+		newCar.Index = _lastCarIndex;
+		_lastCarIndex++;
 
 		newCar.Food.OnPickupFood += OnCarPickupFood;
 		newCar.OnDespawn += OnCarFinishLife;
@@ -71,9 +72,29 @@ public class ContinuousEvolution : MonoBehaviour
 	private void OnCarFinishLife(Car car)
 	{
 		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		_current.Remove(car);
 
 		car.Food.OnPickupFood -= OnCarPickupFood;
 		car.OnDespawn -= OnCarFinishLife;
+
+		if (_current.Count == 0)
+		{
+			EmergencyRespawn(car);
+		}
+	}
+
+	private void EmergencyRespawn(Car car)
+	{
+		Car clone = SpawnCar(_lastCarIndex.ToString());
+		clone.SetGenome(car.GetGenome());
+
+		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
+		{
+			SpawnChild(clone);
+		}
+
+		if (Settings.RespawnAllFood)
+			FoodSpawner.SpawnMaxObjects();
 	}
 
 	public Car SpawnChild(Car car)
@@ -82,7 +103,7 @@ public class ContinuousEvolution : MonoBehaviour
 		CarGenome childGenome = new CarGenome(parentGenome);
 		childGenome.IntroduceRandomError();
 
-		Car child = SpawnCar($"{_lastCarIndex.ToString()} - {childGenome.Generation} ({car.Index})", _lastCarIndex);
+		Car child = SpawnCar($"{childGenome.Generation} - {_lastCarIndex.ToString()} ({car.Index})");
 		_lastCarIndex++;
 
 		child.SetGenome(childGenome);
@@ -129,7 +150,7 @@ public class ContinuousEvolution : MonoBehaviour
 			newCar.SetGenome(newGenome);
 		}
 
-		if (Settings.RespawnFoodEachGeneration)
+		if (Settings.RespawnAllFood)
 			FoodSpawner.SpawnMaxObjects();
 
 		OnSpawnGeneration?.Invoke(Generation);
@@ -190,9 +211,12 @@ public class ContinuousEvolution : MonoBehaviour
 			genomes[i].LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
 			genomes[i].RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
 
-			Car car = SpawnCar(i.ToString(), i);
+			Car car = SpawnCar(i.ToString());
 			car.SetGenome(genomes[i]);
 		}
+
+		if (Settings.RespawnAllFood)
+			FoodSpawner.SpawnMaxObjects();
 	}
 
 	public List<CarGenome> DeserializePopulation(StreamReader reader)

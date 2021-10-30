@@ -541,6 +541,7 @@ MonoBehaviour:
   Movement: {fileID: 7249546690472652996}
   Food: {fileID: 1498113815733910494}
   SelectionIndicator: {fileID: 5130227101958259046}
+  Generation: 0
   Index: 0
 --- !u!114 &1498113815733910494
 MonoBehaviour:

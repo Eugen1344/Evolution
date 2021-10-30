@@ -2011,8 +2011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    InitialSpeciesCount: 50
-    SpeciesPerGeneration: 10
+    InitialSpeciesCount: 1
+    EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 20
     NeuralNetworkSettings:
       NeuronsCount: 2b00000014000000140000000f0000000a000000080000000700000006000000
@@ -2029,7 +2029,7 @@ MonoBehaviour:
       FilterSize: {x: 2, y: 2}
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
-    RespawnFoodEachGeneration: 1
+    RespawnAllFood: 1
     TimeScale: 1
   CarSpawner: {fileID: 1700352385}
   FoodSpawner: {fileID: 1000871551}
@@ -2080,9 +2080,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 10
   SpawnRadiusMax: 50
-  ObjectsCountMax: 5
+  ObjectsCountMax: 10
   AutoSpawn: 1
-  SpawnIntervalSeconds: 1
+  SpawnIntervalSeconds: 10
   Prefab: {fileID: 3644957702750299681, guid: bc031379e3da5e043a658143254c6ddc, type: 3}
 --- !u!4 &1000871552
 Transform:
@@ -2591,7 +2591,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}

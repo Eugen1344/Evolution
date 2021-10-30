@@ -46,10 +46,12 @@ public class CarPanel : UiPanel<CarPanel>
 
 		ClearCurrentCar();
 
-		car.Select();
-		ShowCarInfo(car);
+		CurrentCar = car;
 
-		car.Brain.OnMadeDecision += UpdatePreviewImage;
+		CurrentCar.Select();
+		ShowCarInfo(CurrentCar);
+
+		CurrentCar.Brain.OnMadeDecision += UpdatePreviewImage;
 	}
 
 	public void ClickPreviewLayerUp()
@@ -91,7 +93,6 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void ShowCarInfo(Car car)
 	{
-		CurrentCar = car;
 		car.OnDespawn += DespawnCar;
 
 		UpdateCurrentEyePreviewTexture();

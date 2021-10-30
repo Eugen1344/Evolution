@@ -10,6 +10,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	public CarFood Food;
 	public GameObject SelectionIndicator;
 
+	public int Generation = 0;
 	public int Index;
 
 	public event Action<Car> OnDespawn;
@@ -32,7 +33,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 
 	public CarGenome GetGenome()
 	{
-		return new CarGenome(Brain.Network, LetEye.Network, RightEye.Network);
+		return new CarGenome(Brain.Network, LetEye.Network, RightEye.Network) { Generation = Generation };
 	}
 
 	public void SetGenome(CarGenome genome)
@@ -40,6 +41,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 		Brain.Network = genome.BrainNetwork;
 		LetEye.Network = genome.LeftEyeNetwork;
 		RightEye.Network = genome.RightEyeNetwork;
+		Generation = genome.Generation + 1;
 	}
 
 	public void Select()

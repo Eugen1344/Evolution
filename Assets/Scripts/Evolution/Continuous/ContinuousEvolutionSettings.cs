@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 public class ContinuousEvolutionSettings
 {
 	public int InitialSpeciesCount;
-	public int SpeciesPerGeneration;
+	public int EmergencyRespawnCount;
 	public int ChildStoredFoodRequirement;
 	public NeuralNetworkSettings NeuralNetworkSettings;
 	public ConvolutionalNeuralNetworkSettings EyeNeuralNetworkSettings;
-	public bool RespawnFoodEachGeneration;
+	public bool RespawnAllFood;
 	public float TimeScale;
 
 	public void InitializeCommandBarFields()

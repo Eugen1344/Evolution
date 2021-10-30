@@ -38,7 +38,7 @@ public class CarGenome
 		BrainNetwork = new NeuralNetwork(genome.BrainNetwork);
 		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.LeftEyeNetwork);
 		RightEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
-		Generation = genome.Generation + 1;
+		Generation = genome.Generation;
 	}
 
 	public float IntroduceRandomError() //TODO maybe should not introduce both error simultaneously

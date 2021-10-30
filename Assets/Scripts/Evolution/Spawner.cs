@@ -8,7 +8,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable<T>
 {
 	[ValidateInput("@SpawnRadiusMin >= 0")]
 	public float SpawnRadiusMin;
-	[ValidateInput("@SpawnRadiusMax >= 0 && SpawnRadiusMax > SpawnRadiusMin")]
+	[ValidateInput("@SpawnRadiusMax >= 0 && SpawnRadiusMax >= SpawnRadiusMin")]
 	public float SpawnRadiusMax;
 	public int ObjectsCountMax;
 	public bool AutoSpawn;
