@@ -2011,7 +2011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    InitialSpeciesCount: 1
+    InitialSpeciesCount: 50
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 20
     NeuralNetworkSettings:

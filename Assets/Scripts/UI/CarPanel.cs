@@ -30,6 +30,9 @@ public class CarPanel : UiPanel<CarPanel>
 	{
 		Car.OnClick -= SelectCar;
 		Evolution.OnSpawnGeneration -= OnSpawnGeneration;
+
+		if (_internalEyePreviewTexture != null)
+			Destroy(_internalEyePreviewTexture);
 	}
 
 	private void OnSpawnGeneration(int generation)
@@ -149,6 +152,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 		if (PreviewLayer < 0 || PreviewLayer >= CurrentEye.Network.NeuronLayers.Count)
 			PreviewLayer = 0;
+
+		if (_internalEyePreviewTexture != null)
+			Destroy(_internalEyePreviewTexture);
 
 		_internalEyePreviewTexture = CreateEyePreviewTexture(CurrentCar, PreviewLayer);
 		EyePreview.texture = _internalEyePreviewTexture;

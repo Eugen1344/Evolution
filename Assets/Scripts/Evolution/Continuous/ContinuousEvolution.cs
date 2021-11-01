@@ -14,7 +14,7 @@ public class ContinuousEvolution : MonoBehaviour
 	public event Action<int> OnSpawnGeneration;
 
 	private List<Car> _current = new List<Car>();
-	private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
+	//private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
 
 	private void Start()
@@ -71,7 +71,7 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void OnCarFinishLife(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		//_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
 		_current.Remove(car);
 
 		car.Food.OnPickupFood -= OnCarPickupFood;
@@ -181,10 +181,10 @@ public class ContinuousEvolution : MonoBehaviour
 		return _current.OrderByDescending(car => car.Food.TotalAcquiredFood).FirstOrDefault();
 	}
 
-	private float GetAverageFitness()
+	/*private float GetAverageFitness()
 	{
 		return _lifeResults.Average(result => result.TotalAcquiredFood);
-	}
+	}*/
 
 	public void ForceFinishCurrentGeneration()
 	{
@@ -196,7 +196,7 @@ public class ContinuousEvolution : MonoBehaviour
 		CarSpawner.DespawnObjects();
 
 		_current.Clear();
-		_lifeResults.Clear();
+		//_lifeResults.Clear();
 	}
 
 	public void SerializeCurrentPopulation(StreamWriter writer)
