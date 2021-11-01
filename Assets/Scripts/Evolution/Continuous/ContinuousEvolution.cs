@@ -85,12 +85,17 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void EmergencyRespawn(Car car)
 	{
+		CarGenome genome = car.GetGenome();
 		Car clone = SpawnCar(_lastCarIndex.ToString());
-		clone.SetGenome(car.GetGenome());
+		clone.SetGenome(genome);
 
 		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
 		{
-			SpawnChild(clone);
+			genome = new CarGenome(genome);
+			genome.IntroduceRandomError();
+
+			clone = SpawnCar(_lastCarIndex.ToString());
+			clone.SetGenome(genome);
 		}
 
 		if (Settings.RespawnAllFood)

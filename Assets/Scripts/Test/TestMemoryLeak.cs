@@ -17,7 +17,7 @@ public class TestMemoryLeak : MonoBehaviour
 	{
 		while (true)
 		{
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				GameObject car = Instantiate(CarPrefab);
 				_cars.Add(car);

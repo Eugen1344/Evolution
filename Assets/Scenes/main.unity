@@ -2078,7 +2078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadiusMin: 10
+  SpawnRadiusMin: 0
   SpawnRadiusMax: 50
   ObjectsCountMax: 10
   AutoSpawn: 1
@@ -2591,7 +2591,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
@@ -3575,8 +3575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7051499b402d4142aebb42498cd8ff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadiusMin: 0
-  SpawnRadiusMax: 5
+  SpawnRadiusMin: 10
+  SpawnRadiusMax: 50
   ObjectsCountMax: 60
   AutoSpawn: 0
   SpawnIntervalSeconds: 0

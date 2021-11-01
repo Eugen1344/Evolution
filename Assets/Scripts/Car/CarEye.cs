@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
@@ -20,14 +21,22 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	private void Awake()
 	{
 		_internalTexture = new Texture2D(PixelCount.x, PixelCount.y, GraphicsFormat.R8G8B8A8_UNorm, TextureCreationFlags.None);
+		_internalTexture.hideFlags = HideFlags.HideAndDontSave;
 
 		RenderTexture = new RenderTexture(PixelCount.x, PixelCount.y, GraphicsFormat.R8G8B8A8_UNorm, GraphicsFormat.D32_SFloat_S8_UInt)
 		{
 			filterMode = FilterMode.Point
 		};
+		RenderTexture.hideFlags = HideFlags.HideAndDontSave;
 
 		Camera.forceIntoRenderTexture = true;
 		Camera.targetTexture = RenderTexture;
+	}
+
+	private void OnDestroy()
+	{
+		Destroy(_internalTexture);
+		Destroy(RenderTexture);
 	}
 
 	public IEnumerable<float> GetInput()
