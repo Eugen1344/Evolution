@@ -1,5 +1,6 @@
 ﻿using System;
 
+[Serializable]
 public struct CarLifeResult : IComparable<CarLifeResult>
 {
 	public CarGenome Genome;

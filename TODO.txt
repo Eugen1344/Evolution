@@ -4,6 +4,7 @@ console
 RGB eyesight
 carnivorous cars
 cluster computing
+spend food on movement
 
 [DONE]
 mark selected car

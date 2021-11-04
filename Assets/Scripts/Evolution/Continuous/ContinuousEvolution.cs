@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class ContinuousEvolution : MonoBehaviour
 	public event Action<int> OnSpawnGeneration;
 
 	private List<Car> _current = new List<Car>();
-	//private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
+	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
+	private bool _paused = false;
 
 	private void Start()
 	{
@@ -24,7 +26,12 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void Update()
 	{
-		Time.timeScale = Settings.TimeScale; //TODO bad solution
+		Time.timeScale = _paused ? 0 : Settings.TimeScale; //TODO bad solution
+
+		if (Input.GetKey(KeyCode.Space))
+		{
+			_paused = !_paused;
+		}
 	}
 
 	public void InitialSpawn()
@@ -66,12 +73,13 @@ public class ContinuousEvolution : MonoBehaviour
 			return;
 
 		car.Food.StoredFood -= Settings.ChildStoredFoodRequirement;
-		SpawnChild(car);
+		SpawnChild(car, true);
+		SpawnChild(car, false);
 	}
 
 	private void OnCarFinishLife(Car car)
 	{
-		//_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		AddLifeResult(car);
 		_current.Remove(car);
 
 		car.Food.OnPickupFood -= OnCarPickupFood;
@@ -79,22 +87,41 @@ public class ContinuousEvolution : MonoBehaviour
 
 		if (_current.Count == 0)
 		{
-			EmergencyRespawn(car);
+			EmergencyRespawn();
 		}
 	}
 
-	private void EmergencyRespawn(Car car)
+	private void AddLifeResult(Car car)
 	{
-		CarGenome genome = car.GetGenome();
-		Car clone = SpawnCar(_lastCarIndex.ToString());
-		clone.SetGenome(genome);
+		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		_lifeResults.Sort((first, second) => second.TotalAcquiredFood.CompareTo(first.TotalAcquiredFood));
+
+		if (_lifeResults.Count > Settings.StoredLifeResultCount)
+		{
+			int excessElements = _lifeResults.Count - Settings.StoredLifeResultCount;
+
+			_lifeResults = _lifeResults.SkipLast(excessElements).ToList();
+		}
+	}
+
+	private void EmergencyRespawn()
+	{
+		Debug.Log($"Emergency respawn {Settings.EmergencyRespawnCount} cars");
 
 		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
 		{
-			genome = new CarGenome(genome);
-			genome.IntroduceRandomError();
+			int randomBestIndex = Random.Range(0, _lifeResults.Count);
+			CarGenome randomBest = _lifeResults[randomBestIndex].Genome;
 
-			clone = SpawnCar(_lastCarIndex.ToString());
+			if (_lifeResults.Count > 1)
+				_lifeResults.RemoveAt(randomBestIndex);
+
+			CarGenome genome = new CarGenome(randomBest);
+			Car clone = SpawnCar(_lastCarIndex.ToString());
+
+			if (i % 2 == 0)
+				genome.IntroduceRandomError();
+
 			clone.SetGenome(genome);
 		}
 
@@ -102,11 +129,13 @@ public class ContinuousEvolution : MonoBehaviour
 			FoodSpawner.SpawnMaxObjects();
 	}
 
-	public Car SpawnChild(Car car)
+	public Car SpawnChild(Car car, bool introduceError)
 	{
 		CarGenome parentGenome = car.GetGenome();
 		CarGenome childGenome = new CarGenome(parentGenome);
-		childGenome.IntroduceRandomError();
+
+		if (introduceError)
+			childGenome.IntroduceRandomError();
 
 		Car child = SpawnCar($"{childGenome.Generation} - {_lastCarIndex.ToString()} ({car.Index})");
 		_lastCarIndex++;
@@ -209,9 +238,9 @@ public class ContinuousEvolution : MonoBehaviour
 
 	public void LoadPopulation(List<CarGenome> genomes)
 	{
-		ResetCurrentGeneration();
+		//ResetCurrentGeneration();
 
-		for (int i = 0; i < genomes.Count; i++)
+		for (int i = 0; i < 1; i++) //TODO: TEMP load only first car
 		{
 			genomes[i].LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
 			genomes[i].RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
@@ -220,8 +249,7 @@ public class ContinuousEvolution : MonoBehaviour
 			car.SetGenome(genomes[i]);
 		}
 
-		if (Settings.RespawnAllFood)
-			FoodSpawner.SpawnMaxObjects();
+		FoodSpawner.SpawnMaxObjects();
 	}
 
 	public List<CarGenome> DeserializePopulation(StreamReader reader)

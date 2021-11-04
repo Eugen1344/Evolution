@@ -1881,56 +1881,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711839571}
   m_CullTransparentMesh: 1
---- !u!1 &795824554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 795824555}
-  - component: {fileID: 795824556}
-  m_Layer: 6
-  m_Name: SmallFood
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &795824555
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795824554}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &795824556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795824554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnRadiusMin: 50
-  SpawnRadiusMax: 100
-  ObjectsCountMax: 20
-  AutoSpawn: 1
-  SpawnIntervalSeconds: 1
-  Prefab: {fileID: 3644957702750299681, guid: 3d02d350e50b6864fa2b75a4e69cca8c, type: 3}
 --- !u!1 &897941374
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,9 +1961,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    InitialSpeciesCount: 50
+    InitialSpeciesCount: 10
     EmergencyRespawnCount: 10
-    ChildStoredFoodRequirement: 20
+    ChildStoredFoodRequirement: 40
+    StoredLifeResultCount: 20
     NeuralNetworkSettings:
       NeuronsCount: 2b00000014000000140000000f0000000a000000080000000700000006000000
       MinRandomErrorCoefficient: 0.1
@@ -2029,10 +1980,11 @@ MonoBehaviour:
       FilterSize: {x: 2, y: 2}
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
-    RespawnAllFood: 1
+    RespawnAllFood: 0
     TimeScale: 1
   CarSpawner: {fileID: 1700352385}
   FoodSpawner: {fileID: 1000871551}
+  _lifeResults: []
 --- !u!4 &926747626
 Transform:
   m_ObjectHideFlags: 0
@@ -2049,6 +2001,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &961130619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961130621}
+  - component: {fileID: 961130620}
+  m_Layer: 6
+  m_Name: FarFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961130620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961130619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRadiusMin: 60
+  SpawnRadiusMax: 150
+  ObjectsCountMax: 60
+  AutoSpawn: 1
+  SpawnIntervalSeconds: 20
+  Prefab: {fileID: 3644957702750299681, guid: b833c2977d67e00418842000c7c3f17d, type: 3}
+--- !u!4 &961130621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961130619}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1000871550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,7 +2062,7 @@ GameObject:
   - component: {fileID: 1000871552}
   - component: {fileID: 1000871551}
   m_Layer: 6
-  m_Name: BigFood
+  m_Name: StartFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2078,11 +2080,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadiusMin: 0
-  SpawnRadiusMax: 50
-  ObjectsCountMax: 10
+  SpawnRadiusMin: 15
+  SpawnRadiusMax: 30
+  ObjectsCountMax: 50
   AutoSpawn: 1
-  SpawnIntervalSeconds: 10
+  SpawnIntervalSeconds: 100
   Prefab: {fileID: 3644957702750299681, guid: bc031379e3da5e043a658143254c6ddc, type: 3}
 --- !u!4 &1000871552
 Transform:
@@ -2097,7 +2099,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1036510087
 GameObject:
@@ -3575,8 +3577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7051499b402d4142aebb42498cd8ff5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadiusMin: 10
-  SpawnRadiusMax: 50
+  SpawnRadiusMin: 0
+  SpawnRadiusMax: 10
   ObjectsCountMax: 60
   AutoSpawn: 0
   SpawnIntervalSeconds: 0
@@ -4145,7 +4147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2003894232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4158,11 +4160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRadiusMin: 50
-  SpawnRadiusMax: 100
-  ObjectsCountMax: 20
+  SpawnRadiusMin: 0
+  SpawnRadiusMax: 150
+  ObjectsCountMax: 100
   AutoSpawn: 1
-  SpawnIntervalSeconds: 1
+  SpawnIntervalSeconds: 5
   Prefab: {fileID: 3644957702750299681, guid: 7c431181a9d2e2442b07000bda43cc23, type: 3}
 --- !u!4 &2003894233
 Transform:
