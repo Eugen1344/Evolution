@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 93b95a6955d349143b85c4009ebc9029
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BlinkerFL
+    100002: BlinkerFR
+    100004: BlinkerRL
+    100006: BlinkerRR
+    100008: Camera
+    100010: Exterior
+    100012: Interior
+    100014: Light
+    100016: LightFL
+    100018: LightFR
+    100020: LightRL
+    100022: LightRR
+    100024: SteeringWheel
+    100026: //RootNode
+    100028: WheelFL
+    100030: WheelFR
+    100032: WheelRL
+    100034: WheelRR
+    100036: Windows
+    100038: Collider
+    400000: BlinkerFL
+    400002: BlinkerFR
+    400004: BlinkerRL
+    400006: BlinkerRR
+    400008: Camera
+    400010: Exterior
+    400012: Interior
+    400014: Light
+    400016: LightFL
+    400018: LightFR
+    400020: LightRL
+    400022: LightRR
+    400024: SteeringWheel
+    400026: //RootNode
+    400028: WheelFL
+    400030: WheelFR
+    400032: WheelRL
+    400034: WheelRR
+    400036: Windows
+    400038: Collider
+    2000000: Camera
+    2100000: Exterior
+    2100002: Interior
+    2100004: No Name
+    2100006: Wheels
+    2100008: Glass
+    2300000: BlinkerFL
+    2300002: BlinkerFR
+    2300004: BlinkerRL
+    2300006: BlinkerRR
+    2300008: Exterior
+    2300010: Interior
+    2300012: LightFL
+    2300014: LightFR
+    2300016: LightRL
+    2300018: LightRR
+    2300020: SteeringWheel
+    2300022: WheelFL
+    2300024: WheelFR
+    2300026: WheelRL
+    2300028: WheelRR
+    2300030: Windows
+    2300032: Collider
+    3300000: BlinkerFL
+    3300002: BlinkerFR
+    3300004: BlinkerRL
+    3300006: BlinkerRR
+    3300008: Exterior
+    3300010: Interior
+    3300012: LightFL
+    3300014: LightFR
+    3300016: LightRL
+    3300018: LightRR
+    3300020: SteeringWheel
+    3300022: WheelFL
+    3300024: WheelFR
+    3300026: WheelRL
+    3300028: WheelRR
+    3300030: Windows
+    3300032: Collider
+    4300000: Exterior
+    4300002: Interior
+    4300004: WheelRL
+    4300006: WheelRR
+    4300008: WheelFR
+    4300010: WheelFL
+    4300012: Windows
+    4300014: SteeringWheel
+    4300016: LightFL
+    4300018: LightFR
+    4300020: LightRR
+    4300022: LightRL
+    4300024: BlinkerRL
+    4300026: BlinkerRR
+    4300028: BlinkerFR
+    4300030: BlinkerFL
+    4300032: Collider
+    10800000: Light
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Exterior
+    second: {fileID: 2100000, guid: 9e0cc85e77b55ca468f767577cb061a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: c6dabbf663a867a41afb50c9924e6491, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Interior
+    second: {fileID: 2100000, guid: 365e8a3facb2fd548beb7d7be1b4cf9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 512e71020b1d2ea44b99f17e24787851, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wheels
+    second: {fileID: 2100000, guid: c6b9c2a2f439a664ba2da031b9bdda38, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

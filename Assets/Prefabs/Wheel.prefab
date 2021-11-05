@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5441352544165476428
+--- !u!1 &1213775030525451109
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,91 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1038902852647112981}
-  - component: {fileID: 7482883675732894077}
-  - component: {fileID: 1865052803159679861}
-  - component: {fileID: 5949250998157065194}
-  - component: {fileID: 1469884667872914909}
+  - component: {fileID: 819964422646421545}
+  - component: {fileID: 2110675074638250355}
+  - component: {fileID: 3403972295350214170}
   m_Layer: 0
-  m_Name: Wheel
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1038902852647112981
+--- !u!4 &819964422646421545
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441352544165476428}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.268, y: 0, z: 0.469}
-  m_LocalScale: {x: 0.5, y: 0.039999995, z: 0.5}
+  m_GameObject: {fileID: 1213775030525451109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.04, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1038902852647112981}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &7482883675732894077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441352544165476428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Collider: {fileID: 1865052803159679861}
---- !u!146 &1865052803159679861
-WheelCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441352544165476428}
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 6.74
-  m_SuspensionSpring:
-    spring: 35000
-    damper: 9000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.3
-  m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 100
-  m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 2
-  m_Enabled: 1
---- !u!33 &5949250998157065194
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2110675074638250355
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441352544165476428}
+  m_GameObject: {fileID: 1213775030525451109}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1469884667872914909
+--- !u!23 &3403972295350214170
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5441352544165476428}
+  m_GameObject: {fileID: 1213775030525451109}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 1
@@ -128,3 +83,172 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5441352544165476428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1038902852647112981}
+  - component: {fileID: 7482883675732894077}
+  - component: {fileID: 5764267259102607040}
+  m_Layer: 0
+  m_Name: Wheel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1038902852647112981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441352544165476428}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.268, y: 0, z: 0.469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 819964422646421545}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &7482883675732894077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441352544165476428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collider: {fileID: 0}
+--- !u!114 &5764267259102607040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441352544165476428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc64011ec59d184a9dc2eabf8397a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAdvancedSettings: 1
+  spring:
+    bottomedOut: 0
+    compressionPercent: 0
+    force: 0
+    forceCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    length: 0
+    maxForce: 16000
+    maxLength: 0.35
+    overExtended: 0
+    prevLength: 0
+    targetPoint: {x: 0, y: 0, z: 0}
+    velocity: 0
+  damper:
+    bumpForce: 4000
+    bumpCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    reboundCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    force: 0
+    reboundForce: 4400
+  wheel:
+    angularVelocity: 0
+    brakeTorque: 0
+    camberAngle: 0
+    camberAtBottom: 0
+    camberAtTop: 0
+    forward: {x: -0, y: 0, z: 1}
+    inertia: 0
+    baseInertia: 0
+    inside: {x: 0, y: 0, z: 0}
+    load: 0
+    mass: 20
+    motorTorque: 0
+    nonRotatingPositionOffset: {x: 0, y: 0, z: 0}
+    radius: 0.35
+    right: {x: -0.00000011920929, y: 1.0000001, z: 0}
+    rimColliderGO: {fileID: 0}
+    rimOffset: 0
+    rotationAngle: 0
+    RPM: 0
+    steerAngle: 0
+    up: {x: -1.0000001, y: -0.00000011920929, z: 0}
+    visualPositionOffset: {x: 0, y: 0, z: 0}
+    visualRotationOffset: {x: 0, y: 0, z: 90}
+    width: 0.25
+    worldPosition: {x: -0.268, y: 0, z: 0.469}
+    smoothYPosition: 0
+    prevAngularVelocity: 0
+    worldRotation: {x: 0, y: 0, z: 0, w: 0}
+    nonRotatingVisual: {fileID: 0}
+    visual: {fileID: 1213775030525451109}
+  forwardFriction:
+    force: 0
+    forceCoefficient: 1.2
+    slip: 0
+    slipCoefficient: 0.8
+    speed: 0
+  sideFriction:
+    force: 0
+    forceCoefficient: 1.2
+    slip: 0
+    slipCoefficient: 0.8
+    speed: 0
+  activeFrictionPreset: {fileID: 11400000, guid: 99d32cdf55d3d6541a201d4e6306e35e,
+    type: 2}
+  applyForceToOthers: 0
+  autoSetupLayerMask: 1
+  debug: 0
+  dragTorque: 10
+  hasHit: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967279
+  parent: {fileID: 0}
+  parentNRigidbody: {fileID: 0}
+  parentRigidbody: {fileID: 0}
+  singleRay: 1
+  squat: 0.1
+  useRimCollider: 0
+  vehicleSide: 2
+  vehicleWheelCount: 0
+  visualOnlyUpdate: 0
+  powertrainCounterTorque: 0
+  slipCircleShape: 1.05
+  curveBasedLoadCoefficient: 0
+  loadFrictionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  depenetrationSpring: 1
+  depenetrationDamping: 1
+  lateralScanResolution: 3
+  longitudinalScanResolution: 8
+  suspensionForceMagnitude: 0

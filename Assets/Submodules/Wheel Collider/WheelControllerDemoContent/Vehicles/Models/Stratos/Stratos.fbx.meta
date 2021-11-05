@@ -1,0 +1,287 @@
+fileFormatVersion: 2
+guid: 212e221e8cfa08847a7251ca2b268169
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BlinkersFront
+    100002: Body
+    100004: Cube
+    100006: Empty
+    100008: Exhausts
+    100010: ExhaustShroud
+    100012: Fenders
+    100014: Floor
+    100016: Grille.001
+    100018: GrilleBottom
+    100020: GrilleShroud
+    100022: Hood
+    100024: LightLens
+    100026: Lights
+    100028: Mirrors
+    100030: Mudflaps
+    100032: RearWindow
+    100034: RearWindowShade
+    100036: //RootNode
+    100038: TailLights
+    100040: WheeFR
+    100042: WheelFL
+    100044: WheelRL
+    100046: WheelRR
+    100048: Windshield
+    100050: WindshieldMoulding
+    400000: BlinkersFront
+    400002: Body
+    400004: Cube
+    400006: Empty
+    400008: Exhausts
+    400010: ExhaustShroud
+    400012: Fenders
+    400014: Floor
+    400016: Grille.001
+    400018: GrilleBottom
+    400020: GrilleShroud
+    400022: Hood
+    400024: LightLens
+    400026: Lights
+    400028: Mirrors
+    400030: Mudflaps
+    400032: RearWindow
+    400034: RearWindowShade
+    400036: //RootNode
+    400038: TailLights
+    400040: WheeFR
+    400042: WheelFL
+    400044: WheelRL
+    400046: WheelRR
+    400048: Windshield
+    400050: WindshieldMoulding
+    2100000: chrome
+    2100002: indicator light
+    2100004: metall
+    2100006: black
+    2100008: bumper lights
+    2100010: headlights
+    2100012: paint
+    2100014: shiny plastic
+    2100016: back lights
+    2100018: glass
+    2100020: Material
+    2100022: gold
+    2300000: BlinkersFront
+    2300002: Body
+    2300004: Cube
+    2300006: Exhausts
+    2300008: ExhaustShroud
+    2300010: Fenders
+    2300012: Floor
+    2300014: Grille.001
+    2300016: GrilleBottom
+    2300018: GrilleShroud
+    2300020: Hood
+    2300022: LightLens
+    2300024: Lights
+    2300026: Mirrors
+    2300028: Mudflaps
+    2300030: RearWindow
+    2300032: RearWindowShade
+    2300034: TailLights
+    2300036: WheeFR
+    2300038: WheelFL
+    2300040: WheelRL
+    2300042: WheelRR
+    2300044: Windshield
+    2300046: WindshieldMoulding
+    3300000: BlinkersFront
+    3300002: Body
+    3300004: Cube
+    3300006: Exhausts
+    3300008: ExhaustShroud
+    3300010: Fenders
+    3300012: Floor
+    3300014: Grille.001
+    3300016: GrilleBottom
+    3300018: GrilleShroud
+    3300020: Hood
+    3300022: LightLens
+    3300024: Lights
+    3300026: Mirrors
+    3300028: Mudflaps
+    3300030: RearWindow
+    3300032: RearWindowShade
+    3300034: TailLights
+    3300036: WheeFR
+    3300038: WheelFL
+    3300040: WheelRL
+    3300042: WheelRR
+    3300044: Windshield
+    3300046: WindshieldMoulding
+    4300000: Cube
+    4300002: Exhausts
+    4300004: ExhaustShroud
+    4300006: Floor
+    4300008: Fenders
+    4300010: Mudflaps
+    4300012: Grille.001
+    4300014: GrilleBottom
+    4300016: GrilleShroud
+    4300018: BlinkersFront
+    4300020: LightLens
+    4300022: Lights
+    4300024: RearWindowShade
+    4300026: Mirrors
+    4300028: TailLights
+    4300030: RearWindow
+    4300032: Windshield
+    4300034: Hood
+    4300036: WindshieldMoulding
+    4300038: Body
+    4300040: WheeFR
+    4300042: WheelFL
+    4300044: WheelRL
+    4300046: WheelRR
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 90b1be934661dd8488552bbebdf25747, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: back lights
+    second: {fileID: 2100000, guid: 9bdf5a41cef22fa4db679c5515b433d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 54252d5380bce984e8131c6439492c58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bumper lights
+    second: {fileID: 2100000, guid: 0f6323734b987f043a656b78dbaf09ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: chrome
+    second: {fileID: 2100000, guid: 6076ede394b7ae84782370f9d22ec034, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: 8bcaf93d59c175a49aa83337a46b422e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gold
+    second: {fileID: 2100000, guid: 9b5ae07b0de3aba44b34f94bbe0e4b3b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headlights
+    second: {fileID: 2100000, guid: fce6f45978083084382cbf69016933e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: indicator light
+    second: {fileID: 2100000, guid: 7607400caa0dd3540ac1edec20a04866, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metall
+    second: {fileID: 2100000, guid: 46a140f71dfe39a4ebe38ec1e0281a74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: paint
+    second: {fileID: 2100000, guid: 84c631484c4bd234c91bacc3f1892c1b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shiny plastic
+    second: {fileID: 2100000, guid: 8bac4a74da0edcb48b1c8635793ed3a0, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 40
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
