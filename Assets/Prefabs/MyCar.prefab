@@ -137,8 +137,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1498113815733910494, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
+      propertyPath: MaxFood
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498113815733910494, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
       propertyPath: FoodDecayPerSecond
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524924685219034507, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: wheel.worldPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554931590396802462, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2087356519142994087, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: wheel.worldPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930065447146884051, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464505584772445506, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732569543269231697, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4169506937681629144, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5067435517137559977, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
@@ -210,10 +250,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: MyCar
       objectReference: {fileID: 0}
+    - target: {fileID: 7144651779301966149, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: wheel.worldPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7388880250747310717, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8187683351346632439, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
@@ -309,6 +354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Network.Settings.NeuronsCount.Array.data[6].y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146142821898956499, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: wheel.worldPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}

@@ -1,10 +1,10 @@
+using NWH.WheelController3D;
 using UnityEngine;
 
 public class Wheel : MonoBehaviour
 {
-	public WheelCollider Collider;
+	public WheelController Controller;
 
-	private float _currentTorque;
 	private Quaternion _originalRotation;
 
 	private void Awake()
@@ -14,30 +14,30 @@ public class Wheel : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		UpdateWheelModel();
+		//UpdateWheelModel();
 	}
 
 	private void UpdateWheelModel()
 	{
 		Vector3 position;
 		Quaternion rotation;
-		Collider.GetWorldPose(out position, out rotation);
+		Controller.GetWorldPose(out position, out rotation);
 
 		transform.rotation = rotation * _originalRotation;
 	}
 
 	public void SetTorque(float torque)
 	{
-		Collider.motorTorque = torque;
+		Controller.motorTorque = torque;
 	}
 
 	public void SetBrake(float brakeTorque)
 	{
-		Collider.brakeTorque = brakeTorque;
+		Controller.brakeTorque = brakeTorque;
 	}
 
 	public void SetSteeringAngle(float steeringAngle)
 	{
-		Collider.steerAngle = steeringAngle;
+		Controller.steerAngle = steeringAngle;
 	}
 }
