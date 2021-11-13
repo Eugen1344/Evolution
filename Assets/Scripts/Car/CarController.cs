@@ -87,7 +87,7 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 
 	public float GetTorque(float speed)
 	{
-
+		return TorqueBySpeedCurve.Evaluate(speed * MaxSpeed) * MaxTorque;
 	}
 
 	public float GetTotalNormalizedSpeed()
