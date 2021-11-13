@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralModule
 {
+	public AnimationCurve TorqueBySpeedCurve;
+
 	public float MaxTorque;
+	public float MaxSpeed;
 	public float MaxSteeringAngle;
-	public float MaxCarSpeed;
 
 	public Rigidbody Rigidbody;
 	public Wheel FrontLeft;
@@ -83,9 +85,14 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		}
 	}
 
+	public float GetTorque(float speed)
+	{
+
+	}
+
 	public float GetTotalNormalizedSpeed()
 	{
-		return Mathf.Clamp(GetTotalSpeed() / MaxCarSpeed, -1.0f, 1.0f);
+		return GetTotalSpeed() / MaxSpeed;
 	}
 
 	public float GetTotalSpeed()
