@@ -579,28 +579,28 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
+      value: 1.000061
+      inSlope: -0.12270865
+      outSlope: -0.12270865
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.3802484
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0.007683575
+      inSlope: -2.9731696
+      outSlope: -2.9731696
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.039953113
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   MaxTorque: 200
+  MaxSpeed: 0
   MaxSteeringAngle: 45
-  MaxCarSpeed: 6
   Rigidbody: {fileID: 998564928589763612}
   FrontLeft: {fileID: 7120031490449023744}
   FrontRight: {fileID: 2098202073735238370}

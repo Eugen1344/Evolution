@@ -4,7 +4,8 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable<T>
+public class Spawner<T> : MonoBehaviour
+	where T : MonoBehaviour, ISpawnable<T>
 {
 	[ValidateInput("@SpawnRadiusMin >= 0")]
 	public float SpawnRadiusMin;
