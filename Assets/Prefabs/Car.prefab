@@ -598,8 +598,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxTorque: 200
-  MaxSpeed: 0
+  MaxTorque: 400
+  MaxSpeed: 10
   MaxSteeringAngle: 45
   Rigidbody: {fileID: 998564928589763612}
   FrontLeft: {fileID: 7120031490449023744}

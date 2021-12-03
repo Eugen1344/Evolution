@@ -126,7 +126,7 @@ MonoBehaviour:
   applyForceToOthers: 0
   autoSetupLayerMask: 1
   debug: 0
-  dragTorque: 10
+  dragTorque: 100
   hasHit: 1
   layerMask:
     serializedVersion: 2

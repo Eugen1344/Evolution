@@ -18,21 +18,22 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 
 	public void SetSpeed(WheelType wheel, float normalizedSpeed)
 	{
-		float speed = MaxTorque * normalizedSpeed;
+		float maxTorque = GetMaxTorque(GetTotalNormalizedSpeed());
+		float torque = normalizedSpeed * maxTorque;
 
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				FrontLeft.SetTorque(speed);
+				FrontLeft.SetTorque(torque);
 				break;
 			case WheelType.FrontRight:
-				FrontRight.SetTorque(speed);
+				FrontRight.SetTorque(torque);
 				break;
 			case WheelType.RearLeft:
-				RearLeft.SetTorque(speed);
+				RearLeft.SetTorque(torque);
 				break;
 			case WheelType.RearRight:
-				RearRight.SetTorque(speed);
+				RearRight.SetTorque(torque);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
@@ -85,9 +86,9 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		}
 	}
 
-	public float GetTorque(float speed)
+	public float GetMaxTorque(float normalizedSpeed)
 	{
-		return TorqueBySpeedCurve.Evaluate(speed * MaxSpeed) * MaxTorque;
+		return TorqueBySpeedCurve.Evaluate(normalizedSpeed) * MaxTorque;
 	}
 
 	public float GetTotalNormalizedSpeed()

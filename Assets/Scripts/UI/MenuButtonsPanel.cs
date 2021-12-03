@@ -11,13 +11,13 @@ public class MenuButtonsPanel : UiPanel<MenuButtonsPanel>
 			MenuPanel.Instance.Hide();
 	}
 
-    public void ClickCommandBarButton()
-    {
+	public void ClickCommandBarButton()
+	{
 		CommandBar.Instance.Toggle();
-    }
+	}
 
-    public void ClickConsoleButton()
-    {
+	public void ClickConsoleButton()
+	{
 		QuantumConsole.Instance.Toggle();
-    }
+	}
 }

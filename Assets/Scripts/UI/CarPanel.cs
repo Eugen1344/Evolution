@@ -25,8 +25,8 @@ public class CarPanel : UiPanel<CarPanel>
 
 		base.Awake();
 	}
-
-	private void OnDestroy()
+	
+	protected override void OnDestroy()
 	{
 		Car.OnClick -= SelectCar;
 		Evolution.OnSpawnGeneration -= OnSpawnGeneration;
