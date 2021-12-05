@@ -28,7 +28,7 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		Time.timeScale = _paused ? 0 : Settings.TimeScale; //TODO bad solution
 
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKeyUp(KeyCode.Space))
 		{
 			_paused = !_paused;
 		}

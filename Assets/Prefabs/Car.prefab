@@ -541,6 +541,7 @@ MonoBehaviour:
   RightEye: {fileID: 2658863109528430811}
   Movement: {fileID: 7249546690472652996}
   Food: {fileID: 1498113815733910494}
+  Body: {fileID: 8822060304080961245}
   SelectionIndicator: {fileID: 5130227101958259046}
   Generation: 0
   Index: 0
@@ -688,6 +689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6414116175939223968}
+  - component: {fileID: 8822060304080961245}
   - component: {fileID: 4832061278063076844}
   - component: {fileID: 5637801768121879152}
   - component: {fileID: 4806147192114766103}
@@ -713,6 +715,19 @@ Transform:
   m_Father: {fileID: 6309735682228561876}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8822060304080961245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192220041905955831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00ff1a1120444eab410a72da7091a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderer: {fileID: 5637801768121879152}
 --- !u!33 &4832061278063076844
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -774,7 +789,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 4, z: 1.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &367014663586562685
 PrefabInstance:

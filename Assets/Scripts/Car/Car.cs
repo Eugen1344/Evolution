@@ -8,6 +8,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	public CarEye RightEye;
 	public CarController Movement;
 	public CarFood Food;
+	public CarBody Body;
 	public GameObject SelectionIndicator;
 
 	public int Generation = 0;
@@ -42,6 +43,8 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 		LetEye.Network = genome.LeftEyeNetwork;
 		RightEye.Network = genome.RightEyeNetwork;
 		Generation = genome.Generation + 1;
+
+		Body.SetColor(genome.GetColor());
 	}
 
 	public void Select()
