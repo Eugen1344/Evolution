@@ -2,10 +2,12 @@
 
 public class CarBody : MonoBehaviour
 {
-	public MeshRenderer Renderer;
+	public Color Color { get; private set; }
+	[SerializeField] private MeshRenderer _renderer;
 
 	public void SetColor(Color color)
 	{
-		Renderer.material.color = color;
+		Color = color;
+		_renderer.material.color = color;
 	}
 }

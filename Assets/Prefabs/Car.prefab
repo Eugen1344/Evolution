@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00ff1a1120444eab410a72da7091a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 5637801768121879152}
+  _renderer: {fileID: 5637801768121879152}
 --- !u!33 &4832061278063076844
 MeshFilter:
   m_ObjectHideFlags: 0

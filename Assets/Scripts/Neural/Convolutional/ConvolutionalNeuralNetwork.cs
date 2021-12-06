@@ -97,7 +97,7 @@ public class ConvolutionalNeuralNetwork
 
 		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
 
-		bool isErrorNegative = UnityEngine.Random.value < 0.5f;
+		bool isErrorNegative = UnityEngine.Random.value <= 0.5f;
 		if (isErrorNegative)
 			randomError *= -1;
 

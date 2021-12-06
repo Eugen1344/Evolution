@@ -1966,7 +1966,7 @@ MonoBehaviour:
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
     NeuralNetworkSettings:
-      NeuronsCount: 2900000014000000140000000f0000000a000000080000000700000006000000
+      NeuronsCount: 2b00000014000000140000000f0000000a000000080000000700000006000000
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:

@@ -1,11 +1,14 @@
 ﻿using System;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 [JsonObject(MemberSerialization.OptIn)]
 public class CarGenome
 {
+	public float ColorChangeDelta = 0.05f;
+
 	[JsonProperty("brain_network")]
 	public NeuralNetwork BrainNetwork;
 	//[JsonProperty("eye_network")]
@@ -13,6 +16,8 @@ public class CarGenome
 	public ConvolutionalNeuralNetwork RightEyeNetwork;
 	[JsonProperty("generation")]
 	public int Generation;
+	[JsonProperty("color")]
+	public Color Color;
 
 	public CarGenome()
 	{
@@ -32,6 +37,7 @@ public class CarGenome
 		LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
 		RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
 		Generation = 0;
+		Color = RandomColor();
 	}
 
 	public CarGenome(CarGenome genome)
@@ -40,64 +46,40 @@ public class CarGenome
 		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.LeftEyeNetwork);
 		RightEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
 		Generation = genome.Generation;
+		Color = genome.Color;
 	}
 
-	public Color GetColor()
+	public float IntroduceRandomError()
 	{
-		float firstWeightsSum = 0;
-		float secondWeightsSum = 0;
-		float thirdWeightsSum = 0;
+		Color = NextColor(Color);
+		return BrainNetwork.IntroduceRandomError();
+	}
 
-		int firstWeightsCount = 0;
-		int secondWeightsCount = 0;
-		int thirdWeightsCount = 0;
+	private Color NextColor(Color prevColor)
+	{
+		int colorChannel = Random.Range(0, 3);
+		Color nextColor = prevColor;
+		nextColor.a = 1;
+		float colorDelta = Random.value <= 0.5 ? ColorChangeDelta : -ColorChangeDelta;
 
-		int i = 0;
-		foreach (Layer layer in BrainNetwork.NeuronLayers)
+		switch (colorChannel)
 		{
-			foreach (Neuron neuron in layer.Neurons)
-			{
-				if(neuron.Weights == null)
-					continue;
-
-				foreach (float weight in neuron.Weights)
-				{
-					if (i % 3 == 0)
-					{
-						firstWeightsSum += weight;
-						firstWeightsCount++;
-					}
-					else if (i % 3 == 1)
-					{
-						secondWeightsSum += weight;
-						secondWeightsCount++;
-					}
-					else
-					{
-						thirdWeightsSum += weight;
-						thirdWeightsCount++;
-					}
-
-					i++;
-				}
-			}
+			case 0:
+				nextColor.r = Mathf.Clamp(nextColor.r + colorDelta, 0, 1);
+				break;
+			case 1:
+				nextColor.g = Mathf.Clamp(nextColor.g + colorDelta, 0, 1);;
+				break;
+			case 2:
+				nextColor.b = Mathf.Clamp(nextColor.b + colorDelta, 0, 1);;
+				break;
 		}
 
-		float averageFirstWeight = firstWeightsSum / firstWeightsCount;
-		float averageSecondWeight = secondWeightsSum / secondWeightsCount;
-		float averageThirdWeight = thirdWeightsSum / thirdWeightsCount;
-
-		return new Color(WeightToColorComponentLinear(averageFirstWeight, Neuron.MaxWeight), WeightToColorComponentLinear(averageSecondWeight, Neuron.MaxWeight), WeightToColorComponentLinear(averageThirdWeight, Neuron.MaxWeight));
+		return nextColor;
 	}
 
-	private float WeightToColorComponentLinear(float weight, float maxWeight)
+	private Color RandomColor()
 	{
-		return weight / (2 * maxWeight) + 0.5f;
-	}
-
-	public float IntroduceRandomError() //TODO maybe should not introduce both error simultaneously
-	{
-		//EyeNetwork.IntroduceRandomError();
-		return BrainNetwork.IntroduceRandomError();
+		return new Color(Random.value, Random.value, Random.value, 1);
 	}
 }

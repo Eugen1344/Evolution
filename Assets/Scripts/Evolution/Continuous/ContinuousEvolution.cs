@@ -232,7 +232,8 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		List<CarGenome> genomes = _current.Select(car => car.GetGenome()).ToList();
 
-		JsonSerializer serializer = new JsonSerializer { Formatting = Formatting.Indented };
+		JsonSerializer serializer = JsonSerializer.CreateDefault();
+		serializer.Formatting = Formatting.Indented;
 		serializer.Serialize(writer, genomes);
 	}
 

@@ -34,7 +34,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 
 	public CarGenome GetGenome()
 	{
-		return new CarGenome(Brain.Network, LetEye.Network, RightEye.Network) { Generation = Generation };
+		return new CarGenome(Brain.Network, LetEye.Network, RightEye.Network) { Generation = Generation, Color = Body.Color };
 	}
 
 	public void SetGenome(CarGenome genome)
@@ -44,7 +44,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 		RightEye.Network = genome.RightEyeNetwork;
 		Generation = genome.Generation + 1;
 
-		Body.SetColor(genome.GetColor());
+		Body.SetColor(genome.Color);
 	}
 
 	public void Select()
