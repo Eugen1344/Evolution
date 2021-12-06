@@ -225,7 +225,7 @@ public class ContinuousEvolution : MonoBehaviour
 		CarSpawner.DespawnObjects();
 
 		_current.Clear();
-		//_lifeResults.Clear();
+		_lifeResults.Clear();
 	}
 
 	public void SerializeCurrentPopulation(StreamWriter writer)
