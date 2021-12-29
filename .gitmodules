@@ -3,7 +3,7 @@
 	url = https://git.universinet.org/bristar/odin_inspector.git
 [submodule "Assets/Submodules/editor_extensions"]
 	path = Assets/Submodules/editor_extensions
-	url = https://git.universinet.org/bristar/editor_extensions.git
+url=https://github.com/Eugen1344/UnityEditorExtensions.git
 [submodule "Assets/Submodules/quantum_console"]
 	path = Assets/Submodules/quantum_console
 	url = https://git.universinet.org/bristar/quantum_console.git
