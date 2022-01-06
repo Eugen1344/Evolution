@@ -11,6 +11,7 @@ UserSettings/
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
+.idea
 .vs
 _ReSharper*/
 ExportedObj/
