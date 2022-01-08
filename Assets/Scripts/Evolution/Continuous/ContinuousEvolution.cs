@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
@@ -95,7 +93,7 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void AddLifeResult(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult { Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index });
+		_lifeResults.Add(new CarLifeResult {Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index});
 		_lifeResults.Sort((first, second) => second.TotalAcquiredFood.CompareTo(first.TotalAcquiredFood));
 
 		if (_lifeResults.Count > Settings.StoredLifeResultCount)

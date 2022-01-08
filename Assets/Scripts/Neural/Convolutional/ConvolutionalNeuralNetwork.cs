@@ -77,7 +77,7 @@ public class ConvolutionalNeuralNetwork
 		for (int i = 0; i < settings.NeuronsCount.Length; i++)
 		{
 			Vector2Int count = settings.NeuronsCount[i];
-			ConvolutionalLayer layer = i == 0 ? ConvolutionalLayer.First(count.x, count.y, settings) : new ConvolutionalLayer(count.x, count.y, settings);
+			ConvolutionalLayer layer = i == 0 ? ConvolutionalLayer.First(settings, count) : new ConvolutionalLayer(settings, count);
 
 			NeuronLayers.Add(layer);
 		}
@@ -91,19 +91,7 @@ public class ConvolutionalNeuralNetwork
 		int randomLayerIndex = UnityEngine.Random.Range(1, NeuronLayers.Count);
 		ConvolutionalLayer randomLayer = NeuronLayers[randomLayerIndex];
 
-		int randomNeuronIndexX = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeX);
-		int randomNeuronIndexY = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeY);
-		ConvolutionalNeuron randomNeuron = randomLayer.Mask[randomNeuronIndexX, randomNeuronIndexY];
-
-		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
-
-		bool isErrorNegative = UnityEngine.Random.value <= 0.5f;
-		if (isErrorNegative)
-			randomError *= -1;
-
-		randomNeuron.IntroduceError(randomError);
-
-		return randomError;
+		return randomLayer.IntroduceRandomError();
 	}
 
 	private void SetInitialWeights()
@@ -129,6 +117,6 @@ public class ConvolutionalNeuralNetwork
 
 		ConvolutionalLayer lastLayer = NeuronLayers[^1];
 
-		return lastLayer.NeuronsSizeX * lastLayer.NeuronsSizeY;
+		return lastLayer.Size.x * lastLayer.Size.y;
 	}
 }

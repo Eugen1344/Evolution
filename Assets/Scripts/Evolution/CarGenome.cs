@@ -9,19 +9,14 @@ public class CarGenome
 {
 	public float ColorChangeDelta = 0.05f;
 
-	[JsonProperty("brain_network")]
-	public NeuralNetwork BrainNetwork;
-	[JsonProperty("eye_network")]
-	public ConvolutionalNeuralNetwork LeftEyeNetwork;
+	[JsonProperty("brain_network")] public NeuralNetwork BrainNetwork;
+	[JsonProperty("eye_network")] public ConvolutionalNeuralNetwork LeftEyeNetwork;
 	public ConvolutionalNeuralNetwork RightEyeNetwork;
-	[JsonProperty("generation")]
-	public int Generation;
-	[JsonProperty("color")]
-	public Color Color;
+	[JsonProperty("generation")] public int Generation;
+	[JsonProperty("color")] public Color Color;
 
 	public CarGenome()
 	{
-
 	}
 
 	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetwork leftEye, ConvolutionalNeuralNetwork rightEye)
@@ -52,7 +47,9 @@ public class CarGenome
 	public float IntroduceRandomError()
 	{
 		Color = NextColor(Color);
+		
 		float error = BrainNetwork.IntroduceRandomError();
+		
 		LeftEyeNetwork.IntroduceRandomError();
 		RightEyeNetwork = new ConvolutionalNeuralNetwork(LeftEyeNetwork); //TODO temp, do RightEyeNetwork.IntroduceRandomError(error)
 
@@ -72,10 +69,12 @@ public class CarGenome
 				nextColor.r = Mathf.Clamp(nextColor.r + colorDelta, 0, 1);
 				break;
 			case 1:
-				nextColor.g = Mathf.Clamp(nextColor.g + colorDelta, 0, 1);;
+				nextColor.g = Mathf.Clamp(nextColor.g + colorDelta, 0, 1);
+				;
 				break;
 			case 2:
-				nextColor.b = Mathf.Clamp(nextColor.b + colorDelta, 0, 1);;
+				nextColor.b = Mathf.Clamp(nextColor.b + colorDelta, 0, 1);
+				;
 				break;
 		}
 

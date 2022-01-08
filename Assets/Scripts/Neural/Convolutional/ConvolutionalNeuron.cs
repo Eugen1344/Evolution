@@ -9,8 +9,7 @@ public class ConvolutionalNeuron
 {
 	public const float MaxWeight = 1.0f;
 
-	[JsonProperty("weights")]
-	public float[,] Weights;
+	[JsonProperty("weights")] public float[,] Weights;
 
 	public int WeightsLengthX => Weights.GetLength(0);
 	public int WeightsLengthY => Weights.GetLength(1);
@@ -38,12 +37,12 @@ public class ConvolutionalNeuron
 		if (neuron.Weights == null)
 			Weights = null;
 		else
-			Weights = (float[,])neuron.Weights.Clone();
+			Weights = (float[,]) neuron.Weights.Clone();
 	}
 
 	public float Calculate(float[,] input, int maskPositionX, int maskPositionY)
 	{
-		float sum = 0;
+		float[,] result = new float[WeightsLengthX, WeightsLengthY];
 
 		for (int i = 0; i < WeightsLengthX; i++)
 		{
@@ -55,22 +54,53 @@ public class ConvolutionalNeuron
 				if (inputX >= input.GetLength(0) || inputY >= input.GetLength(1))
 					continue;
 
-				sum += input[inputX, inputY] * Weights[i, j];
+				result[i, j] = input[inputX, inputY] * Weights[i, j];
 			}
 		}
 
-		return Activation(sum);
+		float pooling = AveragePooling(result);
+		float output = Activation(pooling);
+		return output;
 	}
+
+	private float AveragePooling(float[,] output)
+	{
+		float sum = 0;
+		int sizeX = output.GetLength(0);
+		int sizeY = output.GetLength(1);
+
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				sum += output[i, j];
+			}
+		}
+
+		float average = sum / (sizeX * sizeY);
+		return average;
+	}
+
+	/*private float MaxPooling(float[,] output)
+	{
+		float max = 0;
+		int sizeX = output.GetLength(0);
+		int sizeY = output.GetLength(1);
+
+		for (int i = 0; i < sizeX; i++)
+		{
+			for (int j = 0; j < sizeY; j++)
+			{
+				if(output)
+			}
+		}
+
+		return sum / (sizeX * sizeY);
+	}*/
 
 	private float Activation(float value)
 	{
-		if (value <= 0)
-			return 0;
-
-		float exp = Mathf.Exp(value);
-		float inverseExp = Mathf.Exp(-value);
-
-		return (exp - inverseExp) / (exp + inverseExp);
+		return Mathf.Max(0, value);
 	}
 
 	public void SetInitialWeights()
@@ -78,13 +108,11 @@ public class ConvolutionalNeuron
 		if (Weights == null)
 			return;
 
-		float averageWeight = 1.0f / (WeightsLengthX * WeightsLengthY);
-
 		for (int i = 0; i < WeightsLengthX; i++)
 		{
 			for (int j = 0; j < WeightsLengthY; j++)
 			{
-				Weights[i, j] = averageWeight;
+				Weights[i, j] = 1;
 			}
 		}
 	}

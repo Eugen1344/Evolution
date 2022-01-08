@@ -167,7 +167,7 @@ public class CarPanel : UiPanel<CarPanel>
 	{
 		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[depth];
 
-		return CreateEyePreviewTexture(currentLayer.NeuronsSizeX, currentLayer.NeuronsSizeY);
+		return CreateEyePreviewTexture(currentLayer.Size.x, currentLayer.Size.y);
 	}
 
 	private Texture2D CreateEyePreviewTexture(int width, int height)

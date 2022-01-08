@@ -1,14 +1,13 @@
 ﻿using System;
 using Newtonsoft.Json;
+using UnityEngine;
 
 [Serializable]
 [JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalLayer
 {
-	[JsonProperty("neurons")] public ConvolutionalNeuron[,] Mask;
-
-	public int NeuronsSizeX => Mask.GetLength(0);
-	public int NeuronsSizeY => Mask.GetLength(1);
+	[JsonProperty("neurons")] public ConvolutionalNeuron Mask;
+	public Vector2Int Size;
 
 	public float[,] PrevOutput;
 
@@ -18,66 +17,44 @@ public class ConvolutionalLayer
 	{
 	}
 
-	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY, ConvolutionalNeuralNetworkSettings settings)
+	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int size)
 	{
-		Mask = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
 		_settings = settings;
-
-		for (int i = 0; i < neuronsCountX; i++)
-		{
-			for (int j = 0; j < neuronsCountY; j++)
-			{
-				Mask[i, j] = new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y);
-			}
-		}
+		Size = size;
+		Mask = new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y);
 	}
 
-	public static ConvolutionalLayer First(int neuronsCountX, int neuronsCountY, ConvolutionalNeuralNetworkSettings settings) //first layer
+	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int size) //first layer
 	{
 		ConvolutionalLayer layer = new ConvolutionalLayer();
 		layer._settings = settings;
-		layer.Mask = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
-
-		for (int i = 0; i < neuronsCountX; i++)
-		{
-			for (int j = 0; j < neuronsCountY; j++)
-			{
-				layer.Mask[i, j] = new ConvolutionalNeuron();
-			}
-		}
+		layer.Size = size;
+		layer.Mask = new ConvolutionalNeuron();
 
 		return layer;
 	}
 
 	public ConvolutionalLayer(ConvolutionalLayer layer)
 	{
-		Mask = new ConvolutionalNeuron[layer.NeuronsSizeX, layer.NeuronsSizeY];
+		Mask = new ConvolutionalNeuron(layer.Mask);
+		Size = layer.Size;
 		_settings = layer._settings;
-
-		for (int i = 0; i < NeuronsSizeX; i++)
-		{
-			for (int j = 0; j < NeuronsSizeY; j++)
-			{
-				Mask[i, j] = new ConvolutionalNeuron(layer.Mask[i, j]);
-			}
-		}
 	}
 
 	public float[,] Calculate(float[,] input)
 	{
-		float[,] output = new float[NeuronsSizeX, NeuronsSizeY];
+		float[,] output = new float[Size.x, Size.y];
 
-		for (int i = 0; i < NeuronsSizeX; i++)
+		for (int i = 0; i < Size.x; i++)
 		{
-			for (int j = 0; j < NeuronsSizeY; j++)
+			for (int j = 0; j < Size.y; j++)
 			{
-				ConvolutionalNeuron mask = Mask[i, j];
 				float result;
 
-				if (mask.Weights == null)
+				if (Mask.Weights == null)
 					result = input[i, j];
 				else
-					result = mask.Calculate(input, i * (_settings.FilterSize.x - _settings.Overlap), j * (_settings.FilterSize.y - _settings.Overlap));
+					result = Mask.Calculate(input, i * (_settings.FilterSize.x - _settings.Overlap), j * (_settings.FilterSize.y - _settings.Overlap));
 
 				output[i, j] = result;
 			}
@@ -88,25 +65,26 @@ public class ConvolutionalLayer
 		return output;
 	}
 
+	public float IntroduceRandomError()
+	{
+		float randomError = UnityEngine.Random.Range(_settings.MinRandomErrorCoefficient, _settings.MaxRandomErrorCoefficient);
+
+		bool isErrorNegative = UnityEngine.Random.value <= 0.5f;
+		if (isErrorNegative)
+			randomError *= -1;
+
+		Mask.IntroduceError(randomError);
+
+		return randomError;
+	}
+
 	public void SetInitialWeights()
 	{
-		for (int i = 0; i < NeuronsSizeX; i++)
-		{
-			for (int j = 0; j < NeuronsSizeY; j++)
-			{
-				Mask[i, j].SetInitialWeights();
-			}
-		}
+		Mask.SetInitialWeights();
 	}
 
 	public void RandomizeAllWeights()
 	{
-		for (int i = 0; i < NeuronsSizeX; i++)
-		{
-			for (int j = 0; j < NeuronsSizeY; j++)
-			{
-				Mask[i, j].SetRandomWeights();
-			}
-		}
+		Mask.SetRandomWeights();
 	}
 }
