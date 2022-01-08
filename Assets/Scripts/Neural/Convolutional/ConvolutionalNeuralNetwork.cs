@@ -77,7 +77,7 @@ public class ConvolutionalNeuralNetwork
 		for (int i = 0; i < settings.NeuronsCount.Length; i++)
 		{
 			Vector2Int count = settings.NeuronsCount[i];
-			ConvolutionalLayer layer = i == 0 ? new ConvolutionalLayer(count.x, count.y) : new ConvolutionalLayer(count.x, count.y, settings.FilterSize.x, settings.FilterSize.y);
+			ConvolutionalLayer layer = i == 0 ? ConvolutionalLayer.First(count.x, count.y, settings) : new ConvolutionalLayer(count.x, count.y, settings);
 
 			NeuronLayers.Add(layer);
 		}
@@ -93,7 +93,7 @@ public class ConvolutionalNeuralNetwork
 
 		int randomNeuronIndexX = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeX);
 		int randomNeuronIndexY = UnityEngine.Random.Range(0, randomLayer.NeuronsSizeY);
-		ConvolutionalNeuron randomNeuron = randomLayer.Neurons[randomNeuronIndexX, randomNeuronIndexY];
+		ConvolutionalNeuron randomNeuron = randomLayer.Mask[randomNeuronIndexX, randomNeuronIndexY];
 
 		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
 

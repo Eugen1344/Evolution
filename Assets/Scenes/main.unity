@@ -978,6 +978,7 @@ MonoBehaviour:
       - {x: 10, y: 7}
       - {x: 5, y: 4}
       FilterSize: {x: 2, y: 2}
+      Overlap: 0
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     RespawnFoodEachGeneration: 0
@@ -1961,7 +1962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings:
-    InitialSpeciesCount: 10
+    InitialSpeciesCount: 50
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
@@ -1977,7 +1978,8 @@ MonoBehaviour:
       - {x: 20, y: 13}
       - {x: 10, y: 7}
       - {x: 5, y: 4}
-      FilterSize: {x: 2, y: 2}
+      FilterSize: {x: 3, y: 3}
+      Overlap: 1
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     RespawnAllFood: 0
@@ -2593,7 +2595,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}

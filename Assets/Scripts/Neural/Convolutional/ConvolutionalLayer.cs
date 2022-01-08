@@ -5,60 +5,60 @@ using Newtonsoft.Json;
 [JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalLayer
 {
-	[JsonProperty("neurons")]
-	public ConvolutionalNeuron[,] Neurons;
+	[JsonProperty("neurons")] public ConvolutionalNeuron[,] Mask;
 
-	public int NeuronsSizeX => Neurons.GetLength(0);
-	public int NeuronsSizeY => Neurons.GetLength(1);
-
-	public readonly int FilterSizeX;
-	public readonly int FilterSizeY;
+	public int NeuronsSizeX => Mask.GetLength(0);
+	public int NeuronsSizeY => Mask.GetLength(1);
 
 	public float[,] PrevOutput;
 
-	public ConvolutionalLayer()
+	private ConvolutionalNeuralNetworkSettings _settings;
+
+	private ConvolutionalLayer()
 	{
 	}
 
-	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY) //first layer
+	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY, ConvolutionalNeuralNetworkSettings settings)
 	{
-		Neurons = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
+		Mask = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
+		_settings = settings;
 
 		for (int i = 0; i < neuronsCountX; i++)
 		{
 			for (int j = 0; j < neuronsCountY; j++)
 			{
-				Neurons[i, j] = new ConvolutionalNeuron();
+				Mask[i, j] = new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y);
 			}
 		}
 	}
 
-	public ConvolutionalLayer(int neuronsCountX, int neuronsCountY, int filterSizeX, int filterSizeY)
+	public static ConvolutionalLayer First(int neuronsCountX, int neuronsCountY, ConvolutionalNeuralNetworkSettings settings) //first layer
 	{
-		Neurons = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
-		FilterSizeX = filterSizeX;
-		FilterSizeY = filterSizeY;
+		ConvolutionalLayer layer = new ConvolutionalLayer();
+		layer._settings = settings;
+		layer.Mask = new ConvolutionalNeuron[neuronsCountX, neuronsCountY];
 
 		for (int i = 0; i < neuronsCountX; i++)
 		{
 			for (int j = 0; j < neuronsCountY; j++)
 			{
-				Neurons[i, j] = new ConvolutionalNeuron(filterSizeX, filterSizeY);
+				layer.Mask[i, j] = new ConvolutionalNeuron();
 			}
 		}
+
+		return layer;
 	}
 
 	public ConvolutionalLayer(ConvolutionalLayer layer)
 	{
-		Neurons = new ConvolutionalNeuron[layer.NeuronsSizeX, layer.NeuronsSizeY];
-		FilterSizeX = layer.FilterSizeX;
-		FilterSizeY = layer.FilterSizeY;
+		Mask = new ConvolutionalNeuron[layer.NeuronsSizeX, layer.NeuronsSizeY];
+		_settings = layer._settings;
 
 		for (int i = 0; i < NeuronsSizeX; i++)
 		{
 			for (int j = 0; j < NeuronsSizeY; j++)
 			{
-				Neurons[i, j] = new ConvolutionalNeuron(layer.Neurons[i, j]);
+				Mask[i, j] = new ConvolutionalNeuron(layer.Mask[i, j]);
 			}
 		}
 	}
@@ -71,13 +71,13 @@ public class ConvolutionalLayer
 		{
 			for (int j = 0; j < NeuronsSizeY; j++)
 			{
-				ConvolutionalNeuron neuron = Neurons[i, j];
+				ConvolutionalNeuron mask = Mask[i, j];
 				float result;
 
-				if (neuron.Weights == null)
+				if (mask.Weights == null)
 					result = input[i, j];
 				else
-					result = neuron.Calculate(input, i * FilterSizeX, j * FilterSizeY);
+					result = mask.Calculate(input, i * (_settings.FilterSize.x - _settings.Overlap), j * (_settings.FilterSize.y - _settings.Overlap));
 
 				output[i, j] = result;
 			}
@@ -94,7 +94,7 @@ public class ConvolutionalLayer
 		{
 			for (int j = 0; j < NeuronsSizeY; j++)
 			{
-				Neurons[i, j].SetInitialWeights();
+				Mask[i, j].SetInitialWeights();
 			}
 		}
 	}
@@ -105,7 +105,7 @@ public class ConvolutionalLayer
 		{
 			for (int j = 0; j < NeuronsSizeY; j++)
 			{
-				Neurons[i, j].SetRandomWeights();
+				Mask[i, j].SetRandomWeights();
 			}
 		}
 	}

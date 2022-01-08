@@ -11,7 +11,7 @@ public class CarGenome
 
 	[JsonProperty("brain_network")]
 	public NeuralNetwork BrainNetwork;
-	//[JsonProperty("eye_network")]
+	[JsonProperty("eye_network")]
 	public ConvolutionalNeuralNetwork LeftEyeNetwork;
 	public ConvolutionalNeuralNetwork RightEyeNetwork;
 	[JsonProperty("generation")]
@@ -52,7 +52,11 @@ public class CarGenome
 	public float IntroduceRandomError()
 	{
 		Color = NextColor(Color);
-		return BrainNetwork.IntroduceRandomError();
+		float error = BrainNetwork.IntroduceRandomError();
+		LeftEyeNetwork.IntroduceRandomError();
+		RightEyeNetwork = new ConvolutionalNeuralNetwork(LeftEyeNetwork); //TODO temp, do RightEyeNetwork.IntroduceRandomError(error)
+
+		return error;
 	}
 
 	private Color NextColor(Color prevColor)

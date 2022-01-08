@@ -28,6 +28,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 			filterMode = FilterMode.Point
 		};
 		RenderTexture.hideFlags = HideFlags.HideAndDontSave;
+		RenderTexture.autoGenerateMips = false;
 
 		Camera.forceIntoRenderTexture = true;
 		Camera.targetTexture = RenderTexture;
