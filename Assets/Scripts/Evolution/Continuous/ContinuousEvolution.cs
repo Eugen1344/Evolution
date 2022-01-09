@@ -243,11 +243,8 @@ public class ContinuousEvolution : MonoBehaviour
 
 		for (int i = 0; i < 1; i++) //TODO: TEMP load only first car
 		{
-			genomes[i].LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
-			genomes[i].RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(Settings.EyeNeuralNetworkSettings);
-
 			Car car = SpawnCar(i.ToString());
-			car.SetGenome(genomes[i]);
+			car.SetGenome(new CarGenome(genomes[i]));
 		}
 
 		FoodSpawner.SpawnMaxObjects();

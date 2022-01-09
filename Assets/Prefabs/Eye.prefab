@@ -51,6 +51,7 @@ MonoBehaviour:
     Settings:
       NeuronsCount: []
       FilterSize: {x: 0, y: 0}
+      Overlap: 0
       MinRandomErrorCoefficient: 0
       MaxRandomErrorCoefficient: 0
   PixelBaseSize: {x: 16, y: 10}
@@ -80,7 +81,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 30
+  far clip plane: 100000
   field of view: 80
   orthographic: 0
   orthographic size: 5

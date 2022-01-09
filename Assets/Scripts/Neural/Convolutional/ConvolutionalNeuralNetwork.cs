@@ -64,9 +64,13 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetwork network)
 	{
-		foreach (ConvolutionalLayer layer in network.NeuronLayers)
+		for (int i = 0; i < network.Settings.NeuronsCount.Length; i++)
 		{
+			ConvolutionalLayer layer = network.NeuronLayers[i];
 			ConvolutionalLayer copiedLayer = new ConvolutionalLayer(layer);
+			Vector2Int count = network.Settings.NeuronsCount[i];
+			copiedLayer.PixelCount = count;
+			copiedLayer.Settings = network.Settings;
 
 			NeuronLayers.Add(copiedLayer);
 		}
@@ -117,6 +121,6 @@ public class ConvolutionalNeuralNetwork
 
 		ConvolutionalLayer lastLayer = NeuronLayers[^1];
 
-		return lastLayer.Size.x * lastLayer.Size.y;
+		return lastLayer.PixelCount.x * lastLayer.PixelCount.y;
 	}
 }

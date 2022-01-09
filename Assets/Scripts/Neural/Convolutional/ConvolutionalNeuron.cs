@@ -37,7 +37,7 @@ public class ConvolutionalNeuron
 		if (neuron.Weights == null)
 			Weights = null;
 		else
-			Weights = (float[,]) neuron.Weights.Clone();
+			Weights = (float[,])neuron.Weights.Clone();
 	}
 
 	public float Calculate(float[,] input, int maskPositionX, int maskPositionY)
@@ -48,8 +48,8 @@ public class ConvolutionalNeuron
 		{
 			for (int j = 0; j < WeightsLengthY; j++)
 			{
-				int inputX = i + maskPositionX;
-				int inputY = j + maskPositionY;
+				int inputX = maskPositionX + i;
+				int inputY = maskPositionY + j;
 
 				if (inputX >= input.GetLength(0) || inputY >= input.GetLength(1))
 					continue;
@@ -58,7 +58,7 @@ public class ConvolutionalNeuron
 			}
 		}
 
-		float pooling = AveragePooling(result);
+		float pooling = MaxPooling(result);
 		float output = Activation(pooling);
 		return output;
 	}
@@ -81,22 +81,26 @@ public class ConvolutionalNeuron
 		return average;
 	}
 
-	/*private float MaxPooling(float[,] output)
+	private float MaxPooling(float[,] output)
 	{
-		float max = 0;
 		int sizeX = output.GetLength(0);
 		int sizeY = output.GetLength(1);
+
+		float max = output[0, 0];
 
 		for (int i = 0; i < sizeX; i++)
 		{
 			for (int j = 0; j < sizeY; j++)
 			{
-				if(output)
+				float value = output[i, j];
+
+				if (Mathf.Abs(value) > max)
+					max = value;
 			}
 		}
 
-		return sum / (sizeX * sizeY);
-	}*/
+		return max;
+	}
 
 	private float Activation(float value)
 	{
@@ -112,7 +116,7 @@ public class ConvolutionalNeuron
 		{
 			for (int j = 0; j < WeightsLengthY; j++)
 			{
-				Weights[i, j] = 1;
+				Weights[i, j] = 0;
 			}
 		}
 	}

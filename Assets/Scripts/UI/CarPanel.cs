@@ -14,7 +14,7 @@ public class CarPanel : UiPanel<CarPanel>
 	public Button PreviewLayerDown;
 	public ContinuousEvolution Evolution;
 
-	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.LetEye : CurrentCar.RightEye;
+	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.Eye : CurrentCar.Eye;
 
 	private Texture2D _internalEyePreviewTexture;
 
@@ -167,7 +167,7 @@ public class CarPanel : UiPanel<CarPanel>
 	{
 		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[depth];
 
-		return CreateEyePreviewTexture(currentLayer.Size.x, currentLayer.Size.y);
+		return CreateEyePreviewTexture(currentLayer.PixelCount.x, currentLayer.PixelCount.y);
 	}
 
 	private Texture2D CreateEyePreviewTexture(int width, int height)

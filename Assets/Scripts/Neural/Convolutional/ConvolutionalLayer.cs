@@ -7,28 +7,28 @@ using UnityEngine;
 public class ConvolutionalLayer
 {
 	[JsonProperty("neurons")] public ConvolutionalNeuron Mask;
-	public Vector2Int Size;
+	public Vector2Int PixelCount;
 
 	public float[,] PrevOutput;
 
-	private ConvolutionalNeuralNetworkSettings _settings;
+	public ConvolutionalNeuralNetworkSettings Settings;
 
 	private ConvolutionalLayer()
 	{
 	}
 
-	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int size)
+	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
 	{
-		_settings = settings;
-		Size = size;
+		Settings = settings;
+		PixelCount = pixelCount;
 		Mask = new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y);
 	}
 
-	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int size) //first layer
+	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
 	{
 		ConvolutionalLayer layer = new ConvolutionalLayer();
-		layer._settings = settings;
-		layer.Size = size;
+		layer.Settings = settings;
+		layer.PixelCount = pixelCount;
 		layer.Mask = new ConvolutionalNeuron();
 
 		return layer;
@@ -37,24 +37,24 @@ public class ConvolutionalLayer
 	public ConvolutionalLayer(ConvolutionalLayer layer)
 	{
 		Mask = new ConvolutionalNeuron(layer.Mask);
-		Size = layer.Size;
-		_settings = layer._settings;
+		PixelCount = layer.PixelCount;
+		Settings = layer.Settings;
 	}
 
 	public float[,] Calculate(float[,] input)
 	{
-		float[,] output = new float[Size.x, Size.y];
+		float[,] output = new float[PixelCount.x, PixelCount.y];
 
-		for (int i = 0; i < Size.x; i++)
+		for (int i = 0; i < PixelCount.x; i++)
 		{
-			for (int j = 0; j < Size.y; j++)
+			for (int j = 0; j < PixelCount.y; j++)
 			{
 				float result;
 
 				if (Mask.Weights == null)
 					result = input[i, j];
 				else
-					result = Mask.Calculate(input, i * (_settings.FilterSize.x - _settings.Overlap), j * (_settings.FilterSize.y - _settings.Overlap));
+					result = Mask.Calculate(input, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
 
 				output[i, j] = result;
 			}
@@ -67,7 +67,7 @@ public class ConvolutionalLayer
 
 	public float IntroduceRandomError()
 	{
-		float randomError = UnityEngine.Random.Range(_settings.MinRandomErrorCoefficient, _settings.MaxRandomErrorCoefficient);
+		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
 
 		bool isErrorNegative = UnityEngine.Random.value <= 0.5f;
 		if (isErrorNegative)

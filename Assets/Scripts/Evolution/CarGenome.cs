@@ -10,8 +10,7 @@ public class CarGenome
 	public float ColorChangeDelta = 0.05f;
 
 	[JsonProperty("brain_network")] public NeuralNetwork BrainNetwork;
-	[JsonProperty("eye_network")] public ConvolutionalNeuralNetwork LeftEyeNetwork;
-	public ConvolutionalNeuralNetwork RightEyeNetwork;
+	[JsonProperty("eye_network")] public ConvolutionalNeuralNetwork EyeNetwork;
 	[JsonProperty("generation")] public int Generation;
 	[JsonProperty("color")] public Color Color;
 
@@ -19,18 +18,16 @@ public class CarGenome
 	{
 	}
 
-	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetwork leftEye, ConvolutionalNeuralNetwork rightEye)
+	public CarGenome(NeuralNetwork brain, ConvolutionalNeuralNetwork eye)
 	{
 		BrainNetwork = brain;
-		LeftEyeNetwork = leftEye;
-		RightEyeNetwork = rightEye;
-	}
+        EyeNetwork = eye;
+    }
 
 	public CarGenome(NeuralNetworkSettings brainSettings, ConvolutionalNeuralNetworkSettings eyeSettings)
 	{
 		BrainNetwork = NeuralNetwork.Random(brainSettings);
-		LeftEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
-		RightEyeNetwork = ConvolutionalNeuralNetwork.Initial(eyeSettings);
+		EyeNetwork = ConvolutionalNeuralNetwork.Random(eyeSettings);
 		Generation = 0;
 		Color = RandomColor();
 	}
@@ -38,8 +35,7 @@ public class CarGenome
 	public CarGenome(CarGenome genome)
 	{
 		BrainNetwork = new NeuralNetwork(genome.BrainNetwork);
-		LeftEyeNetwork = new ConvolutionalNeuralNetwork(genome.LeftEyeNetwork);
-		RightEyeNetwork = new ConvolutionalNeuralNetwork(genome.RightEyeNetwork);
+		EyeNetwork = new ConvolutionalNeuralNetwork(genome.EyeNetwork);
 		Generation = genome.Generation;
 		Color = genome.Color;
 	}
@@ -50,8 +46,7 @@ public class CarGenome
 		
 		float error = BrainNetwork.IntroduceRandomError();
 		
-		LeftEyeNetwork.IntroduceRandomError();
-		RightEyeNetwork = new ConvolutionalNeuralNetwork(LeftEyeNetwork); //TODO temp, do RightEyeNetwork.IntroduceRandomError(error)
+		EyeNetwork.IntroduceRandomError();
 
 		return error;
 	}

@@ -4,8 +4,7 @@ using UnityEngine;
 public class Car : MonoBehaviour, ISpawnable<Car>
 {
 	public CarBrain Brain;
-	public CarEye LetEye;
-	public CarEye RightEye;
+	public CarEye Eye;
 	public CarController Movement;
 	public CarFood Food;
 	public CarBody Body;
@@ -34,14 +33,13 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 
 	public CarGenome GetGenome()
 	{
-		return new CarGenome(Brain.Network, LetEye.Network, RightEye.Network) { Generation = Generation, Color = Body.Color };
+		return new CarGenome(Brain.Network, Eye.Network) { Generation = Generation, Color = Body.Color };
 	}
 
 	public void SetGenome(CarGenome genome)
 	{
 		Brain.Network = genome.BrainNetwork;
-		LetEye.Network = genome.LeftEyeNetwork;
-		RightEye.Network = genome.RightEyeNetwork;
+		Eye.Network = genome.EyeNetwork;
 		Generation = genome.Generation + 1;
 
 		Body.SetColor(genome.Color);
