@@ -9,12 +9,13 @@ using Random = UnityEngine.Random;
 public class ContinuousEvolution : MonoBehaviour
 {
 	public ContinuousEvolutionSettings Settings;
-	public CarSpawner CarSpawner;
-	public FoodSpawner FoodSpawner;
-
+	[SerializeField] private CarSpawner _carSpawner;
+	[SerializeField] private FoodSpawner _foodSpawner;
+	private SaveManager _saveManager = new SaveManager();
+	
 	public event Action<int> OnSpawnGeneration;
 
-	private List<Car> _current = new List<Car>();
+	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
 	private bool _paused = false;
@@ -48,21 +49,21 @@ public class ContinuousEvolution : MonoBehaviour
 			newCar.SetGenome(newGenome);
 		}
 
-		FoodSpawner.SpawnMaxObjects();
+		_foodSpawner.SpawnMaxObjects();
 
 		OnSpawnGeneration?.Invoke(0);
 	}
 
 	private Car SpawnCar(string name)
 	{
-		Car newCar = CarSpawner.SpawnObject(name);
+		Car newCar = _carSpawner.SpawnObject(name);
 		newCar.Index = _lastCarIndex;
 		_lastCarIndex++;
 
 		newCar.Food.OnPickupFood += OnCarPickupFood;
 		newCar.OnDespawn += OnCarFinishLife;
 
-		_current.Add(newCar);
+		_currentPopulation.Add(newCar);
 
 		return newCar;
 	}
@@ -80,12 +81,12 @@ public class ContinuousEvolution : MonoBehaviour
 	private void OnCarFinishLife(Car car)
 	{
 		AddLifeResult(car);
-		_current.Remove(car);
+		_currentPopulation.Remove(car);
 
 		car.Food.OnPickupFood -= OnCarPickupFood;
 		car.OnDespawn -= OnCarFinishLife;
 
-		if (_current.Count == 0)
+		if (_currentPopulation.Count == 0)
 		{
 			EmergencyRespawn();
 		}
@@ -126,7 +127,7 @@ public class ContinuousEvolution : MonoBehaviour
 		}
 
 		if (Settings.RespawnAllFood)
-			FoodSpawner.SpawnMaxObjects();
+			_foodSpawner.SpawnMaxObjects();
 	}
 
 	public Car SpawnChild(Car car, bool introduceError)
@@ -207,7 +208,7 @@ public class ContinuousEvolution : MonoBehaviour
 
 	public Car GetCurrentBestCar()
 	{
-		return _current.OrderByDescending(car => car.Food.TotalAcquiredFood).FirstOrDefault();
+		return _currentPopulation.OrderByDescending(car => car.Food.TotalAcquiredFood).FirstOrDefault();
 	}
 
 	/*private float GetAverageFitness()
@@ -217,43 +218,34 @@ public class ContinuousEvolution : MonoBehaviour
 
 	public void ForceFinishCurrentGeneration()
 	{
-		CarSpawner.DespawnObjects();
+		_carSpawner.DespawnObjects();
 	}
 
 	private void ResetCurrentGeneration()
 	{
-		CarSpawner.DespawnObjects();
+		_carSpawner.DespawnObjects();
 
-		_current.Clear();
+		_currentPopulation.Clear();
 		_lifeResults.Clear();
 	}
 
-	public void SerializeCurrentPopulation(StreamWriter writer)
+	public void SaveCurrentPopulation(string fileName)
 	{
-		List<CarGenome> genomes = _current.Select(car => car.GetGenome()).ToList();
-
-		JsonSerializer serializer = JsonSerializer.CreateDefault();
-		serializer.Formatting = Formatting.Indented;
-		serializer.Serialize(writer, genomes);
+		List<CarGenome> genomes = _currentPopulation.Select(car => car.GetGenome()).ToList();
+		_saveManager.Save(fileName, genomes);
 	}
 
-	public void LoadPopulation(List<CarGenome> genomes)
+	public void LoadPopulation(string fileName)
 	{
 		//ResetCurrentGeneration();
 
+		List<CarGenome> genomes = _saveManager.Load(fileName);
 		for (int i = 0; i < 1; i++) //TODO: TEMP load only first car
 		{
 			Car car = SpawnCar(i.ToString());
 			car.SetGenome(new CarGenome(genomes[i]));
 		}
 
-		FoodSpawner.SpawnMaxObjects();
-	}
-
-	public List<CarGenome> DeserializePopulation(StreamReader reader)
-	{
-		JsonSerializer serializer = new JsonSerializer();
-
-		return serializer.Deserialize<List<CarGenome>>(new JsonTextReader(reader));
+		_foodSpawner.SpawnMaxObjects();
 	}
 }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.IO;
 using Crosstales.FB;
 using GenericPanels;
 
@@ -14,10 +12,7 @@ public class MenuPanel : UiPanel<MenuPanel>
 		if (string.IsNullOrWhiteSpace(fileName))
 			return;
 
-		using FileStream outFile = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-		using StreamWriter writer = new StreamWriter(outFile);
-
-		Evolution.SerializeCurrentPopulation(writer);
+		Evolution.SaveCurrentPopulation(fileName);
 
 		Hide();
 	}
@@ -29,10 +24,7 @@ public class MenuPanel : UiPanel<MenuPanel>
 		if (string.IsNullOrWhiteSpace(fileName))
 			return;
 
-		using FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-
-		List<CarGenome> genomes = Evolution.DeserializePopulation(new StreamReader(inFile));
-		Evolution.LoadPopulation(genomes);
+		Evolution.LoadPopulation(fileName);
 
 		Hide();
 	}
