@@ -21,6 +21,7 @@ public class CarBrain : MonoBehaviour
 	{
 		InputModules.Add(StaticSignalModule);
 		InputModules.Add(Car.Food);
+		InputModules.Add(Car.FoodPleasure);
 		InputModules.Add(Car.Movement);
 		InputModules.Add(Car.Eye);
 

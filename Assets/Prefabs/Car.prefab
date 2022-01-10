@@ -100,7 +100,7 @@ Transform:
   - {fileID: 7388880250747310717}
   - {fileID: 3732569543269231697}
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2926480147050457650
 GameObject:
@@ -135,7 +135,7 @@ Transform:
   - {fileID: 9039412042923534246}
   - {fileID: 1636583234524069118}
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4952478552170170271
 GameObject:
@@ -284,7 +284,7 @@ Transform:
   m_Children:
   - {fileID: 266199064523937144}
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &5878428960341226075
 MeshFilter:
@@ -367,7 +367,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &8095869667908883356
 LineRenderer:
@@ -492,10 +492,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6309735682228561876}
   - component: {fileID: 4432495669392959698}
-  - component: {fileID: 1498113815733910494}
   - component: {fileID: 7249546690472652996}
   - component: {fileID: 998564928589763612}
-  - component: {fileID: 7582720780799669403}
   - component: {fileID: 4761456408819235911}
   m_Layer: 3
   m_Name: Car
@@ -517,6 +515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 646580513074684392}
+  - {fileID: 7636511474984907728}
   - {fileID: 3464505584772445506}
   - {fileID: 6414116175939223968}
   - {fileID: 2930065447146884051}
@@ -540,29 +539,12 @@ MonoBehaviour:
   Brain: {fileID: 5764525505821229505}
   Eye: {fileID: 1091450535239719263}
   Movement: {fileID: 7249546690472652996}
-  Food: {fileID: 1498113815733910494}
+  Food: {fileID: 6461874976281411410}
+  FoodPleasure: {fileID: 5592629631474966632}
   Body: {fileID: 8822060304080961245}
   SelectionIndicator: {fileID: 5130227101958259046}
   Generation: 0
   Index: 0
---- !u!114 &1498113815733910494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598093964624196669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327f0b3c957453942b9567745ebc2327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxFood: 100
-  FoodStoreRatio: 0.5
-  FoodDecayPerSecond: 1
-  Car: {fileID: 4432495669392959698}
-  _currentFood: 0
-  _storedFood: 0
 --- !u!114 &7249546690472652996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,19 +605,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &7582720780799669403
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598093964624196669}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.9
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4761456408819235911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +649,87 @@ MonoBehaviour:
     e32: 0
     e33: 0
   substeps: 4
+--- !u!1 &6689026122987194279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7636511474984907728}
+  - component: {fileID: 6461874976281411410}
+  - component: {fileID: 5592629631474966632}
+  - component: {fileID: 617866893970096704}
+  m_Layer: 0
+  m_Name: Food
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7636511474984907728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689026122987194279}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6309735682228561876}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6461874976281411410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689026122987194279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327f0b3c957453942b9567745ebc2327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFood: 100
+  FoodStoreRatio: 0.5
+  FoodDecayPerSecond: 1
+  Car: {fileID: 4432495669392959698}
+  _currentFood: 0
+  _storedFood: 0
+--- !u!114 &5592629631474966632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689026122987194279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f953526325f94b54bda8c3eada07c212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxPleasure: 5
+  _pleasureDecayPerSecond: 0.1
+  _food: {fileID: 6461874976281411410}
+  _currentPleasure: 0
+--- !u!135 &617866893970096704
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689026122987194279}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9192220041905955831
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +763,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309735682228561876}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8822060304080961245
 MonoBehaviour:

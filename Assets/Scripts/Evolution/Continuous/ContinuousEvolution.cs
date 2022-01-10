@@ -149,48 +149,6 @@ public class ContinuousEvolution : MonoBehaviour
 		return child;
 	}
 
-	/*private void SpawnNextGeneration()
-	{
-		List<CarLifeResult> bestLifeResults = FinishCurrentGeneration();
-
-		ResetCurrentGeneration();
-
-		int possibleBestSpeciesPerGeneration = Mathf.Min(bestLifeResults.Count, Settings.BestSpeciesPerGeneration);
-		int clonesToSpawn = Settings.BestSpeciesPerGenerationClones * possibleBestSpeciesPerGeneration;
-
-		for (int i = 0; i < Settings.SpeciesPerGeneration + clonesToSpawn; i++)
-		{
-			int prevBestCarIndex = i % possibleBestSpeciesPerGeneration;
-			CarLifeResult lifeResult = bestLifeResults[prevBestCarIndex];
-			CarGenome prevBestGenome = lifeResult.Genome;
-
-			CarGenome newGenome = new CarGenome(prevBestGenome);
-
-			string name = i.ToString();
-
-			if (clonesToSpawn > 0)
-			{
-				clonesToSpawn--;
-
-				name += $" - Clone ({lifeResult.Index})";
-			}
-			else
-			{
-				float error = newGenome.IntroduceRandomError();
-
-				name += $" - Error ({lifeResult.Index}) [{error}]";
-			}
-
-			Car newCar = SpawnCar(name, i);
-			newCar.SetGenome(newGenome);
-		}
-
-		if (Settings.RespawnAllFood)
-			FoodSpawner.SpawnMaxObjects();
-
-		OnSpawnGeneration?.Invoke(Generation);
-	}*/
-
 	/*private List<CarLifeResult> FinishCurrentGeneration()
 	{
 		List<CarLifeResult> bestCars = GetBestResults().ToList();

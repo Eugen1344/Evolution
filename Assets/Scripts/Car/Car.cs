@@ -7,6 +7,7 @@ public class Car : MonoBehaviour, ISpawnable<Car>
 	public CarEye Eye;
 	public CarController Movement;
 	public CarFood Food;
+	public CarFoodPleasure FoodPleasure;
 	public CarBody Body;
 	public GameObject SelectionIndicator;
 
