@@ -7,7 +7,7 @@ public class CarBrain : MonoBehaviour
 {
 	public float DecisionsPerSecond;
 	public Car Car;
-	public StaticSignalInputModule StaticSignalModule;
+	//public StaticSignalInputModule StaticSignalModule;
 
 	public NeuralNetwork Network;
 	public List<IInputNeuralModule> InputModules = new List<IInputNeuralModule>();
@@ -19,7 +19,7 @@ public class CarBrain : MonoBehaviour
 
 	private void Start()
 	{
-		InputModules.Add(StaticSignalModule);
+		//InputModules.Add(StaticSignalModule);
 		InputModules.Add(Car.Food);
 		InputModules.Add(Car.FoodPleasure);
 		InputModules.Add(Car.Movement);
