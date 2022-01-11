@@ -44,9 +44,6 @@ public class MyRTSCameraEditor : Editor
         serializedObject.Update();
         GUI.color = Color.white;
         EditorGUILayout.LabelField("");
-        DrawBackground();
-        DrawLogo();
-        GUILayout.Space(10);
 
         currentTab = GUILayout.Toolbar(currentTab, new string[] { "General", "Move", "Rotation", "Zoom" });
 
