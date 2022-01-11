@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,28 +10,13 @@ public class ContinuousEvolution : MonoBehaviour
 	[SerializeField] private CarSpawner _carSpawner;
 	[SerializeField] private FoodSpawner _foodSpawner;
 	private SaveManager _saveManager = new SaveManager();
-	
+
 	public event Action<int> OnSpawnGeneration;
 
 	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
 	private bool _paused = false;
-
-	private void Start()
-	{
-		Settings.InitializeCommandBarFields();
-	}
-
-	private void Update()
-	{
-		Time.timeScale = _paused ? 0 : Settings.TimeScale; //TODO bad solution
-
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			_paused = !_paused;
-		}
-	}
 
 	public void InitialSpawn()
 	{

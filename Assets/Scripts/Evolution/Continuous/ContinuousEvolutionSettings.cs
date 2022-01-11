@@ -12,10 +12,4 @@ public class ContinuousEvolutionSettings
 	public NeuralNetworkSettings NeuralNetworkSettings;
 	public ConvolutionalNeuralNetworkSettings EyeNeuralNetworkSettings;
 	public bool RespawnAllFood;
-	public float TimeScale;
-
-	public void InitializeCommandBarFields()
-	{
-		Commands.AddFloatField("Time scale", () => TimeScale, time => TimeScale = time);
-	}
 }

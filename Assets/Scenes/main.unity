@@ -2142,23 +2142,22 @@ MonoBehaviour:
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
     NeuralNetworkSettings:
-      NeuronsCount: 1700000014000000140000000f0000000a0000000a0000000a0000000a0000000800000006000000
+      NeuronsCount: 0a000000140000001400000014000000140000000a0000000a00000006000000
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
       NeuronsCount:
-      - {x: 160, y: 100}
       - {x: 80, y: 50}
       - {x: 40, y: 25}
       - {x: 20, y: 13}
       - {x: 10, y: 7}
       - {x: 5, y: 4}
+      - {x: 3, y: 2}
       FilterSize: {x: 3, y: 3}
       Overlap: 1
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     RespawnAllFood: 0
-    TimeScale: 1
   _carSpawner: {fileID: 1700352385}
   _foodSpawner: {fileID: 1000871551}
   _lifeResults: []
@@ -2242,6 +2241,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &997602683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997602685}
+  - component: {fileID: 997602684}
+  m_Layer: 0
+  m_Name: TimeScaleController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &997602684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997602683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a17a285f30d4bba9a21de407ea8a92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeScaleButtonValues:
+  - 1
+  - 3
+  - 5
+  - 10
+  _pauseKey: 32
+  _adaptiveTimeScaleKey: 53
+--- !u!4 &997602685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997602683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1000871550
 GameObject:
@@ -2899,7 +2949,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
@@ -4838,6 +4888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142223326022822939, guid: b4e10fd7efb1eee4f9ac8145a2cb838b,
+        type: 3}
+      propertyPath: UpdateEveryFrame
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 142223326022822942, guid: b4e10fd7efb1eee4f9ac8145a2cb838b,
         type: 3}

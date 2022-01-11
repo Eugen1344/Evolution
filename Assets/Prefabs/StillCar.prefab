@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5764525505821229505, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6309735682228561876, guid: d2652bce968b16241875cde7867ec6be,
         type: 3}
@@ -76,6 +76,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StillCar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249546690472652996, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: MaxTorque
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249546690472652996, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: MaxSteeringAngle
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}

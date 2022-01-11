@@ -55,7 +55,7 @@ MonoBehaviour:
       MinRandomErrorCoefficient: 0
       MaxRandomErrorCoefficient: 0
   PixelBaseSize: {x: 16, y: 10}
-  PixelMultiplier: 10
+  PixelMultiplier: 5
   Camera: {fileID: 5464645071336581774}
 --- !u!20 &5464645071336581774
 Camera:
