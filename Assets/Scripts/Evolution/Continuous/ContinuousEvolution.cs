@@ -6,9 +6,9 @@ using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
 {
+	public EvolutionManager _manager;
 	public ContinuousEvolutionSettings Settings;
 	[SerializeField] private CarSpawner _carSpawner;
-	[SerializeField] private FoodSpawner _foodSpawner;
 	private SaveManager _saveManager = new SaveManager();
 
 	public event Action<int> OnSpawnGeneration;
@@ -30,8 +30,6 @@ public class ContinuousEvolution : MonoBehaviour
 			newGenome.Generation = 0;
 			newCar.SetGenome(newGenome);
 		}
-
-		_foodSpawner.SpawnMaxObjects();
 
 		OnSpawnGeneration?.Invoke(0);
 	}
@@ -107,9 +105,8 @@ public class ContinuousEvolution : MonoBehaviour
 
 			clone.SetGenome(genome);
 		}
-
-		if (Settings.RespawnAllFood)
-			_foodSpawner.SpawnMaxObjects();
+		
+		_manager.TryRespawnAllFood();
 	}
 
 	public Car SpawnChild(Car car, bool introduceError)
@@ -185,7 +182,5 @@ public class ContinuousEvolution : MonoBehaviour
 			Car car = SpawnCar(i.ToString());
 			car.SetGenome(new CarGenome(genomes[i]));
 		}
-
-		_foodSpawner.SpawnMaxObjects();
 	}
 }

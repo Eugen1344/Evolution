@@ -29,6 +29,7 @@ public class TimeScaleController : MonoBehaviour
 			else
 			{
 				_prevTimeScale = Time.timeScale;
+				Time.timeScale = 0;
 
 				_paused = true;
 			}

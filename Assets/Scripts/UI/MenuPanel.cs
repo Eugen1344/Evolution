@@ -3,7 +3,8 @@ using GenericPanels;
 
 public class MenuPanel : UiPanel<MenuPanel>
 {
-	public ContinuousEvolution Evolution;
+	public EvolutionManager Manager;
+	public ContinuousEvolution Evolution; //TODO remove this
 
 	public void ClickSavePopulation()
 	{
@@ -38,7 +39,7 @@ public class MenuPanel : UiPanel<MenuPanel>
 
 	public void ClickNewPopulation()
 	{
-		Evolution.InitialSpawn();
+		Manager.InitialSpawn();
 
 		Hide();
 	}
