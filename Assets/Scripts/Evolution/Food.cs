@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Food : VisibleObject, ISpawnable<Food>
+public class Food : VisibleObject, ISpawner<Food>
 {
 	public float FoodAmount;
 	public bool DestroyAfterPickup;

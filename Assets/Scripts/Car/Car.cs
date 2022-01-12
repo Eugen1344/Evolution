@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Car : MonoBehaviour, ISpawnable<Car>
+public class Car : MonoBehaviour, ISpawner<Car>
 {
 	public CarBrain Brain;
 	public CarEye Eye;

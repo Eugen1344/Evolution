@@ -16,7 +16,6 @@ public class ContinuousEvolution : MonoBehaviour
 	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
-	private bool _paused = false;
 
 	public void InitialSpawn()
 	{

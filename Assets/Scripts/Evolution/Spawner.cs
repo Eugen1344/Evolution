@@ -4,8 +4,15 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Spawner<T> : MonoBehaviour
-	where T : MonoBehaviour, ISpawnable<T>
+public abstract class Spawner : MonoBehaviour, IInputNeuralModule
+{
+	public int InputNeuronCount => 1;
+
+	public abstract IEnumerable<float> GetInput();
+}
+
+public class Spawner<T> : Spawner
+	where T : MonoBehaviour, ISpawner<T>
 {
 	[ValidateInput("@SpawnRadiusMin >= 0")]
 	public float SpawnRadiusMin;
@@ -105,5 +112,10 @@ public class Spawner<T> : MonoBehaviour
 		Gizmos.color = Color.green;
 
 		Gizmos.DrawWireSphere(transform.position, SpawnRadiusMax);
+	}
+
+	public override IEnumerable<float> GetInput()
+	{
+		yield return AliveObjects;
 	}
 }

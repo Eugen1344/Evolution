@@ -6,6 +6,7 @@ public class TimeScaleController : MonoBehaviour
 	[SerializeField] private List<float> _timeScaleButtonValues;
 	[SerializeField] private KeyCode _pauseKey;
 	[SerializeField] private KeyCode _adaptiveTimeScaleKey;
+	[SerializeField] private AdaptiveFps _adaptiveFps;
 
 	private float _prevTimeScale;
 	private bool _paused;
@@ -22,7 +23,7 @@ public class TimeScaleController : MonoBehaviour
 			if (_paused)
 			{
 				Time.timeScale = _prevTimeScale;
-				
+
 				_paused = false;
 			}
 			else
@@ -50,7 +51,7 @@ public class TimeScaleController : MonoBehaviour
 		}
 		else if (Input.GetKeyUp(_adaptiveTimeScaleKey))
 		{
-			Debug.Log("ADAPTIVE FPS BRRRR");
+			_adaptiveFps.IsEnabled = !_adaptiveFps.IsEnabled;
 		}
 	}
 

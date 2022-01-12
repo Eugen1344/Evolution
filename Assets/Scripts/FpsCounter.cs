@@ -9,6 +9,9 @@ public class FpsCounter : MonoBehaviour
 	public TextMeshProUGUI FpsText;
 	public TextMeshProUGUI AverageFpsText;
 	public TextMeshProUGUI MinFpsText;
+	
+	public float AverageFps { get; private set; }
+	public float MinFps { get; private set; }
 
 	private Queue<float> _prevFpsReadings = new Queue<float>();
 
@@ -18,9 +21,12 @@ public class FpsCounter : MonoBehaviour
 
 		UpdateAverageFps(fps);
 
+		AverageFps = GetAverageFps();
+		MinFps = GetMinFps();
+
 		FpsText.text = $"{fps:00.00}";
-		AverageFpsText.text = $"{GetAverageFps():00.00}";
-		MinFpsText.text = $"{GetMinFps():00.00}";
+		AverageFpsText.text = $"{AverageFps:00.00}";
+		MinFpsText.text = $"{MinFps:00.00}";
 	}
 
 	private void UpdateAverageFps(float newFps)

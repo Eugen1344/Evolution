@@ -47,7 +47,8 @@ public class CarBrain : MonoBehaviour
 
 	private void UpdateNetwork()
 	{
-		float[] result = Network.Calculate(GetInputData());
+		float[] inputData = GetInputData();
+		float[] result = Network.Calculate(inputData);
 		int startingIndex = 0;
 
 		foreach (IOutputNeuralModule outputModule in OutputModules)

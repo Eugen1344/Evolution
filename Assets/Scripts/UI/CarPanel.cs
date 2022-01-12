@@ -28,8 +28,10 @@ public class CarPanel : UiPanel<CarPanel>
 	
 	protected override void OnDestroy()
 	{
+		if(CurrentCar)
+			CurrentCar.OnDespawn -= DespawnCar;
+
 		Car.OnClick -= SelectCar;
-		CurrentCar.OnDespawn -= DespawnCar;
 		Evolution.OnSpawnGeneration -= OnSpawnGeneration;
 
 		if (_internalEyePreviewTexture != null)
