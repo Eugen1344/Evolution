@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
@@ -44,8 +43,8 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	{
 		UpdateViewData();
 
-		float[,] inputPixelData = GetPixelData();
-		float[,] outputPixelData = Network.Calculate(inputPixelData);
+		float[,,] inputPixelData = GetPixelData();
+		float[,,] outputPixelData = Network.Calculate(inputPixelData);
 
 		foreach (float pixel in outputPixelData)
 		{
@@ -58,21 +57,23 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 		Camera.Render();
 	}
 
-	private float[,] GetPixelData()
+	private float[,,] GetPixelData()
 	{
 		RenderTexture.active = RenderTexture;
 		_internalTexture.ReadPixels(new Rect(0, 0, PixelCount.x, PixelCount.y), 0, 0, false);
 		_internalTexture.GetRawTextureData<Color32>();
 		NativeArray<Color32> pixelData = _internalTexture.GetRawTextureData<Color32>();
 
-		float[,] data = new float[PixelCount.x, PixelCount.y];
+		float[,,] data = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 
 		for (int i = 0; i < PixelCount.x; i++)
 		{
 			for (int j = 0; j < PixelCount.y; j++)
 			{
 				int flatArrayIndex = j * PixelCount.x + i;
-				data[i, j] = (float)pixelData[flatArrayIndex].r / byte.MaxValue;
+				data[i, j, 0] = (float) pixelData[flatArrayIndex].r / byte.MaxValue;
+				data[i, j, 1] = (float) pixelData[flatArrayIndex].g / byte.MaxValue;
+				data[i, j, 2] = (float) pixelData[flatArrayIndex].b / byte.MaxValue;
 			}
 		}
 

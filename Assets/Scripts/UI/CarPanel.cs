@@ -25,10 +25,10 @@ public class CarPanel : UiPanel<CarPanel>
 
 		base.Awake();
 	}
-	
+
 	protected override void OnDestroy()
 	{
-		if(CurrentCar)
+		if (CurrentCar)
 			CurrentCar.OnDespawn -= DespawnCar;
 
 		Car.OnClick -= SelectCar;
@@ -130,7 +130,7 @@ public class CarPanel : UiPanel<CarPanel>
 		WriteImage(_internalEyePreviewTexture, currentLayer.PrevOutput);
 	}
 
-	private void WriteImage(Texture2D texture, float[,] data)
+	private void WriteImage(Texture2D texture, float[,,] data)
 	{
 		if (data == null)
 			return;
@@ -139,7 +139,7 @@ public class CarPanel : UiPanel<CarPanel>
 		{
 			for (int j = 0; j < data.GetLength(1); j++)
 			{
-				Color color = new Color(data[i, j], 0, 0, 1);
+				Color color = new Color(data[i, j, 0], data[i, j, 1], data[i, j, 2], 1);
 
 				texture.SetPixel(i, j, color);
 			}

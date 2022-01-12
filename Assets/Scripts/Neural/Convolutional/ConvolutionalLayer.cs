@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 [JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalLayer
 {
-	[JsonProperty("neurons")] public ConvolutionalNeuron Mask;
+	[JsonProperty("filters")] public List<ConvolutionalNeuron> Filters;
 	public Vector2Int PixelCount;
 
-	public float[,] PrevOutput;
+	public float[,,] PrevOutput;
 
 	public ConvolutionalNeuralNetworkSettings Settings;
 
@@ -21,7 +23,13 @@ public class ConvolutionalLayer
 	{
 		Settings = settings;
 		PixelCount = pixelCount;
-		Mask = new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y);
+
+		Filters = new List<ConvolutionalNeuron>
+		{
+			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
+			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
+			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount)
+		};
 	}
 
 	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
@@ -29,34 +37,55 @@ public class ConvolutionalLayer
 		ConvolutionalLayer layer = new ConvolutionalLayer();
 		layer.Settings = settings;
 		layer.PixelCount = pixelCount;
-		layer.Mask = new ConvolutionalNeuron();
+		layer.Filters = null;
 
 		return layer;
 	}
 
 	public ConvolutionalLayer(ConvolutionalLayer layer)
 	{
-		Mask = new ConvolutionalNeuron(layer.Mask);
+		if (layer.Filters == null)
+		{
+			Filters = null;
+		}
+		else
+		{
+			Filters = new List<ConvolutionalNeuron>();
+
+			foreach (ConvolutionalNeuron neuron in layer.Filters)
+			{
+				Filters.Add(new ConvolutionalNeuron(neuron));
+			}
+		}
+
 		PixelCount = layer.PixelCount;
 		Settings = layer.Settings;
 	}
 
-	public float[,] Calculate(float[,] input)
+	public float[,,] Calculate(float[,,] input)
 	{
-		float[,] output = new float[PixelCount.x, PixelCount.y];
+		float[,,] output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 
 		for (int i = 0; i < PixelCount.x; i++)
 		{
 			for (int j = 0; j < PixelCount.y; j++)
 			{
-				float result;
+				for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
+				{
+					float result;
 
-				if (Mask.Weights == null)
-					result = input[i, j];
-				else
-					result = Mask.Calculate(input, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
+					if (Filters == null)
+					{
+						result = input[i, j, k];
+					}
+					else
+					{
+						ConvolutionalNeuron colorFilter = Filters[k];
+						result = colorFilter.Calculate(input, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
+					}
 
-				output[i, j] = result;
+					output[i, j, k] = result;
+				}
 			}
 		}
 
@@ -67,24 +96,42 @@ public class ConvolutionalLayer
 
 	public float IntroduceRandomError()
 	{
-		float randomError = UnityEngine.Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
+		if (Filters == null)
+			return 0;
 
-		bool isErrorNegative = UnityEngine.Random.value <= 0.5f;
+		float randomError = Random.Range(Settings.MinRandomErrorCoefficient, Settings.MaxRandomErrorCoefficient);
+
+		bool isErrorNegative = Random.value <= 0.5f;
 		if (isErrorNegative)
 			randomError *= -1;
 
-		Mask.IntroduceError(randomError);
+		int randomFilterIndex = Random.Range(0, Filters.Count);
+
+		ConvolutionalNeuron randomFilter = Filters[randomFilterIndex];
+		randomFilter.IntroduceError(randomError);
 
 		return randomError;
 	}
 
 	public void SetInitialWeights()
 	{
-		Mask.SetInitialWeights();
+		if (Filters == null)
+			return;
+
+		foreach (ConvolutionalNeuron neuron in Filters)
+		{
+			neuron.SetInitialWeights();
+		}
 	}
 
 	public void RandomizeAllWeights()
 	{
-		Mask.SetRandomWeights();
+		if (Filters == null)
+			return;
+
+		foreach (ConvolutionalNeuron neuron in Filters)
+		{
+			neuron.SetRandomWeights();
+		}
 	}
 }

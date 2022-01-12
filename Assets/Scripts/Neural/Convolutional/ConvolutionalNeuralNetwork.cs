@@ -7,6 +7,8 @@ using UnityEngine;
 [JsonObject(MemberSerialization.OptIn)]
 public class ConvolutionalNeuralNetwork
 {
+	public const int ColorChannelCount = 3;
+
 	[JsonProperty("layers")]
 	public List<ConvolutionalLayer> NeuronLayers;
 	[JsonProperty("settings")]
@@ -34,9 +36,9 @@ public class ConvolutionalNeuralNetwork
 		InitializeNeurons(network);
 	}
 
-	public float[,] Calculate(float[,] input)
+	public float[,,] Calculate(float[,,] input)
 	{
-		float[,] output = input;
+		float[,,] output = input;
 
 		for (int i = 0; i < NeuronLayers.Count; i++)
 		{

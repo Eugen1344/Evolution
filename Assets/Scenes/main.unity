@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9129ba22c7f14c5ebad7c4a81e664028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 0}
+  _manager: {fileID: 158597884}
   Settings:
     InitialSpeciesCount: 10
     EmergencyRespawnCount: 10
@@ -2237,6 +2237,7 @@ MonoBehaviour:
       - {x: 10, y: 7}
       - {x: 5, y: 4}
       - {x: 3, y: 2}
+      - {x: 2, y: 1}
       FilterSize: {x: 3, y: 3}
       Overlap: 1
       MinRandomErrorCoefficient: 0.1
@@ -3082,7 +3083,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
