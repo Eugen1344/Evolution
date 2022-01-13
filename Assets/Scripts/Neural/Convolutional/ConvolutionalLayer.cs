@@ -11,9 +11,11 @@ public class ConvolutionalLayer
 	[JsonProperty("filters")] public List<ConvolutionalNeuron> Filters;
 	public Vector2Int PixelCount;
 
-	public float[,,] PrevOutput;
+	public float[,,] PrevOutput => _output;
 
 	public ConvolutionalNeuralNetworkSettings Settings;
+
+	private float[,,] _output;
 
 	private ConvolutionalLayer()
 	{
@@ -30,6 +32,8 @@ public class ConvolutionalLayer
 			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
 			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount)
 		};
+
+		_output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 	}
 
 	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
@@ -38,6 +42,7 @@ public class ConvolutionalLayer
 		layer.Settings = settings;
 		layer.PixelCount = pixelCount;
 		layer.Filters = null;
+		layer._output = new float[pixelCount.x, pixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 
 		return layer;
 	}
@@ -60,12 +65,14 @@ public class ConvolutionalLayer
 
 		PixelCount = layer.PixelCount;
 		Settings = layer.Settings;
+		_output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 	}
 
 	public float[,,] Calculate(float[,,] input)
 	{
-		float[,,] output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
-
+		int inputLengthX = input.GetLength(0);
+		int inputLengthY = input.GetLength(1);
+		
 		for (int i = 0; i < PixelCount.x; i++)
 		{
 			for (int j = 0; j < PixelCount.y; j++)
@@ -81,17 +88,15 @@ public class ConvolutionalLayer
 					else
 					{
 						ConvolutionalNeuron colorFilter = Filters[k];
-						result = colorFilter.Calculate(input, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
+						result = colorFilter.Calculate(input, inputLengthX, inputLengthY, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
 					}
 
-					output[i, j, k] = result;
+					_output[i, j, k] = result;
 				}
 			}
 		}
 
-		PrevOutput = output;
-
-		return output;
+		return _output;
 	}
 
 	public float IntroduceRandomError()

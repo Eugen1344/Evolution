@@ -1,10 +1,10 @@
 using Crosstales.FB;
 using GenericPanels;
+using UnityEngine;
 
 public class MenuPanel : UiPanel<MenuPanel>
 {
 	public EvolutionManager Manager;
-	public ContinuousEvolution Evolution; //TODO remove this
 
 	public void ClickSavePopulation()
 	{
@@ -13,7 +13,7 @@ public class MenuPanel : UiPanel<MenuPanel>
 		if (string.IsNullOrWhiteSpace(fileName))
 			return;
 
-		Evolution.SaveCurrentPopulation(fileName);
+		Manager.Save(fileName);
 
 		Hide();
 	}
@@ -25,14 +25,14 @@ public class MenuPanel : UiPanel<MenuPanel>
 		if (string.IsNullOrWhiteSpace(fileName))
 			return;
 
-		Evolution.LoadPopulation(fileName);
+		Manager.Load(fileName);
 
 		Hide();
 	}
 
 	public void ClickFinishGeneration()
 	{
-		Evolution.ForceFinishCurrentGeneration();
+		Debug.LogError("FinishGeneration not implemented");
 
 		Hide();
 	}

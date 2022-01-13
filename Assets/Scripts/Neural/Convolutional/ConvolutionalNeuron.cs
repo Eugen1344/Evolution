@@ -11,9 +11,11 @@ public class ConvolutionalNeuron
 
 	[JsonProperty("weights")] public float[,,] Weights;
 
-	public int WeightsLengthX => Weights.GetLength(0);
-	public int WeightsLengthY => Weights.GetLength(1);
-	public int WeightsLengthZ => Weights.GetLength(2);
+	public int WeightsLengthX;
+	public int WeightsLengthY;
+	public int WeightsLengthZ;
+
+	private float[,,] _result;
 
 	public ConvolutionalNeuron()
 	{
@@ -23,27 +25,51 @@ public class ConvolutionalNeuron
 	public ConvolutionalNeuron(int weightsLengthX, int weightsLengthY, int weightsLengthZ)
 	{
 		if (weightsLengthX == 0 || weightsLengthY == 0)
+		{
 			Weights = null;
+		}
 		else
+		{
+			WeightsLengthX = weightsLengthX;
+			WeightsLengthY = weightsLengthY;
+			WeightsLengthZ = weightsLengthZ;
+
 			Weights = new float[weightsLengthX, weightsLengthY, weightsLengthZ];
+			_result = new float[weightsLengthX, weightsLengthY, weightsLengthZ];
+		}
 	}
 
 	public ConvolutionalNeuron(float[,,] weights)
 	{
+		WeightsLengthX = weights.GetLength(0);
+		WeightsLengthY = weights.GetLength(1);
+		WeightsLengthZ = weights.GetLength(2);
+
 		Weights = weights;
+		_result = new float[WeightsLengthX, WeightsLengthY, WeightsLengthZ];
 	}
 
 	public ConvolutionalNeuron(ConvolutionalNeuron neuron)
 	{
 		if (neuron.Weights == null)
+		{
 			Weights = null;
+		}
 		else
+		{
+			WeightsLengthX = neuron.WeightsLengthX;
+			WeightsLengthY = neuron.WeightsLengthY;
+			WeightsLengthZ = neuron.WeightsLengthZ;
+
 			Weights = (float[,,]) neuron.Weights.Clone();
+
+			_result = new float[WeightsLengthX, WeightsLengthY, WeightsLengthZ];
+		}
 	}
 
-	public float Calculate(float[,,] input, int maskPositionX, int maskPositionY)
+	public float Calculate(float[,,] input, int inputLengthX, int inputLengthY, int maskPositionX, int maskPositionY)
 	{
-		float[,,] result = new float[WeightsLengthX, WeightsLengthY, WeightsLengthZ];
+		float maxValue = input[0, 0, 0];
 
 		for (int i = 0; i < WeightsLengthX; i++)
 		{
@@ -55,55 +81,50 @@ public class ConvolutionalNeuron
 					int inputY = maskPositionY + j;
 					int inputZ = 0;
 
-					if (inputX >= input.GetLength(0) || inputY >= input.GetLength(1))
+					if (inputX >= inputLengthX || inputY >= inputLengthY)
 						continue;
 
-					result[i, j, k] = input[inputX, inputY, inputZ] * Weights[i, j, k];
+					float value = input[inputX, inputY, inputZ] * Weights[i, j, k];
+					_result[i, j, k] = value;
+
+					if (value > maxValue)
+						maxValue = value;
 				}
 			}
 		}
 
-		float pooling = MaxPooling(result);
-
-		float output = Activation(pooling);
+		float output = Activation(maxValue);
 		return output;
 	}
 
 	private float AveragePooling(float[,,] output)
 	{
 		float sum = 0;
-		int sizeX = output.GetLength(0);
-		int sizeY = output.GetLength(1);
-		int sizeZ = output.GetLength(1);
 
-		for (int i = 0; i < sizeX; i++)
+		for (int i = 0; i < WeightsLengthX; i++)
 		{
-			for (int j = 0; j < sizeY; j++)
+			for (int j = 0; j < WeightsLengthY; j++)
 			{
-				for (int k = 0; k < sizeZ; k++)
+				for (int k = 0; k < WeightsLengthZ; k++)
 				{
 					sum += output[i, j, k];
 				}
 			}
 		}
 
-		float average = sum / (sizeX * sizeY);
+		float average = sum / (WeightsLengthX * WeightsLengthY * WeightsLengthZ);
 		return average;
 	}
 
 	private float MaxPooling(float[,,] output)
 	{
-		int sizeX = output.GetLength(0);
-		int sizeY = output.GetLength(1);
-		int sizeZ = output.GetLength(1);
-
 		float max = output[0, 0, 0];
 
-		for (int i = 0; i < sizeX; i++)
+		for (int i = 0; i < WeightsLengthX; i++)
 		{
-			for (int j = 0; j < sizeY; j++)
+			for (int j = 0; j < WeightsLengthY; j++)
 			{
-				for (int k = 0; k < sizeZ; k++)
+				for (int k = 0; k < WeightsLengthZ; k++)
 				{
 					float value = output[i, j, k];
 

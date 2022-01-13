@@ -123,6 +123,6 @@ public class ConvolutionalNeuralNetwork
 
 		ConvolutionalLayer lastLayer = NeuronLayers[^1];
 
-		return lastLayer.PixelCount.x * lastLayer.PixelCount.y;
+		return lastLayer.PixelCount.x * lastLayer.PixelCount.y * ColorChannelCount;
 	}
 }

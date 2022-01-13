@@ -39,8 +39,8 @@ public class Car : MonoBehaviour, ISpawner<Car>
 
 	public void SetGenome(CarGenome genome)
 	{
-		Brain.Network = genome.BrainNetwork;
-		Eye.Network = genome.EyeNetwork;
+		Brain.Network = new NeuralNetwork(genome.BrainNetwork);
+		Eye.Network = new ConvolutionalNeuralNetwork(genome.EyeNetwork);
 		Generation = genome.Generation + 1;
 
 		Body.SetColor(genome.Color);

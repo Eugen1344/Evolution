@@ -9,7 +9,6 @@ public class ContinuousEvolution : MonoBehaviour
 	public EvolutionManager _manager;
 	public ContinuousEvolutionSettings Settings;
 	[SerializeField] private CarSpawner _carSpawner;
-	private SaveManager _saveManager = new SaveManager();
 
 	public event Action<int> OnSpawnGeneration;
 
@@ -105,7 +104,7 @@ public class ContinuousEvolution : MonoBehaviour
 
 			clone.SetGenome(genome);
 		}
-		
+
 		_manager.TryRespawnAllFood();
 	}
 
@@ -166,17 +165,14 @@ public class ContinuousEvolution : MonoBehaviour
 		_lifeResults.Clear();
 	}
 
-	public void SaveCurrentPopulation(string fileName)
+	public List<CarGenome> GetPopulation()
 	{
 		List<CarGenome> genomes = _currentPopulation.Select(car => car.GetGenome()).ToList();
-		_saveManager.Save(fileName, genomes);
+		return genomes;
 	}
 
-	public void LoadPopulation(string fileName)
+	public void SetPopulation(List<CarGenome> genomes)
 	{
-		//ResetCurrentGeneration();
-
-		List<CarGenome> genomes = _saveManager.Load(fileName);
 		for (int i = 0; i < 1; i++) //TODO: TEMP load only first car
 		{
 			Car car = SpawnCar(i.ToString());
