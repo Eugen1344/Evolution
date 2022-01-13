@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8840572676599273198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8840572676599273192}
+  - component: {fileID: 8840572676599273199}
+  m_Layer: 0
+  m_Name: GenerationsEvolution
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8840572676599273192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840572676599273198}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8840572677125389515}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8840572676599273199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840572676599273198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8626553615814234b8d6d318662758fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings:
+    InitialSpeciesCount: 300
+    SpeciesPerGeneration: 10
+    BestSpeciesPerGeneration: 2
+    BestSpeciesPerGenerationClones: 1
+    NeuralNetworkSettings:
+      NeuronsCount: 2b00000014000000140000000f0000000a000000080000000700000006000000
+      MinRandomErrorCoefficient: 0.1
+      MaxRandomErrorCoefficient: 1
+    EyeNeuralNetworkSettings:
+      NeuronsCount:
+      - {x: 160, y: 100}
+      - {x: 80, y: 50}
+      - {x: 40, y: 25}
+      - {x: 20, y: 13}
+      - {x: 10, y: 7}
+      - {x: 5, y: 4}
+      FilterSize: {x: 2, y: 2}
+      Overlap: 0
+      MinRandomErrorCoefficient: 0.1
+      MaxRandomErrorCoefficient: 1
+    RespawnFoodEachGeneration: 0
+    TimeScale: 1
+  CarSpawner: {fileID: 8840572677125389364}
+  FoodSpawner: {fileID: 0}
+  Generation: 0
+--- !u!1 &8840572677125389514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8840572677125389515}
+  - component: {fileID: 8840572677125389364}
+  m_Layer: 0
+  m_Name: Cars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8840572677125389515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840572677125389514}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8840572676599273192}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8840572677125389364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8840572677125389514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7051499b402d4142aebb42498cd8ff5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRadiusMin: 0
+  SpawnRadiusMax: 5
+  ObjectsCountMax: 60
+  AutoSpawn: 0
+  SpawnIntervalSeconds: 0
+  Prefab: {fileID: 4432495669392959698, guid: d2652bce968b16241875cde7867ec6be, type: 3}

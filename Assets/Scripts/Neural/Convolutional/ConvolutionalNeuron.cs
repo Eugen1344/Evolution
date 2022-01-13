@@ -79,7 +79,7 @@ public class ConvolutionalNeuron
 				{
 					int inputX = maskPositionX + i;
 					int inputY = maskPositionY + j;
-					int inputZ = 0;
+					int inputZ = k;
 
 					if (inputX >= inputLengthX || inputY >= inputLengthY)
 						continue;

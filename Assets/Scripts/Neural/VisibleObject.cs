@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-public class VisibleObject : MonoBehaviour
+public class VisibleObject : MonoBehaviour //TODO delete
 {
-	public float Color;
 }

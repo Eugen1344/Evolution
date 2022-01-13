@@ -6,11 +6,11 @@ public class AutoSaveManager : MonoBehaviour
 {
 	public float IntervalSeconds;
 	public string FileName;
-	public string SaveFileExtension;
+	public string FileExtension;
 	[SerializeField] private EvolutionManager _manager;
 
 	private string SaveDirectory => Application.persistentDataPath;
-	private string SavePath => Path.Combine(SaveDirectory, $"{FileName}_{_manager.ExperimentName}", SaveFileExtension);
+	private string SavePath => Path.Combine(SaveDirectory, $"{FileName}_{_manager.ExperimentName}.{FileExtension}");
 
 	private void Awake()
 	{

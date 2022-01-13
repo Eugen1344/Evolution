@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class CarFood : MonoBehaviour, IInputNeuralModule
 {
+	public FoodType ConsumedFoodType;
 	public float MaxFood;
 	[Range(0, 1)] public float FoodStoreRatio;
 	public float FoodDecayPerSecond;
 	public Car Car;
 
 	[SerializeField] private float _currentFood;
+
 	public float CurrentFood
 	{
 		get => _currentFood;
 		set => _currentFood = value > 0 ? value : 0;
 	}
+
 	[SerializeField] private float _storedFood;
+
 	public float StoredFood
 	{
 		get => _storedFood;
 		set => _storedFood = value > 0 ? value : 0;
 	}
+
 	public float TotalAcquiredFood { get; private set; } = 0;
 
 	public event Action<Car, float> OnPickupFood;
-
-	private List<Food> _acquiredFood = new List<Food>();
 
 	private void Awake()
 	{
@@ -36,9 +39,10 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 	{
 		Food food = obj.GetComponent<Food>();
 
-		if (food && !_acquiredFood.Contains(food))
+		if (food)
 		{
-			PickUpFood(food);
+			if (ConsumedFoodType == food.Type)
+				PickUpFood(food);
 		}
 	}
 
@@ -47,8 +51,6 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 		float foodAmount = food.Pickup();
 
 		AddFood(foodAmount);
-
-		_acquiredFood.Add(food);
 
 		OnPickupFood?.Invoke(Car, foodAmount);
 	}

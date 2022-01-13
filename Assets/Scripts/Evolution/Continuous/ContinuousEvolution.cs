@@ -11,8 +11,6 @@ public class ContinuousEvolution : MonoBehaviour
 	public ContinuousEvolutionSettings Settings;
 	[SerializeField] private CarSpawner _carSpawner;
 
-	public event Action<int> OnSpawnGeneration;
-
 	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
@@ -43,8 +41,6 @@ public class ContinuousEvolution : MonoBehaviour
 			newGenome.Generation = 0;
 			newCar.SetGenome(newGenome);
 		}
-
-		OnSpawnGeneration?.Invoke(0);
 	}
 
 	private Car SpawnCar(string name)
@@ -140,21 +136,6 @@ public class ContinuousEvolution : MonoBehaviour
 
 		return child;
 	}
-
-	/*private List<CarLifeResult> FinishCurrentGeneration()
-	{
-		List<CarLifeResult> bestCars = GetBestResults().ToList();
-		CarLifeResult bestCar = bestCars.Max();
-
-		Debug.Log($"Generation: {Generation}. Best fitness: {bestCar.TotalAcquiredFood} ({bestCar.Index}). Average fitness: {GetAverageFitness()}");
-
-		return bestCars.ToList();
-	}*/
-
-	/*private IEnumerable<CarLifeResult> GetBestResults()
-	{
-		return _lifeResults.OrderByDescending(result => result.TotalAcquiredFood).ThenBy(_ => Random.value).Take(Settings.BestSpeciesPerGeneration);
-	}*/
 
 	public Car GetCurrentBestCar()
 	{

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EvolutionManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class EvolutionManager : MonoBehaviour
 	[SerializeField] private SaveManager _saveManager = new SaveManager();
 	public bool InitialSpawnAllFood;
 
+	public event Action OnInitialSpawn;
+	
 	private void Start()
 	{
 		ExperimentName = RandomStringGenerator(10);
@@ -24,6 +28,8 @@ public class EvolutionManager : MonoBehaviour
 		}
 
 		TryRespawnAllFood();
+		
+		OnInitialSpawn?.Invoke();
 	}
 
 	public void TryRespawnAllFood()
@@ -74,6 +80,13 @@ public class EvolutionManager : MonoBehaviour
 		}
 		
 		TryRespawnAllFood();
+	}
+
+	public Car GetRandomCar()
+	{
+		int evolutionIndex = Random.Range(0, Evolutions.Count);
+
+		return Evolutions[evolutionIndex].GetCurrentBestCar();
 	}
 
 	private string RandomStringGenerator(int length)

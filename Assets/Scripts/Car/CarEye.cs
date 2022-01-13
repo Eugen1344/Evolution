@@ -93,14 +93,12 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 		NativeArray<Color32> nativePixelData = _internalTexture.GetRawTextureData<Color32>();
 		nativePixelData.CopyTo(_outputColorData);
 
-		_pixelData = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
-
 		for (int i = 0; i < PixelCount.x; i++)
 		{
 			for (int j = 0; j < PixelCount.y; j++)
 			{
 				int flatArrayIndex = j * PixelCount.x + i;
-				Color32 color = nativePixelData[flatArrayIndex];
+				Color32 color = _outputColorData[flatArrayIndex];
 
 				_pixelData[i, j, 0] = (float) color.r / byte.MaxValue;
 				_pixelData[i, j, 1] = (float) color.g / byte.MaxValue;

@@ -12,7 +12,7 @@ public class CarPanel : UiPanel<CarPanel>
 	public RawImage EyePreview;
 	public Button PreviewLayerUp;
 	public Button PreviewLayerDown;
-	public ContinuousEvolution Evolution;
+	[SerializeField] private EvolutionManager _manager;
 
 	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.Eye : CurrentCar.Eye;
 
@@ -21,7 +21,7 @@ public class CarPanel : UiPanel<CarPanel>
 	protected override void Awake()
 	{
 		Car.OnClick += SelectCar;
-		Evolution.OnSpawnGeneration += OnSpawnGeneration;
+		_manager.OnInitialSpawn += OnSpawnGeneration;
 
 		base.Awake();
 	}
@@ -32,13 +32,13 @@ public class CarPanel : UiPanel<CarPanel>
 			CurrentCar.OnDespawn -= DespawnCar;
 
 		Car.OnClick -= SelectCar;
-		Evolution.OnSpawnGeneration -= OnSpawnGeneration;
+		_manager.OnInitialSpawn -= OnSpawnGeneration;
 
 		if (_internalEyePreviewTexture != null)
 			Destroy(_internalEyePreviewTexture);
 	}
 
-	private void OnSpawnGeneration(int generation)
+	private void OnSpawnGeneration()
 	{
 		if (CurrentCar == null && AutoSelectNextCar)
 		{
@@ -120,7 +120,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void SelectNextCar()
 	{
-		Car nextCar = Evolution.GetCurrentBestCar();
+		Car nextCar = _manager.GetRandomCar();
 		SelectCar(nextCar);
 	}
 

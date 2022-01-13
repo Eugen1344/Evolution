@@ -57,6 +57,7 @@ MonoBehaviour:
   PixelBaseSize: {x: 16, y: 10}
   PixelMultiplier: 5
   Camera: {fileID: 5464645071336581774}
+  PixelCount: {x: 0, y: 0}
 --- !u!20 &5464645071336581774
 Camera:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 1
   m_RenderPostProcessing: 0
