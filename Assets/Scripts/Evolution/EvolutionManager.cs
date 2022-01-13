@@ -7,10 +7,7 @@ public class EvolutionManager : MonoBehaviour
 {
 	public string ExperimentName;
 	public List<ContinuousEvolution> Evolutions;
-	public List<FoodSpawner> FoodSpawners;
 	[SerializeField] private SaveManager _saveManager = new SaveManager();
-	public bool InitialSpawnAllFood;
-
 	public event Action OnInitialSpawn;
 	
 	private void Start()
@@ -26,21 +23,8 @@ public class EvolutionManager : MonoBehaviour
 		{
 			evolution.InitialSpawn();
 		}
-
-		TryRespawnAllFood();
 		
 		OnInitialSpawn?.Invoke();
-	}
-
-	public void TryRespawnAllFood()
-	{
-		if (InitialSpawnAllFood)
-		{
-			foreach (FoodSpawner spawner in FoodSpawners)
-			{
-				spawner.SpawnMaxObjects();
-			}
-		}
 	}
 
 	public void Save(string savePath)
@@ -78,8 +62,6 @@ public class EvolutionManager : MonoBehaviour
 
 			evolution.SetPopulation(genomes);
 		}
-		
-		TryRespawnAllFood();
 	}
 
 	public Car GetRandomCar()

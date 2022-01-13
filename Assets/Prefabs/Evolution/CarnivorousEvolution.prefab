@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8344662095784572006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4189867992714113791}
+  - component: {fileID: 1424017883862512226}
+  m_Layer: 6
+  m_Name: StartFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4189867992714113791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344662095784572006}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4420877073541049139}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424017883862512226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8344662095784572006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRadiusMin: 15
+  SpawnRadiusMax: 30
+  ObjectsCountMax: 20
+  AutoSpawn: 1
+  SpawnIntervalSeconds: 80
+  Prefab: {fileID: 3644957702750299681, guid: 7fe24aeb8f31e2c4f87391b5bcf3a6e4, type: 3}
 --- !u!1001 &1517360545417380339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16,12 +66,12 @@ PrefabInstance:
     - target: {fileID: 2906127046113145003, guid: 6fb751689add9d545bf37529ed41d610,
         type: 3}
       propertyPath: SpawnRadiusMax
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2906127046113145003, guid: 6fb751689add9d545bf37529ed41d610,
         type: 3}
       propertyPath: SpawnRadiusMin
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2906127047424142016, guid: 6fb751689add9d545bf37529ed41d610,
         type: 3}
@@ -83,5 +133,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivorousEvolution
       objectReference: {fileID: 0}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.data[0]
+      value: 
+      objectReference: {fileID: 1424017883862512226}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fb751689add9d545bf37529ed41d610, type: 3}
+--- !u!4 &4420877073541049139 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2906127047424142016, guid: 6fb751689add9d545bf37529ed41d610,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517360545417380339}
+  m_PrefabAsset: {fileID: 0}

@@ -1,5 +1,105 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5904469730898544842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5062797385747833949}
+  - component: {fileID: 6160871793873753468}
+  m_Layer: 6
+  m_Name: FarFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5062797385747833949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904469730898544842}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4420877073541049139}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6160871793873753468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904469730898544842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRadiusMin: 60
+  SpawnRadiusMax: 150
+  ObjectsCountMax: 40
+  AutoSpawn: 1
+  SpawnIntervalSeconds: 10
+  Prefab: {fileID: 3644957702750299681, guid: b833c2977d67e00418842000c7c3f17d, type: 3}
+--- !u!1 &8060053633402222073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8241335881086360083}
+  - component: {fileID: 8446942908934734961}
+  m_Layer: 6
+  m_Name: BadFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8241335881086360083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060053633402222073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4420877073541049139}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8446942908934734961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060053633402222073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7573aaf6747fb84d95c45cca3e163a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRadiusMin: 0
+  SpawnRadiusMax: 150
+  ObjectsCountMax: 100
+  AutoSpawn: 1
+  SpawnIntervalSeconds: 5
+  Prefab: {fileID: 3644957702750299681, guid: 7c431181a9d2e2442b07000bda43cc23, type: 3}
 --- !u!1001 &1517360545417380339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,6 +107,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2906127046113145003, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: SpawnRadiusMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906127046113145003, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: SpawnRadiusMin
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2906127047424142016, guid: 6fb751689add9d545bf37529ed41d610,
         type: 3}
       propertyPath: m_RootOrder
@@ -67,5 +177,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: HerbivorousEvolution
       objectReference: {fileID: 0}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.data[0]
+      value: 
+      objectReference: {fileID: 6160871793873753468}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.data[1]
+      value: 
+      objectReference: {fileID: 6160871793873753468}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: _foodSpawners.Array.data[2]
+      value: 
+      objectReference: {fileID: 8446942908934734961}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fb751689add9d545bf37529ed41d610, type: 3}
+--- !u!4 &4420877073541049139 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2906127047424142016, guid: 6fb751689add9d545bf37529ed41d610,
+    type: 3}
+  m_PrefabInstance: {fileID: 1517360545417380339}
+  m_PrefabAsset: {fileID: 0}

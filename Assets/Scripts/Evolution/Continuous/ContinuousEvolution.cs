@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
 {
 	public EvolutionManager _manager;
 	public ContinuousEvolutionSettings Settings;
 	[SerializeField] private CarSpawner _carSpawner;
+	[SerializeField] private List<FoodSpawner> _foodSpawners;
 
 	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
@@ -41,6 +40,8 @@ public class ContinuousEvolution : MonoBehaviour
 			newGenome.Generation = 0;
 			newCar.SetGenome(newGenome);
 		}
+
+		TryRespawnAllFood();
 	}
 
 	private Car SpawnCar(string name)
@@ -64,7 +65,6 @@ public class ContinuousEvolution : MonoBehaviour
 
 		car.Food.StoredFood -= Settings.ChildStoredFoodRequirement;
 		SpawnChild(car, true);
-		SpawnChild(car, false);
 	}
 
 	private void OnCarFinishLife(Car car)
@@ -103,9 +103,6 @@ public class ContinuousEvolution : MonoBehaviour
 			int randomBestIndex = Random.Range(0, _lifeResults.Count);
 			CarGenome randomBest = _lifeResults[randomBestIndex].Genome;
 
-			if (_lifeResults.Count > 1)
-				_lifeResults.RemoveAt(randomBestIndex);
-
 			CarGenome genome = new CarGenome(randomBest);
 			Car clone = SpawnCar(_lastCarIndex.ToString());
 
@@ -115,7 +112,20 @@ public class ContinuousEvolution : MonoBehaviour
 			clone.SetGenome(genome);
 		}
 
-		_manager.TryRespawnAllFood();
+		_lifeResults.Clear();
+		
+		TryRespawnAllFood();
+	}
+
+	public void TryRespawnAllFood()
+	{
+		if (Settings.RespawnAllFood)
+		{
+			foreach (FoodSpawner spawner in _foodSpawners)
+			{
+				spawner.SpawnMaxObjects();
+			}
+		}
 	}
 
 	public Car SpawnChild(Car car, bool introduceError)
@@ -179,5 +189,7 @@ public class ContinuousEvolution : MonoBehaviour
 			Car car = SpawnCar(i.ToString());
 			car.SetGenome(new CarGenome(genomes[i]));
 		}
+
+		TryRespawnAllFood();
 	}
 }

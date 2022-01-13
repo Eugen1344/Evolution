@@ -117,6 +117,7 @@ MonoBehaviour:
       Overlap: 1
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
-    RespawnAllFood: 0
+    RespawnAllFood: 1
   _carSpawner: {fileID: 2906127046113145003}
+  _foodSpawners: []
   _lifeResults: []
