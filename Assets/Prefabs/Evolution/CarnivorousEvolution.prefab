@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 15
-  SpawnRadiusMax: 30
+  SpawnRadiusMax: 60
   ObjectsCountMax: 20
   AutoSpawn: 1
   SpawnIntervalSeconds: 80

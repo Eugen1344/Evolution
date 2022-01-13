@@ -5,11 +5,22 @@ using Random = UnityEngine.Random;
 
 public class EvolutionManager : MonoBehaviour
 {
-	public string ExperimentName;
 	public List<ContinuousEvolution> Evolutions;
 	[SerializeField] private SaveManager _saveManager = new SaveManager();
 	public event Action OnInitialSpawn;
-	
+
+	private string _experimentName;
+
+	public string ExperimentName
+	{
+		get => _experimentName;
+		private set
+		{
+			_experimentName = value;
+			WindowTitle.Set($"{Application.productName} - {ExperimentName}");
+		}
+	}
+
 	private void Start()
 	{
 		ExperimentName = RandomStringGenerator(10);
@@ -23,7 +34,7 @@ public class EvolutionManager : MonoBehaviour
 		{
 			evolution.InitialSpawn();
 		}
-		
+
 		OnInitialSpawn?.Invoke();
 	}
 

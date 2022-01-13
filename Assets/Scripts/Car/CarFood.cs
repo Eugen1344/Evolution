@@ -66,7 +66,6 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 		float foodReward = GetFoodReward(Car.Movement.GetTotalNormalizedSpeed());
 		float foodDelta = (foodReward - FoodDecayPerSecond) * Time.deltaTime;
-
 		AddFood(foodDelta);
 
 		if (CurrentFood < 0)
@@ -100,8 +99,7 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 	public float GetFoodReward(float speed)
 	{
-		return 0;
-		//return speed * FoodDecayPerSecond;
+		return -Mathf.Abs(speed * FoodDecayPerSecond);
 	}
 
 	public float GetNormalizedFoodAmount()

@@ -96,8 +96,6 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void EmergencyRespawn()
 	{
-		Debug.Log($"Emergency respawn {Settings.EmergencyRespawnCount} cars");
-
 		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
 		{
 			int randomBestIndex = Random.Range(0, _lifeResults.Count);
