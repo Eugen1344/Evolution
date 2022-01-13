@@ -50,6 +50,10 @@ public class TimeScaleController : MonoBehaviour
 		{
 			Time.timeScale = _timeScaleButtonValues[3];
 		}
+		else if (Input.GetKeyUp(KeyCode.Alpha5))
+		{
+			Time.timeScale = _timeScaleButtonValues[4];
+		}
 		else if (Input.GetKeyUp(_adaptiveTimeScaleKey))
 		{
 			_adaptiveFps.IsEnabled = !_adaptiveFps.IsEnabled;

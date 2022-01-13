@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,11 +17,24 @@ public class ContinuousEvolution : MonoBehaviour
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
 
+	private void Update()
+	{
+		List<Task> carUpdateTasks = new List<Task>();
+
+		foreach (Car car in _currentPopulation)
+		{
+			Task updateTask = car.UpdateCarAsync();
+			carUpdateTasks.Add(updateTask);
+		}
+
+		Task.WhenAll(carUpdateTasks);
+	}
+
 	public void InitialSpawn()
 	{
 		Debug.Log($"Initial spawning cars: {Settings.InitialSpeciesCount}");
 
-		ResetCurrentGeneration();
+		Reset();
 
 		for (_lastCarIndex = 0; _lastCarIndex < Settings.InitialSpeciesCount; _lastCarIndex++)
 		{
@@ -157,9 +171,15 @@ public class ContinuousEvolution : MonoBehaviour
 		_carSpawner.DespawnObjects();
 	}
 
-	private void ResetCurrentGeneration()
+	private void Reset()
 	{
 		_carSpawner.DespawnObjects();
+
+		foreach (Car car in _currentPopulation)
+		{
+			car.Food.OnPickupFood -= OnCarPickupFood;
+			car.OnDespawn -= OnCarFinishLife;
+		}
 
 		_currentPopulation.Clear();
 		_lifeResults.Clear();

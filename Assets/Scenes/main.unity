@@ -2237,7 +2237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 158597884}
   Settings:
-    InitialSpeciesCount: 20
+    InitialSpeciesCount: 100
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
@@ -2307,7 +2307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 60
   SpawnRadiusMax: 150
-  ObjectsCountMax: 40
+  ObjectsCountMax: 20
   AutoSpawn: 1
   SpawnIntervalSeconds: 10
   Prefab: {fileID: 3644957702750299681, guid: b833c2977d67e00418842000c7c3f17d, type: 3}
@@ -2362,8 +2362,9 @@ MonoBehaviour:
   - 3
   - 5
   - 10
+  - 20
   _pauseKey: 32
-  _adaptiveTimeScaleKey: 53
+  _adaptiveTimeScaleKey: 54
   _adaptiveFps: {fileID: 997602686}
 --- !u!4 &997602685
 Transform:

@@ -72,6 +72,8 @@ public class EvolutionManager : MonoBehaviour
 
 			evolution.SetPopulation(genomes);
 		}
+		
+		TryRespawnAllFood();
 	}
 
 	private string RandomStringGenerator(int length)

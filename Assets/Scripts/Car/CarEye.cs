@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -48,19 +49,40 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	public IEnumerable<float> GetInput()
 	{
 		UpdateViewData();
+		Task<IEnumerable<float>> updateTask = UpdatePixelData();
+		updateTask.Wait();
 
-		float[,,] inputPixelData = GetPixelData();
-		float[,,] outputPixelData = Network.Calculate(inputPixelData);
+		return updateTask.Result;
+	}
 
-		foreach (float pixel in outputPixelData)
-		{
-			yield return pixel;
-		}
+	public async Task<IEnumerable<float>> GetInputAsync()
+	{
+		UpdateViewData();
+
+		return await UpdatePixelData();
 	}
 
 	public void UpdateViewData()
 	{
 		Camera.Render();
+	}
+
+	private async Task<IEnumerable<float>> UpdatePixelData()
+	{
+		float[,,] inputPixelData = GetPixelData();
+
+		Task<float[,,]> calculateTask = Task.Run(() => Network.Calculate(inputPixelData));
+		float[,,] outputPixelData = await calculateTask;
+
+		return GetPixelData(outputPixelData);
+	}
+
+	private IEnumerable<float> GetPixelData(float[,,] data)
+	{
+		foreach (float pixel in data)
+		{
+			yield return pixel;
+		}
 	}
 
 	private float[,,] GetPixelData()

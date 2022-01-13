@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CarBrain : MonoBehaviour
@@ -28,12 +29,12 @@ public class CarBrain : MonoBehaviour
 		OutputModules.Add(Car.Movement);
 	}
 
-	private void Update()
+	public async Task TryMakeDecisionAsync()
 	{
 		if (!IsTimeToMakeDecision())
 			return;
 
-		UpdateNetwork();
+		await UpdateNetwork();
 
 		_prevDecisionRealtimeSinceStartup = Time.time;
 
@@ -45,9 +46,9 @@ public class CarBrain : MonoBehaviour
 		return Time.time >= _prevDecisionRealtimeSinceStartup + 1.0f / DecisionsPerSecond;
 	}
 
-	private void UpdateNetwork()
+	private async Task UpdateNetwork()
 	{
-		float[] inputData = GetInputData();
+		float[] inputData = await GetInputData();
 		float[] result = Network.Calculate(inputData);
 		int startingIndex = 0;
 
@@ -57,13 +58,15 @@ public class CarBrain : MonoBehaviour
 
 			startingIndex += outputModule.OutputNeuronCount;
 		}
-
-		int inputNeuronsCount = InputModules.Sum(module => module.InputNeuronCount);
-		int outputNeuronsCount = OutputModules.Sum(module => module.OutputNeuronCount);
 	}
 
-	private float[] GetInputData()
+	private async Task<float[]> GetInputData()
 	{
-		return InputModules.SelectMany(module => module.GetInput()).ToArray();
+		IEnumerable<float> inputModules = StaticSignalModule.GetInput().Concat(Car.Food.GetInput()).Concat(Car.FoodPleasure.GetInput()).Concat(Car.Movement.GetInput());
+		IEnumerable<float> eyeInput = await Car.Eye.GetInputAsync();
+
+		inputModules = inputModules.Concat(eyeInput);
+
+		return inputModules.ToArray();
 	}
 }

@@ -57,9 +57,9 @@ public class ConvolutionalNeuron
 		}
 		else
 		{
-			WeightsLengthX = neuron.WeightsLengthX;
-			WeightsLengthY = neuron.WeightsLengthY;
-			WeightsLengthZ = neuron.WeightsLengthZ;
+			WeightsLengthX = neuron.Weights.GetLength(0);
+			WeightsLengthY = neuron.Weights.GetLength(1);
+			WeightsLengthZ = neuron.Weights.GetLength(2);
 
 			Weights = (float[,,]) neuron.Weights.Clone();
 

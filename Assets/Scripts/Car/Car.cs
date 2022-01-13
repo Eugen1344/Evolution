@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Car : MonoBehaviour, ISpawner<Car>
@@ -16,6 +17,11 @@ public class Car : MonoBehaviour, ISpawner<Car>
 
 	public event Action<Car> OnDespawn;
 	public static event Action<Car> OnClick;
+
+	public async Task UpdateCarAsync()
+	{
+		await Brain.TryMakeDecisionAsync();
+	}
 
 	public void Destroy()
 	{
