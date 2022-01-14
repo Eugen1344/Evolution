@@ -7,6 +7,10 @@ public class NeuralNetworkSettings
 {
 	[JsonProperty("layers")]
 	public int[] NeuronsCount;
+	[JsonProperty("activation_threshold")]
+	public float ActivationThreshold;
+	[JsonProperty("activation_threshold_error")]
+	public float ActivationThresholdError;
 	[JsonProperty("error_min")]
 	public float MinRandomErrorCoefficient;
 	[JsonProperty("error_max")]

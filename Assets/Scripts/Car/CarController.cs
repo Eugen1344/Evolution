@@ -115,11 +115,18 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 
 	public void SetOutput(float[] output, int startingIndex)
 	{
-		SetSpeed(WheelType.FrontLeft, output[startingIndex]);
-		SetSpeed(WheelType.RearLeft, output[startingIndex + 1]);
-		SetSpeed(WheelType.FrontRight, output[startingIndex + 2]);
-		SetSpeed(WheelType.RearRight, output[startingIndex + 3]);
-		SetSteering(WheelType.FrontLeft, output[startingIndex + 4]);
-		SetSteering(WheelType.FrontRight, output[startingIndex + 5]);
+		float frontLeft = output[startingIndex] * 2 - 1;
+		float rearLeft = output[startingIndex + 1] * 2 - 1;
+		float frontRight = output[startingIndex + 2] * 2 - 1;
+		float rearRight = output[startingIndex + 3] * 2 - 1;
+		float frontLeftSteer = output[startingIndex + 4] * 2 - 1;
+		float frontRightSteer = output[startingIndex + 5] * 2 - 1;
+		
+		SetSpeed(WheelType.FrontLeft, frontLeft);
+		SetSpeed(WheelType.RearLeft, rearLeft);
+		SetSpeed(WheelType.FrontRight, frontRight);
+		SetSpeed(WheelType.RearRight, rearRight);
+		SetSteering(WheelType.FrontLeft, frontLeftSteer);
+		SetSteering(WheelType.FrontRight, frontRightSteer);
 	}
 }

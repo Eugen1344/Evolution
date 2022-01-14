@@ -1,4 +1,5 @@
 using GenericPanels;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
@@ -9,9 +10,10 @@ public class CarPanel : UiPanel<CarPanel>
 	public bool ViewLeftEye;
 	public Car CurrentCar;
 	public int PreviewLayer;
-	public RawImage EyePreview;
-	public Button PreviewLayerUp;
-	public Button PreviewLayerDown;
+	[SerializeField] private RawImage _eyePreview;
+	[SerializeField] private Button _previewLayerUp;
+	[SerializeField] private Button _previewLayerDown;
+	[SerializeField] private TextMeshProUGUI _thresholdText;
 	[SerializeField] private EvolutionManager _manager;
 
 	public CarEye CurrentEye => CurrentCar == null ? null : ViewLeftEye ? CurrentCar.Eye : CurrentCar.Eye;
@@ -74,17 +76,17 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void UpdatePreviewLayerButtons()
 	{
-		PreviewLayerDown.interactable = false;
-		PreviewLayerUp.interactable = false;
+		_previewLayerDown.interactable = false;
+		_previewLayerUp.interactable = false;
 
 		if (CurrentCar == null)
 			return;
 
 		if (PreviewLayer < CurrentEye.Network.NeuronLayers.Count - 1)
-			PreviewLayerDown.interactable = true;
+			_previewLayerDown.interactable = true;
 
 		if (PreviewLayer > 0)
-			PreviewLayerUp.interactable = true;
+			_previewLayerUp.interactable = true;
 	}
 
 	private void ClearCurrentCar()
@@ -102,6 +104,8 @@ public class CarPanel : UiPanel<CarPanel>
 		car.OnDespawn += DespawnCar;
 
 		UpdateCurrentEyePreviewTexture();
+
+		_thresholdText.text = $"threshold: {car.Brain.Network.ActivationThreshold}";
 	}
 
 	private void DespawnCar(Car car)
@@ -160,7 +164,7 @@ public class CarPanel : UiPanel<CarPanel>
 			Destroy(_internalEyePreviewTexture);
 
 		_internalEyePreviewTexture = CreateEyePreviewTexture(CurrentCar, PreviewLayer);
-		EyePreview.texture = _internalEyePreviewTexture;
+		_eyePreview.texture = _internalEyePreviewTexture;
 
 		UpdatePreviewImage(CurrentCar);
 		UpdatePreviewLayerButtons();

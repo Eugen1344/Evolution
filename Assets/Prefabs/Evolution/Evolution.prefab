@@ -103,6 +103,8 @@ MonoBehaviour:
     StoredLifeResultCount: 20
     NeuralNetworkSettings:
       NeuronsCount: 16000000140000001400000014000000140000000a0000000a00000006000000
+      ActivationThreshold: 0.5
+      ActivationThresholdError: 0.01
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:

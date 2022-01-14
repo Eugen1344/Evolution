@@ -6,8 +6,7 @@ using Newtonsoft.Json;
 [JsonObject(MemberSerialization.OptIn)]
 public class Layer
 {
-	[JsonProperty("neurons")]
-	public List<Neuron> Neurons;
+	[JsonProperty("neurons")] public List<Neuron> Neurons;
 
 	public int Size => Neurons.Count;
 
@@ -36,13 +35,13 @@ public class Layer
 		}
 	}
 
-	public float[] Calculate(float[] input)
+	public float[] Calculate(float[] input, float activationThreshold, bool isLastLayer)
 	{
 		float[] output = new float[Neurons.Count];
 
 		for (int i = 0; i < output.Length; i++)
 		{
-			output[i] = Neurons[i].Calculate(input);
+			output[i] = Neurons[i].Calculate(input, activationThreshold, isLastLayer);
 		}
 
 		return output;

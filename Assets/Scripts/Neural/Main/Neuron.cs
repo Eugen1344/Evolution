@@ -47,7 +47,7 @@ public class Neuron
 		//Memory = null;
 	}
 
-	public float Calculate(float[] input)
+	public float Calculate(float[] input, float activationThreshold, bool isLastLayer)
 	{
 		float sum = 0;
 
@@ -58,17 +58,28 @@ public class Neuron
 		{
 			//float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
 			//sum += input[i] * (weight);
-			
-			sum += input[i] * (Weights[i]);
-			
+
+			sum += input[i] * Weights[i];
+
 			//Memory[i] += MemoryActivation(sum);
 			//Memory[i] = Mathf.Clamp(Memory[i], -1.0f, 1.0f);
 		}
 
-		return Activation(sum);
+		if (isLastLayer)
+			return sum > 0 ? ActivationTanh(sum) : 0;
+
+		return ActivationBinary(sum, activationThreshold);
 	}
 
-	private float Activation(float value)
+	private float ActivationBinary(float value, float activationThreshold)
+	{
+		if (value >= activationThreshold)
+			return 1;
+
+		return 0;
+	}
+
+	private float ActivationTanh(float value)
 	{
 		float exp = Mathf.Exp(value);
 		float inverseExp = Mathf.Exp(-value);
@@ -78,7 +89,7 @@ public class Neuron
 
 	private float MemoryActivation(float neuronOutput)
 	{
-		return Activation(neuronOutput) * MemoryMultiplier;
+		return ActivationTanh(neuronOutput) * MemoryMultiplier;
 	}
 
 	public void SetRandomWeights()
@@ -88,7 +99,8 @@ public class Neuron
 
 		for (int i = 0; i < Weights.Length; i++)
 		{
-			Weights[i] = Random.Range(-1.0f, 1.0f);
+			//Weights[i] = Random.Range(-MaxWeight, MaxWeight);
+			Weights[i] = Random.Range(0, MaxWeight);
 		}
 	}
 
@@ -101,7 +113,7 @@ public class Neuron
 
 		float weight = Weights[randomWeightIndex];
 		float weightDelta = MaxWeight * errorCoefficient;
-		float newWeight = Mathf.Clamp(weight + weightDelta, -MaxWeight, MaxWeight);
+		float newWeight = Mathf.Clamp(weight + weightDelta, 0, MaxWeight);
 
 		Weights[randomWeightIndex] = newWeight;
 	}
