@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -16,15 +17,32 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void Update()
 	{
-		List<Task> carUpdateTasks = new List<Task>();
+		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
+		Task updateTask = UpdateCars();
+		updateTask.Wait();
+	}
 
-		foreach (Car car in _currentPopulation)
+	private async Task UpdateCars()
+	{
+		Task[] updateTasks = new Task[_currentPopulation.Count];
+
+		for (int i = 0; i < _currentPopulation.Count; i++)
 		{
+			Car car = _currentPopulation[i];
 			Task updateTask = car.UpdateCarAsync();
-			carUpdateTasks.Add(updateTask);
+			updateTasks[i] = updateTask;
 		}
 
-		Task.WhenAll(carUpdateTasks);
+		if (updateTasks.Length == 0)
+			return;
+
+		await Task.WhenAll(updateTasks).ConfigureAwait(false);
+
+		foreach (Task updateTask in updateTasks)
+		{
+			if (updateTask.Exception != null)
+				throw updateTask.Exception;
+		}
 	}
 
 	public void InitialSpawn()
@@ -104,14 +122,13 @@ public class ContinuousEvolution : MonoBehaviour
 			CarGenome genome = new CarGenome(randomBest);
 			Car clone = SpawnCar(_lastCarIndex.ToString());
 
-			if (i % 2 == 0)
-				genome.IntroduceRandomError();
+			genome.IntroduceRandomError();
 
 			clone.SetGenome(genome);
 		}
 
 		_lifeResults.Clear();
-		
+
 		TryRespawnAllFood();
 	}
 

@@ -69,7 +69,7 @@ public class ConvolutionalNeuron
 
 	public float Calculate(float[,,] input, int inputLengthX, int inputLengthY, int maskPositionX, int maskPositionY)
 	{
-		float maxValue = input[0, 0, 0];
+		float sum = 0;
 
 		for (int i = 0; i < WeightsLengthX; i++)
 		{
@@ -85,16 +85,14 @@ public class ConvolutionalNeuron
 						continue;
 
 					float value = input[inputX, inputY, inputZ] * Weights[i, j, k];
-					_result[i, j, k] = value;
+					//_result[i, j, k] = value;
 
-					if (value > maxValue)
-						maxValue = value;
+					sum += value;
 				}
 			}
 		}
 
-		float output = Activation(maxValue);
-		return output;
+		return Activation(sum);
 	}
 
 	private float AveragePooling(float[,,] output)
@@ -139,7 +137,7 @@ public class ConvolutionalNeuron
 
 	private float Activation(float value)
 	{
-		return Mathf.Max(0, value);
+		return Mathf.Clamp(value, 0, 1);
 	}
 
 	public void SetInitialWeights()
@@ -153,7 +151,7 @@ public class ConvolutionalNeuron
 			{
 				for (int k = 0; k < WeightsLengthZ; k++)
 				{
-					Weights[i, j, k] = 0;
+					Weights[i, j, k] = 1;
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.Collections;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	{
 		UpdateViewData();
 
-		return await UpdatePixelData();
+		return await UpdatePixelData().ConfigureAwait(false);
 	}
 
 	public void UpdateViewData()
@@ -70,9 +71,8 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	private async Task<IEnumerable<float>> UpdatePixelData()
 	{
 		float[,,] inputPixelData = GetPixelData();
-
 		Task<float[,,]> calculateTask = Task.Run(() => Network.Calculate(inputPixelData));
-		float[,,] outputPixelData = await calculateTask;
+		float[,,] outputPixelData = await calculateTask.ConfigureAwait(false);
 
 		return GetPixelData(outputPixelData);
 	}

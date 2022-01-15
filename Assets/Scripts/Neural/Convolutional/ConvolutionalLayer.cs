@@ -21,30 +21,22 @@ public class ConvolutionalLayer
 	{
 	}
 
-	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
+	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int inputPixelCount)
 	{
 		Settings = settings;
-		PixelCount = pixelCount;
-
-		Filters = new List<ConvolutionalNeuron>
-		{
-			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
-			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
-			new ConvolutionalNeuron(settings.FilterSize.x, settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount)
-		};
+		PixelCount = OutputSize(inputPixelCount);
 
 		_output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 	}
 
-	public static ConvolutionalLayer First(ConvolutionalNeuralNetworkSettings settings, Vector2Int pixelCount)
+	public void InitializeFilters()
 	{
-		ConvolutionalLayer layer = new ConvolutionalLayer();
-		layer.Settings = settings;
-		layer.PixelCount = pixelCount;
-		layer.Filters = null;
-		layer._output = new float[pixelCount.x, pixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
-
-		return layer;
+		Filters = new List<ConvolutionalNeuron>
+		{
+			new ConvolutionalNeuron(Settings.FilterSize.x, Settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
+			new ConvolutionalNeuron(Settings.FilterSize.x, Settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
+			new ConvolutionalNeuron(Settings.FilterSize.x, Settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount)
+		};
 	}
 
 	public ConvolutionalLayer(ConvolutionalLayer layer)
@@ -72,12 +64,19 @@ public class ConvolutionalLayer
 	{
 		int inputLengthX = input.GetLength(0);
 		int inputLengthY = input.GetLength(1);
-		
-		for (int i = 0; i < PixelCount.x; i++)
+
+		int inputPositionX = 0;
+		int inputPositionY = 0;
+
+		return _output;
+
+		for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
 		{
-			for (int j = 0; j < PixelCount.y; j++)
+			ConvolutionalNeuron colorFilter = Filters[k];
+
+			for (int i = 0; i < PixelCount.x; i++)
 			{
-				for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
+				for (int j = 0; j < PixelCount.y; j++)
 				{
 					float result;
 
@@ -87,16 +86,30 @@ public class ConvolutionalLayer
 					}
 					else
 					{
-						ConvolutionalNeuron colorFilter = Filters[k];
-						result = colorFilter.Calculate(input, inputLengthX, inputLengthY, i * (Settings.FilterSize.x - Settings.Overlap), j * (Settings.FilterSize.y - Settings.Overlap));
+						result = colorFilter.Calculate(input, inputLengthX, inputLengthY, inputPositionX, inputPositionY);
 					}
 
 					_output[i, j, k] = result;
+
+					inputPositionX += Settings.Stride;
 				}
+
+				inputPositionY += Settings.Stride;
 			}
 		}
 
 		return _output;
+	}
+
+	public Vector2Int OutputSize(Vector2Int inputSize)
+	{
+		int convolutionalLayerSizeX = Mathf.CeilToInt((inputSize.x - Settings.FilterSize.x + 2 * Settings.Padding) / (float) Settings.Stride) + 1;
+		int convolutionalLayerSizeY = Mathf.CeilToInt((inputSize.y - Settings.FilterSize.y + 2 * Settings.Padding) / (float) Settings.Stride) + 1;
+
+		int poolingLayerSizeX = Mathf.CeilToInt((float) convolutionalLayerSizeX / Settings.PoolingSize.x);
+		int poolingLayerSizeY = Mathf.CeilToInt((float) convolutionalLayerSizeY / Settings.PoolingSize.y);
+
+		return new Vector2Int(poolingLayerSizeX, poolingLayerSizeY);
 	}
 
 	public float IntroduceRandomError()

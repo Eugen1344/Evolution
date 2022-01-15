@@ -97,24 +97,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   Settings:
-    InitialSpeciesCount: 100
+    InitialSpeciesCount: 1
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
     NeuralNetworkSettings:
-      NeuronsCount: 16000000140000001400000014000000140000000a0000000a00000006000000
+      NeuronsCount: 0a000000140000001400000014000000140000000a0000000a00000006000000
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
-      NeuronsCount:
-      - {x: 80, y: 50}
-      - {x: 40, y: 25}
-      - {x: 20, y: 13}
-      - {x: 10, y: 7}
-      - {x: 5, y: 4}
-      - {x: 3, y: 2}
+      InputPixelCount: {x: 80, y: 50}
+      LayerCount: 5
       FilterSize: {x: 3, y: 3}
-      Overlap: 1
+      PoolingSize: {x: 1, y: 1}
+      Stride: 2
+      Padding: 0
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     RespawnAllFood: 1

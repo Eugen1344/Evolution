@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -9,10 +10,8 @@ public class ConvolutionalNeuralNetwork
 {
 	public const int ColorChannelCount = 3;
 
-	[JsonProperty("layers")]
-	public List<ConvolutionalLayer> NeuronLayers;
-	[JsonProperty("settings")]
-	public ConvolutionalNeuralNetworkSettings Settings;
+	[JsonProperty("layers")] public List<ConvolutionalLayer> NeuronLayers;
+	[JsonProperty("settings")] public ConvolutionalNeuralNetworkSettings Settings;
 
 	public ConvolutionalNeuralNetwork()
 	{
@@ -38,6 +37,7 @@ public class ConvolutionalNeuralNetwork
 
 	public float[,,] Calculate(float[,,] input)
 	{
+		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
 		float[,,] output = input;
 
 		for (int i = 0; i < NeuronLayers.Count; i++)
@@ -66,13 +66,10 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetwork network)
 	{
-		for (int i = 0; i < network.Settings.NeuronsCount.Length; i++)
+		for (int i = 0; i < network.Settings.LayerCount; i++)
 		{
 			ConvolutionalLayer layer = network.NeuronLayers[i];
 			ConvolutionalLayer copiedLayer = new ConvolutionalLayer(layer);
-			Vector2Int count = network.Settings.NeuronsCount[i];
-			copiedLayer.PixelCount = count;
-			copiedLayer.Settings = network.Settings;
 
 			NeuronLayers.Add(copiedLayer);
 		}
@@ -80,12 +77,18 @@ public class ConvolutionalNeuralNetwork
 
 	private void InitializeNeurons(ConvolutionalNeuralNetworkSettings settings)
 	{
-		for (int i = 0; i < settings.NeuronsCount.Length; i++)
+		Vector2Int prevPixelCount = settings.InputPixelCount;
+
+		for (int i = 0; i < settings.LayerCount; i++)
 		{
-			Vector2Int count = settings.NeuronsCount[i];
-			ConvolutionalLayer layer = i == 0 ? ConvolutionalLayer.First(settings, count) : new ConvolutionalLayer(settings, count);
+			ConvolutionalLayer layer = new ConvolutionalLayer(settings, prevPixelCount);
+
+			if (i != 0)
+				layer.InitializeFilters();
 
 			NeuronLayers.Add(layer);
+
+			prevPixelCount = layer.PixelCount;
 		}
 	}
 

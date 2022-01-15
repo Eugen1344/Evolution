@@ -20,7 +20,7 @@ public class Car : MonoBehaviour, ISpawner<Car>
 
 	public async Task UpdateCarAsync()
 	{
-		await Brain.TryMakeDecisionAsync();
+		await Brain.TryMakeDecisionAsync().ConfigureAwait(false);
 	}
 
 	public void Destroy()
@@ -40,7 +40,7 @@ public class Car : MonoBehaviour, ISpawner<Car>
 
 	public CarGenome GetGenome()
 	{
-		return new CarGenome(Brain.Network, Eye.Network) { Generation = Generation, Color = Body.Color };
+		return new CarGenome(Brain.Network, Eye.Network) {Generation = Generation, Color = Body.Color};
 	}
 
 	public void SetGenome(CarGenome genome)

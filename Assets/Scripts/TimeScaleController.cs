@@ -9,7 +9,6 @@ public class TimeScaleController : MonoBehaviour
 	[SerializeField] private AdaptiveFps _adaptiveFps;
 
 	private float _prevTimeScale;
-	private bool _paused;
 
 	private void Start()
 	{
@@ -18,20 +17,20 @@ public class TimeScaleController : MonoBehaviour
 
 	private void Update()
 	{
+		if (Time.timeScale != 0)
+		{
+			_prevTimeScale = Time.timeScale;
+		}
+		
 		if (Input.GetKeyUp(_pauseKey))
 		{
-			if (_paused)
+			if (Time.timeScale == 0)
 			{
 				Time.timeScale = _prevTimeScale;
-
-				_paused = false;
 			}
 			else
 			{
-				_prevTimeScale = Time.timeScale;
 				Time.timeScale = 0;
-
-				_paused = true;
 			}
 		}
 		else if (Input.GetKeyUp(KeyCode.Alpha1))

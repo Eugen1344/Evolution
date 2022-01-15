@@ -99,7 +99,8 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 	public float GetFoodReward(float speed)
 	{
-		return -Mathf.Abs(speed * FoodDecayPerSecond);
+		return 0;
+		//return -Mathf.Abs(speed * FoodDecayPerSecond);
 	}
 
 	public float GetNormalizedFoodAmount()
