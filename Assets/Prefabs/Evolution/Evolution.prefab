@@ -107,7 +107,7 @@ MonoBehaviour:
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
       InputPixelCount: {x: 80, y: 50}
-      LayerCount: 5
+      LayerCount: 6
       FilterSize: {x: 3, y: 3}
       PoolingSize: {x: 1, y: 1}
       Stride: 2

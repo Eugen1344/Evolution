@@ -92,52 +92,13 @@ public class ConvolutionalNeuron
 			}
 		}
 
-		return Activation(sum);
-	}
-
-	private float AveragePooling(float[,,] output)
-	{
-		float sum = 0;
-
-		for (int i = 0; i < WeightsLengthX; i++)
-		{
-			for (int j = 0; j < WeightsLengthY; j++)
-			{
-				for (int k = 0; k < WeightsLengthZ; k++)
-				{
-					sum += output[i, j, k];
-				}
-			}
-		}
-
 		float average = sum / (WeightsLengthX * WeightsLengthY * WeightsLengthZ);
-		return average;
-	}
-
-	private float MaxPooling(float[,,] output)
-	{
-		float max = output[0, 0, 0];
-
-		for (int i = 0; i < WeightsLengthX; i++)
-		{
-			for (int j = 0; j < WeightsLengthY; j++)
-			{
-				for (int k = 0; k < WeightsLengthZ; k++)
-				{
-					float value = output[i, j, k];
-
-					if (Mathf.Abs(value) > max)
-						max = value;
-				}
-			}
-		}
-
-		return max;
+		return Activation(average);
 	}
 
 	private float Activation(float value)
 	{
-		return Mathf.Clamp(value, 0, 1);
+		return Mathf.Max(0, value);
 	}
 
 	public void SetInitialWeights()

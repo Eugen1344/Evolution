@@ -24,13 +24,15 @@ public class ConvolutionalLayer
 	public ConvolutionalLayer(ConvolutionalNeuralNetworkSettings settings, Vector2Int inputPixelCount)
 	{
 		Settings = settings;
-		PixelCount = OutputSize(inputPixelCount);
+		PixelCount = inputPixelCount;
 
 		_output = new float[PixelCount.x, PixelCount.y, ConvolutionalNeuralNetwork.ColorChannelCount];
 	}
 
 	public void InitializeFilters()
 	{
+		PixelCount = OutputSize(PixelCount);
+
 		Filters = new List<ConvolutionalNeuron>
 		{
 			new ConvolutionalNeuron(Settings.FilterSize.x, Settings.FilterSize.y, ConvolutionalNeuralNetwork.ColorChannelCount),
@@ -62,39 +64,34 @@ public class ConvolutionalLayer
 
 	public float[,,] Calculate(float[,,] input)
 	{
+		if (Filters == null)
+		{
+			_output = input;
+			return _output;
+		}
+
 		int inputLengthX = input.GetLength(0);
 		int inputLengthY = input.GetLength(1);
 
-		int inputPositionX = 0;
-		int inputPositionY = 0;
-
-		return _output;
-
 		for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
 		{
+			int inputPositionX = 0;
 			ConvolutionalNeuron colorFilter = Filters[k];
 
 			for (int i = 0; i < PixelCount.x; i++)
 			{
+				int inputPositionY = 0;
+
 				for (int j = 0; j < PixelCount.y; j++)
 				{
-					float result;
-
-					if (Filters == null)
-					{
-						result = input[i, j, k];
-					}
-					else
-					{
-						result = colorFilter.Calculate(input, inputLengthX, inputLengthY, inputPositionX, inputPositionY);
-					}
+					float result = colorFilter.Calculate(input, inputLengthX, inputLengthY, inputPositionX, inputPositionY);
 
 					_output[i, j, k] = result;
 
-					inputPositionX += Settings.Stride;
+					inputPositionY += Settings.Stride;
 				}
 
-				inputPositionY += Settings.Stride;
+				inputPositionX += Settings.Stride;
 			}
 		}
 

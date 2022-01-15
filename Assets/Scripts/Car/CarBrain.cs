@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -36,10 +35,8 @@ public class CarBrain : MonoBehaviour
 			return;
 
 		_prevDecisionRealtimeSinceStartup = Time.time;
-		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
 		await UpdateNetwork();
-		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
-		
+
 		OnMadeDecision?.Invoke(Car);
 	}
 
@@ -50,8 +47,7 @@ public class CarBrain : MonoBehaviour
 
 	private async Task UpdateNetwork()
 	{
-		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
-		float[] inputData = await GetInputData().ConfigureAwait(false);
+		float[] inputData = await GetInputData();
 		float[] result = Network.Calculate(inputData);
 		int startingIndex = 0;
 
@@ -66,7 +62,7 @@ public class CarBrain : MonoBehaviour
 	private async Task<float[]> GetInputData()
 	{
 		IEnumerable<float> inputModules = StaticSignalModule.GetInput().Concat(Car.Food.GetInput()).Concat(Car.FoodPleasure.GetInput()).Concat(Car.Movement.GetInput());
-		IEnumerable<float> eyeInput = await Car.Eye.GetInputAsync().ConfigureAwait(false);
+		IEnumerable<float> eyeInput = await Car.Eye.GetInputAsync();
 
 		inputModules = inputModules.Concat(eyeInput);
 

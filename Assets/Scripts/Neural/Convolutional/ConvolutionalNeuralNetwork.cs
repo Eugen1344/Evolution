@@ -37,7 +37,6 @@ public class ConvolutionalNeuralNetwork
 
 	public float[,,] Calculate(float[,,] input)
 	{
-		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
 		float[,,] output = input;
 
 		for (int i = 0; i < NeuronLayers.Count; i++)

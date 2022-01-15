@@ -60,7 +60,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	{
 		UpdateViewData();
 
-		return await UpdatePixelData().ConfigureAwait(false);
+		return await UpdatePixelData();
 	}
 
 	public void UpdateViewData()
@@ -72,7 +72,7 @@ public class CarEye : MonoBehaviour, IInputNeuralModule
 	{
 		float[,,] inputPixelData = GetPixelData();
 		Task<float[,,]> calculateTask = Task.Run(() => Network.Calculate(inputPixelData));
-		float[,,] outputPixelData = await calculateTask.ConfigureAwait(false);
+		float[,,] outputPixelData = await calculateTask;
 
 		return GetPixelData(outputPixelData);
 	}

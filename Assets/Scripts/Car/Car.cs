@@ -20,7 +20,7 @@ public class Car : MonoBehaviour, ISpawner<Car>
 
 	public async Task UpdateCarAsync()
 	{
-		await Brain.TryMakeDecisionAsync().ConfigureAwait(false);
+		await Brain.TryMakeDecisionAsync();
 	}
 
 	public void Destroy()

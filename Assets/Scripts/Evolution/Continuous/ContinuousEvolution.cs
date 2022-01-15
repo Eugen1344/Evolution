@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -14,12 +13,17 @@ public class ContinuousEvolution : MonoBehaviour
 	private List<Car> _currentPopulation = new List<Car>();
 	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
 	private int _lastCarIndex = 0;
+	private Task _updateCarsTask;
 
 	private void Update()
 	{
-		Debug.Log(SynchronizationContext.Current + " " + Thread.CurrentThread.ManagedThreadId);
-		Task updateTask = UpdateCars();
-		updateTask.Wait();
+		if (_updateCarsTask == null || _updateCarsTask.IsCompleted)
+		{
+			if (_updateCarsTask?.Exception != null)
+				throw _updateCarsTask.Exception;
+
+			_updateCarsTask = UpdateCars();
+		}
 	}
 
 	private async Task UpdateCars()
@@ -36,13 +40,7 @@ public class ContinuousEvolution : MonoBehaviour
 		if (updateTasks.Length == 0)
 			return;
 
-		await Task.WhenAll(updateTasks).ConfigureAwait(false);
-
-		foreach (Task updateTask in updateTasks)
-		{
-			if (updateTask.Exception != null)
-				throw updateTask.Exception;
-		}
+		await Task.WhenAll(updateTasks);
 	}
 
 	public void InitialSpawn()
