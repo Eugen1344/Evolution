@@ -71,15 +71,17 @@ public class ConvolutionalNeuron
 	{
 		float sum = 0;
 
-		for (int i = 0; i < WeightsLengthX; i++)
+		for (int k = 0; k < WeightsLengthZ; k++)
 		{
-			for (int j = 0; j < WeightsLengthY; j++)
+			int inputZ = k;
+
+			for (int i = 0; i < WeightsLengthX; i++)
 			{
-				for (int k = 0; k < WeightsLengthZ; k++)
+				int inputX = maskPositionX + i;
+
+				for (int j = 0; j < WeightsLengthY; j++)
 				{
-					int inputX = maskPositionX + i;
 					int inputY = maskPositionY + j;
-					int inputZ = k;
 
 					if (inputX >= inputLengthX || inputY >= inputLengthY)
 						continue;
@@ -92,13 +94,13 @@ public class ConvolutionalNeuron
 			}
 		}
 
-		float average = sum / (WeightsLengthX * WeightsLengthY * WeightsLengthZ);
+		float average = sum / (WeightsLengthZ);
 		return Activation(average);
 	}
 
 	private float Activation(float value)
 	{
-		return Mathf.Max(0, value);
+		return Mathf.Clamp01(value);
 	}
 
 	public void SetInitialWeights()

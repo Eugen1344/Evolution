@@ -143,6 +143,11 @@ PrefabInstance:
       propertyPath: _foodSpawners.Array.data[0]
       value: 
       objectReference: {fileID: 1424017883862512226}
+    - target: {fileID: 2906127047424142019, guid: 6fb751689add9d545bf37529ed41d610,
+        type: 3}
+      propertyPath: Settings.EmergencyRespawnCount
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fb751689add9d545bf37529ed41d610, type: 3}
 --- !u!4 &4420877073541049139 stripped

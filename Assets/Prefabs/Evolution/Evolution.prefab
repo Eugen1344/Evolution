@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
   Settings:
-    InitialSpeciesCount: 1
+    InitialSpeciesCount: 50
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 40
     StoredLifeResultCount: 20
@@ -107,10 +107,10 @@ MonoBehaviour:
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
       InputPixelCount: {x: 80, y: 50}
-      LayerCount: 6
+      LayerCount: 3
       FilterSize: {x: 3, y: 3}
-      PoolingSize: {x: 1, y: 1}
-      Stride: 2
+      PoolingSize: {x: 3, y: 3}
+      Stride: 1
       Padding: 0
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1

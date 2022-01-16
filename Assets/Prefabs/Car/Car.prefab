@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521cb3e651e31e34aa38cd4ce34cc69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionsPerSecond: 2
+  DecisionsPerSecond: 5
   Car: {fileID: 4432495669392959698}
   StaticSignalModule: {fileID: 2410055948127782458}
   Network:

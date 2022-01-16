@@ -80,7 +80,7 @@ public class CarPanel : UiPanel<CarPanel>
 		if (CurrentCar == null)
 			return;
 
-		if (PreviewLayer < CurrentEye.Network.NeuronLayers.Count - 1)
+		if (PreviewLayer < CurrentEye.Network.ConvolutionalLayers.Count - 1)
 			PreviewLayerDown.interactable = true;
 
 		if (PreviewLayer > 0)
@@ -126,7 +126,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void UpdatePreviewImage(Car car)
 	{
-		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[PreviewLayer];
+		ConvolutionalLayer currentLayer = CurrentEye.Network.ConvolutionalLayers[PreviewLayer];
 		WriteImage(_internalEyePreviewTexture, currentLayer.PrevOutput);
 	}
 
@@ -153,7 +153,7 @@ public class CarPanel : UiPanel<CarPanel>
 		if (CurrentCar == null)
 			return;
 
-		if (PreviewLayer < 0 || PreviewLayer >= CurrentEye.Network.NeuronLayers.Count)
+		if (PreviewLayer < 0 || PreviewLayer >= CurrentEye.Network.ConvolutionalLayers.Count)
 			PreviewLayer = 0;
 
 		if (_internalEyePreviewTexture != null)
@@ -168,9 +168,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private Texture2D CreateEyePreviewTexture(Car car, int depth)
 	{
-		ConvolutionalLayer currentLayer = CurrentEye.Network.NeuronLayers[depth];
+		ConvolutionalLayer currentLayer = CurrentEye.Network.ConvolutionalLayers[depth];
 
-		return CreateEyePreviewTexture(currentLayer.PixelCount.x, currentLayer.PixelCount.y);
+		return CreateEyePreviewTexture(currentLayer.OutputPixelCount.x, currentLayer.OutputPixelCount.y);
 	}
 
 	private Texture2D CreateEyePreviewTexture(int width, int height)

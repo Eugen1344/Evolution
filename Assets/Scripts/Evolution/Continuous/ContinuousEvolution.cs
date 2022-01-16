@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
 {
@@ -19,8 +21,13 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		if (_updateCarsTask == null || _updateCarsTask.IsCompleted)
 		{
-			if (_updateCarsTask?.Exception != null)
-				throw _updateCarsTask.Exception;
+			AggregateException exception = _updateCarsTask?.Exception;
+
+			if (exception != null)
+			{
+				_updateCarsTask = null;
+				throw exception;
+			}
 
 			_updateCarsTask = UpdateCars();
 		}

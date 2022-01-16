@@ -17,6 +17,8 @@ public class CarBrain : MonoBehaviour
 	public event Action<Car> OnMadeDecision;
 
 	private float _prevDecisionRealtimeSinceStartup;
+	private int _inputNeuronCount;
+	private int _outputNeuronCount;
 
 	private void Start()
 	{
@@ -27,6 +29,9 @@ public class CarBrain : MonoBehaviour
 		InputModules.Add(Car.Eye);
 
 		OutputModules.Add(Car.Movement);
+
+		_inputNeuronCount = InputModules.Sum(module => module.InputNeuronCount);
+		_outputNeuronCount = OutputModules.Sum(module => module.OutputNeuronCount);
 	}
 
 	public async Task TryMakeDecisionAsync()
@@ -48,9 +53,16 @@ public class CarBrain : MonoBehaviour
 	private async Task UpdateNetwork()
 	{
 		float[] inputData = await GetInputData();
-		float[] result = Network.Calculate(inputData);
-		int startingIndex = 0;
 
+		if (inputData.Length != _inputNeuronCount || Network.FirstLayer.Size != _inputNeuronCount)
+			throw new ArgumentException($"Input neuron count is {Network.FirstLayer.Size}. Should be {_inputNeuronCount}");
+
+		float[] result = Network.Calculate(inputData);
+
+		if (result.Length != _outputNeuronCount || Network.LastLayer.Size != _outputNeuronCount)
+			throw new ArgumentException($"Output output neuron count is {Network.LastLayer.Size}. Should be {_outputNeuronCount}");
+
+		int startingIndex = 0;
 		foreach (IOutputNeuralModule outputModule in OutputModules)
 		{
 			outputModule.SetOutput(result, startingIndex);
