@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class EvolutionManager : MonoBehaviour
 {
 	public List<ContinuousEvolution> Evolutions;
+	public bool SpeedRewardEnabled;
 	[SerializeField] private SaveManager _saveManager = new SaveManager();
 	public event Action OnInitialSpawn;
 
@@ -26,6 +27,7 @@ public class EvolutionManager : MonoBehaviour
 		ExperimentName = RandomStringGenerator(10);
 
 		Commands.AddStringField("Experiment Name", () => ExperimentName, val => ExperimentName = val);
+		Commands.AddCheckbox("Reward speed", () => SpeedRewardEnabled, val => SpeedRewardEnabled = val);
 	}
 
 	public void InitialSpawn()

@@ -12,6 +12,8 @@ public class PoolingLayer : AbstractConvolutionalLayer
 
 	public override float[,,] Calculate(float[,,] input)
 	{
+		float max = 0;
+
 		for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
 		{
 			int inputPositionX = 0;
@@ -27,13 +29,35 @@ public class PoolingLayer : AbstractConvolutionalLayer
 					_output[i, j, k] = result;
 
 					inputPositionY += Settings.PoolingSize.y;
+
+					if (result > max)
+						max = result;
 				}
 
 				inputPositionX += Settings.PoolingSize.x;
 			}
 		}
 
+		Normalize(max);
+
 		return _output;
+	}
+
+	private void Normalize(float maxValue)
+	{
+		if (maxValue <= 0)
+			return;
+
+		for (int k = 0; k < ConvolutionalNeuralNetwork.ColorChannelCount; k++)
+		{
+			for (int i = 0; i < OutputPixelCount.x; i++)
+			{
+				for (int j = 0; j < OutputPixelCount.y; j++)
+				{
+					_output[i, j, k] /= maxValue;
+				}
+			}
+		}
 	}
 
 	private float MaxPooling(float[,,] input, int maskPositionX, int maskPositionY, int maskPositionZ)

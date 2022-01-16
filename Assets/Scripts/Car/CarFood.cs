@@ -9,6 +9,7 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 	[Range(0, 1)] public float FoodStoreRatio;
 	public float FoodDecayPerSecond;
 	public Car Car;
+	public bool SpeedRewardEnabled;
 
 	[SerializeField] private float _currentFood;
 
@@ -73,8 +74,6 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 		if (StoredFood < 0)
 			StoredFood = 0;
-
-		TotalAcquiredFood += foodReward * Time.deltaTime;
 	}
 
 	public void AddFood(float foodDelta)
@@ -86,21 +85,24 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 
 			StoredFood += storedFood;
 			CurrentFood += mainFood;
-			TotalAcquiredFood += foodDelta;
 		}
-		else
+		else if (foodDelta < 0)
 		{
 			if (CurrentFood == 0)
 				StoredFood += foodDelta;
 			else
 				CurrentFood += foodDelta;
 		}
+
+		TotalAcquiredFood += foodDelta;
 	}
 
 	public float GetFoodReward(float speed)
 	{
+		if (SpeedRewardEnabled)
+			return speed * FoodDecayPerSecond / 10.0f;
+
 		return 0;
-		//return -Mathf.Abs(speed * FoodDecayPerSecond);
 	}
 
 	public float GetNormalizedFoodAmount()

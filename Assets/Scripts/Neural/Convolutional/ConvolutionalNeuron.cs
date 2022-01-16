@@ -87,20 +87,18 @@ public class ConvolutionalNeuron
 						continue;
 
 					float value = input[inputX, inputY, inputZ] * Weights[i, j, k];
-					//_result[i, j, k] = value;
 
 					sum += value;
 				}
 			}
 		}
 
-		float average = sum / (WeightsLengthZ);
-		return Activation(average);
+		return Activation(sum);
 	}
 
 	private float Activation(float value)
 	{
-		return Mathf.Clamp01(value);
+		return Mathf.Max(0, value);
 	}
 
 	public void SetInitialWeights()

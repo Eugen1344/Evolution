@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ContinuousEvolution : MonoBehaviour
 {
@@ -78,6 +77,8 @@ public class ContinuousEvolution : MonoBehaviour
 
 		_currentPopulation.Add(newCar);
 
+		newCar.Food.SpeedRewardEnabled = _manager.SpeedRewardEnabled;
+
 		return newCar;
 	}
 
@@ -121,10 +122,9 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
 		{
-			int randomBestIndex = Random.Range(0, _lifeResults.Count);
-			CarGenome randomBest = _lifeResults[randomBestIndex].Genome;
+			CarGenome bestGenome = _lifeResults[i].Genome;
 
-			CarGenome genome = new CarGenome(randomBest);
+			CarGenome genome = new CarGenome(bestGenome);
 			Car clone = SpawnCar(_lastCarIndex.ToString());
 
 			genome.IntroduceRandomError();

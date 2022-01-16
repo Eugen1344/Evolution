@@ -100,16 +100,16 @@ MonoBehaviour:
     InitialSpeciesCount: 50
     EmergencyRespawnCount: 10
     ChildStoredFoodRequirement: 40
-    StoredLifeResultCount: 20
+    StoredLifeResultCount: 10
     NeuralNetworkSettings:
-      NeuronsCount: 0a000000140000001400000014000000140000000a0000000a00000006000000
+      NeuronsCount: 1c0000001e0000001e0000001e0000001e0000001e0000001400000006000000
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
       InputPixelCount: {x: 80, y: 50}
-      LayerCount: 3
+      LayerCount: 4
       FilterSize: {x: 3, y: 3}
-      PoolingSize: {x: 3, y: 3}
+      PoolingSize: {x: 2, y: 2}
       Stride: 1
       Padding: 0
       MinRandomErrorCoefficient: 0.1

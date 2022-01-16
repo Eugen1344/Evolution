@@ -357,7 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20845ad1e1419bd40aa26270459e9874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExperimentName: 
   Evolutions:
   - {fileID: 1179995451}
   - {fileID: 791262295}
@@ -2980,7 +2979,7 @@ PrefabInstance:
     - target: {fileID: 224130951485110974, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 224166536479716514, guid: 9ed2a051c32b4fe47a5e4fb95c20b03f,
         type: 3}
