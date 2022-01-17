@@ -100,7 +100,7 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 	{
 		if (!Rigidbody) //TODO hack
 			return 0;
-		
+
 		Vector3 projectedVelocity = Vector3.Project(Rigidbody.velocity, Rigidbody.transform.forward);
 		float speed = Vector3.Dot(projectedVelocity, Rigidbody.transform.forward) < 0 ? -projectedVelocity.magnitude : projectedVelocity.magnitude;
 
@@ -118,6 +118,20 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 
 	public void SetOutput(float[] output, int startingIndex)
 	{
+		float frontLeftForward = output[startingIndex];
+		float frontLeftBackward = output[startingIndex];
+		float rearLeftForward = output[startingIndex];
+		float rearLeftBackward = output[startingIndex];
+		float frontRightForward = output[startingIndex];
+		float frontRightBackward = output[startingIndex];
+		float rearRightForward = output[startingIndex];
+		float rearRightBackward = output[startingIndex];
+
+		float frontLeftSteeringRight;
+		float frontLeftSteeringLeft;
+		float frontRightSteeringRight;
+		float frontRightSteeringLeft;
+		
 		SetSpeed(WheelType.FrontLeft, output[startingIndex]);
 		SetSpeed(WheelType.RearLeft, output[startingIndex + 1]);
 		SetSpeed(WheelType.FrontRight, output[startingIndex + 2]);

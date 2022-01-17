@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -15,8 +16,14 @@ public class FpsCounter : MonoBehaviour
 
 	private Queue<float> _prevFpsReadings = new Queue<float>();
 
-	void Update()
+	private void Awake()
 	{
+		Application.targetFrameRate = 144;
+	}
+
+	private void Update()
+	{
+	
 		float fps = GetFps();
 
 		UpdateAverageFps(fps);
