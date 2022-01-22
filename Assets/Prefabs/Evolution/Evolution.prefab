@@ -99,7 +99,7 @@ MonoBehaviour:
   Settings:
     InitialSpeciesCount: 50
     EmergencyRespawnCount: 10
-    ChildStoredFoodRequirement: 40
+    ChildStoredFoodRequirement: 50
     StoredLifeResultCount: 10
     NeuralNetworkSettings:
       NeuronsCount: 1c0000001e0000001e0000001e0000001e0000001e0000001400000006000000

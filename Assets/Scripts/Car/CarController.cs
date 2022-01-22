@@ -101,8 +101,9 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		if (!Rigidbody) //TODO hack
 			return 0;
 
-		Vector3 projectedVelocity = Vector3.Project(Rigidbody.velocity, Rigidbody.transform.forward);
-		float speed = Vector3.Dot(projectedVelocity, Rigidbody.transform.forward) < 0 ? -projectedVelocity.magnitude : projectedVelocity.magnitude;
+		Vector3 forward = Rigidbody.transform.forward;
+		Vector3 projectedVelocity = Vector3.Project(Rigidbody.velocity, forward);
+		float speed = Vector3.Dot(projectedVelocity, forward) < 0 ? -projectedVelocity.magnitude : projectedVelocity.magnitude;
 
 		return speed;
 	}
