@@ -108,11 +108,16 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		return speed;
 	}
 
-	public int InputNeuronCount => 1;
+	public int InputNeuronCount => 2;
 
 	public IEnumerable<float> GetInput()
 	{
-		yield return GetTotalNormalizedSpeed();
+		float speed = GetTotalNormalizedSpeed();
+		float forwardSpeed = Mathf.Max(0, speed);
+		float backwardSpeed = Mathf.Max(0, -speed);
+
+		yield return forwardSpeed;
+		yield return backwardSpeed;
 	}
 
 	public int OutputNeuronCount => 12;

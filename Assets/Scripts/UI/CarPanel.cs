@@ -40,7 +40,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void OnSpawnGeneration()
 	{
-		if (CurrentCar == null && AutoSelectNextCar)
+		if (!CurrentCar && AutoSelectNextCar)
 		{
 			SelectNextCar();
 		}
