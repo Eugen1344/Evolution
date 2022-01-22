@@ -48,6 +48,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void SelectCar(Car car)
 	{
+		if (!car)
+			return;
+
 		Show();
 
 		ClearCurrentCar();

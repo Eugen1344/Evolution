@@ -115,29 +115,30 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		yield return GetTotalNormalizedSpeed();
 	}
 
-	public int OutputNeuronCount => 6;
+	public int OutputNeuronCount => 12;
 
 	public void SetOutput(float[] output, int startingIndex)
 	{
-		float frontLeftForward = output[startingIndex];
-		float frontLeftBackward = output[startingIndex];
-		float rearLeftForward = output[startingIndex];
-		float rearLeftBackward = output[startingIndex];
-		float frontRightForward = output[startingIndex];
-		float frontRightBackward = output[startingIndex];
-		float rearRightForward = output[startingIndex];
-		float rearRightBackward = output[startingIndex];
+		float frontLeftForward = output[startingIndex + 0];
+		float frontLeftBackward = output[startingIndex + 1];
+		float frontRightForward = output[startingIndex + 2];
+		float frontRightBackward = output[startingIndex + 3];
+		float rearLeftForward = output[startingIndex + 4];
+		float rearLeftBackward = output[startingIndex + 5];
+		float rearRightForward = output[startingIndex + 6];
+		float rearRightBackward = output[startingIndex + 7];
 
-		float frontLeftSteeringRight;
-		float frontLeftSteeringLeft;
-		float frontRightSteeringRight;
-		float frontRightSteeringLeft;
-		
-		SetSpeed(WheelType.FrontLeft, output[startingIndex]);
-		SetSpeed(WheelType.RearLeft, output[startingIndex + 1]);
-		SetSpeed(WheelType.FrontRight, output[startingIndex + 2]);
-		SetSpeed(WheelType.RearRight, output[startingIndex + 3]);
-		SetSteering(WheelType.FrontLeft, output[startingIndex + 4]);
-		SetSteering(WheelType.FrontRight, output[startingIndex + 5]);
+		float frontLeftSteeringRight = output[startingIndex + 8];
+		float frontLeftSteeringLeft = output[startingIndex + 9];
+		float frontRightSteeringRight = output[startingIndex + 10];
+		float frontRightSteeringLeft = output[startingIndex + 11];
+
+		SetSpeed(WheelType.FrontLeft, frontLeftForward - frontLeftBackward);
+		SetSpeed(WheelType.FrontRight, frontRightForward - frontRightBackward);
+		SetSpeed(WheelType.RearLeft, rearLeftForward - rearLeftBackward);
+		SetSpeed(WheelType.RearRight, rearRightForward - rearRightBackward);
+
+		SetSteering(WheelType.FrontLeft, frontLeftSteeringRight - frontLeftSteeringLeft);
+		SetSteering(WheelType.FrontRight, frontRightSteeringRight - frontRightSteeringLeft);
 	}
 }
