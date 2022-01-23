@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RootObject: {fileID: 3644957702750299866}
-  FoodAmount: 40
+  FoodAmount: 50
   DestroyAfterPickup: 1
   Type: 0
 --- !u!65 &3863902919250159216

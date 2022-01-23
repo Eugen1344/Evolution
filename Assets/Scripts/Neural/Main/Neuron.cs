@@ -58,9 +58,9 @@ public class Neuron
 		{
 			//float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
 			//sum += input[i] * (weight);
-			
+
 			sum += input[i] * (Weights[i]);
-			
+
 			//Memory[i] += MemoryActivation(sum);
 			//Memory[i] = Mathf.Clamp(Memory[i], -1.0f, 1.0f);
 		}
@@ -73,7 +73,8 @@ public class Neuron
 		float exp = Mathf.Exp(value);
 		float inverseExp = Mathf.Exp(-value);
 
-		return (exp - inverseExp) / (exp + inverseExp);
+		float result = (exp - inverseExp) / (exp + inverseExp);
+		return result > 0 ? result : 0;
 	}
 
 	private float MemoryActivation(float neuronOutput)
