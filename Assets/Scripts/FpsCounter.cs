@@ -1,16 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class FpsCounter : MonoBehaviour
+public class FpsCounter : MonoBehaviour, IInputNeuralModule
 {
 	public int MaxStoredFpsReadings;
 	public TextMeshProUGUI FpsText;
 	public TextMeshProUGUI AverageFpsText;
 	public TextMeshProUGUI MinFpsText;
-	
+
+	public float CurrentFps { get; private set; }
 	public float AverageFps { get; private set; }
 	public float MinFps { get; private set; }
 
@@ -23,11 +23,11 @@ public class FpsCounter : MonoBehaviour
 
 	private void Update()
 	{
-	
 		float fps = GetFps();
 
 		UpdateAverageFps(fps);
 
+		CurrentFps = fps;
 		AverageFps = GetAverageFps();
 		MinFps = GetMinFps();
 
@@ -59,5 +59,12 @@ public class FpsCounter : MonoBehaviour
 	private float GetFps()
 	{
 		return 1.0f / Time.unscaledDeltaTime;
+	}
+
+	public int InputNeuronCount => 1;
+
+	public IEnumerable<float> GetInput()
+	{
+		yield return AverageFps;
 	}
 }

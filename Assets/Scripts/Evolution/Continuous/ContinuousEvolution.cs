@@ -16,6 +16,11 @@ public class ContinuousEvolution : MonoBehaviour
 	private int _lastCarIndex = 0;
 	private Task _updateCarsTask;
 
+	private void Awake()
+	{
+		Settings.NeuralNetworkSettings.NeuronActivationFunction = NeuronActivationFunctions.ActivationTanh;
+	}
+
 	private void Update()
 	{
 		if (_updateCarsTask == null || _updateCarsTask.IsCompleted)
@@ -206,8 +211,11 @@ public class ContinuousEvolution : MonoBehaviour
 	{
 		for (int i = 0; i < 1; i++) //TODO: TEMP load only first car
 		{
+			CarGenome genome = genomes[i];
+			genome.InitAfterDeserialization(Settings.NeuralNetworkSettings);
+
 			Car car = SpawnCar(i.ToString());
-			car.SetGenome(new CarGenome(genomes[i]));
+			car.SetGenome(genome);
 		}
 
 		TryRespawnAllFood();

@@ -40,6 +40,11 @@ public class CarGenome
 		Color = genome.Color;
 	}
 
+	public void InitAfterDeserialization(NeuralNetworkSettings settings)
+	{
+		BrainNetwork.InitAfterDeserialization(settings);
+	}
+
 	public float IntroduceRandomError()
 	{
 		Color = NextColor(Color);

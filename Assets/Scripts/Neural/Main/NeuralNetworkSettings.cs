@@ -12,6 +12,8 @@ public class NeuralNetworkSettings
 	[JsonProperty("error_max")]
 	public float MaxRandomErrorCoefficient;
 
+	public Func<float, float> NeuronActivationFunction;
+	
 	public NeuralNetworkSettings(params int[] neuronsCount)
 	{
 		NeuronsCount = neuronsCount;

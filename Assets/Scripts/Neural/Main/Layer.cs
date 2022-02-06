@@ -16,13 +16,13 @@ public class Layer
 		Neurons = null;
 	}
 
-	public Layer(int neuronsCount, int prevLayerNeuronsCount)
+	public Layer(int neuronsCount, int prevLayerNeuronsCount, Func<float, float> neuronActivationFunction)
 	{
 		Neurons = new List<Neuron>();
 
 		for (int i = 0; i < neuronsCount; i++)
 		{
-			Neurons.Add(new Neuron(prevLayerNeuronsCount));
+			Neurons.Add(new Neuron(prevLayerNeuronsCount, neuronActivationFunction));
 		}
 	}
 
@@ -33,6 +33,14 @@ public class Layer
 		for (int i = 0; i < layer.Size; i++)
 		{
 			Neurons.Add(new Neuron(layer.Neurons[i]));
+		}
+	}
+	
+	public void InitAfterDeserialization(Func<float,float> activationFunction)
+	{
+		foreach (Neuron neuron in Neurons)
+		{
+			neuron.InitAfterDeserialization(activationFunction);
 		}
 	}
 

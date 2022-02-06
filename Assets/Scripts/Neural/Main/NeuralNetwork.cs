@@ -33,6 +33,16 @@ public class NeuralNetwork
 
 		InitializeNeurons(network);
 	}
+	
+	public void InitAfterDeserialization(NeuralNetworkSettings settings)
+	{
+		Settings = settings;
+
+		foreach (Layer layer in NeuronLayers)
+		{
+			layer.InitAfterDeserialization(settings.NeuronActivationFunction);
+		}
+	}
 
 	public float[] Calculate(float[] input)
 	{
@@ -70,7 +80,7 @@ public class NeuralNetwork
 
 		foreach (int count in settings.NeuronsCount)
 		{
-			Layer layer = new Layer(count, prevLayerCount);
+			Layer layer = new Layer(count, prevLayerCount, settings.NeuronActivationFunction);
 
 			NeuronLayers.Add(layer);
 

@@ -21,17 +21,24 @@ public class AdaptiveFps : MonoBehaviour
 
 	private NeuralNetwork _prevNetwork;
 	private float _prevDecisionRealtimeSinceStartup;
-	[SerializeField] private List<float> _prevFitness;
-	[SerializeField] private float? _prevAverageFitness;
-	[SerializeField] private float _decisionsWithoutLearning = 0;
+
+	[DisableInspectorEditing] [SerializeField]
+	private List<float> _prevFitness;
+
+	[DisableInspectorEditing] [SerializeField]
+	private float? _prevAverageFitness;
+
+	[DisableInspectorEditing] [SerializeField]
+	private float _decisionsWithoutLearning = 0;
 
 	public bool MaximizeFitness;
 
 	private void Start()
 	{
-		_inputModules.AddRange(_spawners);
 		_inputModules.Add(_staticSignal);
+		_inputModules.AddRange(_spawners);
 
+		_network.Settings.NeuronActivationFunction = NeuronActivationFunctions.ActivationLinear;
 		_network = NeuralNetwork.Random(_network.Settings);
 	}
 
@@ -52,20 +59,19 @@ public class AdaptiveFps : MonoBehaviour
 
 	private void UpdateNetwork()
 	{
-		float fitness = CurrentFitness();
-		_prevFitness.Add(fitness);
-
 		if (_decisionsWithoutLearning >= DecisionsBetweenLearning)
 			Learn();
 
 		float networkOutput = CalculateNetwork();
-		float newTimeScale = (networkOutput + 1.0f) / 2.0f * MaxTimeScale;
-		float clampedNewTimeScale = Mathf.Clamp(newTimeScale, MinTimeScale, MaxTimeScale);
-		//Debug.Log($"{newTimeScale} => {clampedNewTimeScale}");
+		float newTimeScale = Mathf.Clamp(networkOutput, MinTimeScale, MaxTimeScale);
+		Debug.Log($"{networkOutput} => {newTimeScale}");
 
-		Time.timeScale = clampedNewTimeScale;
+		Time.timeScale = newTimeScale;
 
 		_decisionsWithoutLearning++;
+
+		float fitness = CurrentFitness(networkOutput);
+		_prevFitness.Add(fitness);
 	}
 
 	private void Learn()
@@ -75,19 +81,41 @@ public class AdaptiveFps : MonoBehaviour
 		if (_prevAverageFitness != null && ((_prevAverageFitness > fitness && MaximizeFitness) || (_prevAverageFitness < fitness && !MaximizeFitness)))
 		{
 			_network = new NeuralNetwork(_prevNetwork);
+			
+			Debug.LogWarning("BACK");
 		}
 		else
 		{
 			_prevNetwork = new NeuralNetwork(_network);
 			_prevAverageFitness = fitness;
+			
+			Debug.LogWarning("NEXT");
 		}
-		
+
 		Debug.Log(_prevAverageFitness);
 
 		_network.IntroduceRandomError();
 
 		_prevFitness.Clear();
 		_decisionsWithoutLearning = 0;
+
+		/*foreach (Layer layer in _network.NeuronLayers)
+		{
+			foreach (Neuron neuron in layer.Neurons)
+			{
+				if (neuron.Weights == null)
+					continue;
+
+				foreach (float weight in neuron.Weights)
+				{
+					Debug.Log(weight);
+				}
+
+				Debug.Log("");
+			}
+		}
+
+		Debug.Log("------------------------------------------------------------------");*/
 	}
 
 	private float CalculateNetwork()
@@ -108,10 +136,10 @@ public class AdaptiveFps : MonoBehaviour
 		return _prevFitness.Average();
 	}
 
-	private float CurrentFitness()
+	private float CurrentFitness(float currentOutput)
 	{
-		float fitness = Time.timeScale;
-		float fpsDelta = TargetFps - _fpsCounter.AverageFps;
+		float fitness = currentOutput;
+		float fpsDelta = TargetFps - _fpsCounter.CurrentFps;
 
 		if (fpsDelta > 0)
 			fitness -= fpsDelta * fpsDelta / 2.0f;
