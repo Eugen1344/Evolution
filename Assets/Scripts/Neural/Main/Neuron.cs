@@ -8,23 +8,28 @@ using Random = UnityEngine.Random;
 public class Neuron
 {
 	public const float MaxWeight = 1.0f;
-	public const float MemoryMultiplier = 0.01f;
+	public const float MemoryMultiplier = 0.001f;
+	public const float MemoryDecay = 0.0001f;
 
 	[JsonProperty("weights")] public float[] Weights;
-	//public float[] Memory;
+	public float[] Memory;
 
-	public Neuron(int weightsCount)
+	private Func<float, float> _activationFunction;
+
+	public Neuron(int weightsCount, Func<float, float> activationFunction)
 	{
 		if (weightsCount == 0)
 		{
 			Weights = null;
-			//Memory = null;
+			Memory = null;
 		}
 		else
 		{
 			Weights = new float[weightsCount];
-			//Memory = new float[weightsCount];
+			Memory = new float[weightsCount];
 		}
+
+		_activationFunction = activationFunction;
 	}
 
 	public Neuron(Neuron neuron)
@@ -32,19 +37,24 @@ public class Neuron
 		if (neuron.Weights == null)
 		{
 			Weights = null;
-			//Memory = null;
+			Memory = null;
 		}
 		else
 		{
 			Weights = (float[]) neuron.Weights.Clone();
-			//Memory = new float[Weights.Length];
+			Memory = new float[Weights.Length];
 		}
+
+		_activationFunction = neuron._activationFunction;
 	}
 
-	public Neuron()
+	private Neuron()
 	{
-		Weights = null;
-		//Memory = null;
+	}
+
+	public void InitAfterDeserialization(Func<float,float> activationFunction)
+	{
+		_activationFunction = activationFunction;
 	}
 
 	public float Calculate(float[] input)
@@ -56,29 +66,19 @@ public class Neuron
 
 		for (int i = 0; i < input.Length; i++)
 		{
-			//float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
-			//sum += input[i] * (weight);
-			
-			sum += input[i] * (Weights[i]);
-			
-			//Memory[i] += MemoryActivation(sum);
-			//Memory[i] = Mathf.Clamp(Memory[i], -1.0f, 1.0f);
+			float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
+			sum += input[i] * weight;
+			//sum += input[i] * Weights[i];
+			float memory = Memory[i] + MemoryActivation(sum) - MemoryDecay;
+			Memory[i] = Mathf.Clamp(memory, 0f, 1.0f);
 		}
 
-		return Activation(sum);
-	}
-
-	private float Activation(float value)
-	{
-		float exp = Mathf.Exp(value);
-		float inverseExp = Mathf.Exp(-value);
-
-		return (exp - inverseExp) / (exp + inverseExp);
+		return _activationFunction(sum);
 	}
 
 	private float MemoryActivation(float neuronOutput)
 	{
-		return Activation(neuronOutput) * MemoryMultiplier;
+		return _activationFunction(neuronOutput) * MemoryMultiplier;
 	}
 
 	public void SetRandomWeights()
@@ -88,7 +88,7 @@ public class Neuron
 
 		for (int i = 0; i < Weights.Length; i++)
 		{
-			Weights[i] = Random.Range(-1.0f, 1.0f);
+			Weights[i] = Random.Range(-MaxWeight, MaxWeight);
 		}
 	}
 

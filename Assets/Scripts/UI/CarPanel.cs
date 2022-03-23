@@ -28,8 +28,11 @@ public class CarPanel : UiPanel<CarPanel>
 
 	protected override void OnDestroy()
 	{
-		if (CurrentCar)
+		if (CurrentCar != null)
+		{
 			CurrentCar.OnDespawn -= DespawnCar;
+			CurrentCar.Brain.OnMadeDecision -= UpdatePreviewImage;
+		}
 
 		Car.OnClick -= SelectCar;
 		_manager.OnInitialSpawn -= OnSpawnGeneration;
@@ -40,7 +43,7 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void OnSpawnGeneration()
 	{
-		if (CurrentCar == null && AutoSelectNextCar)
+		if (!CurrentCar && AutoSelectNextCar)
 		{
 			SelectNextCar();
 		}
@@ -48,6 +51,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void SelectCar(Car car)
 	{
+		if (!car)
+			return;
+
 		Show();
 
 		ClearCurrentCar();
@@ -126,6 +132,9 @@ public class CarPanel : UiPanel<CarPanel>
 
 	private void UpdatePreviewImage(Car car)
 	{
+		if (!car)
+			return;
+
 		ConvolutionalLayer currentLayer = CurrentEye.Network.ConvolutionalLayers[PreviewLayer];
 		WriteImage(_internalEyePreviewTexture, currentLayer.PrevOutput);
 	}

@@ -102,7 +102,7 @@ MonoBehaviour:
     ChildStoredFoodRequirement: 50
     StoredLifeResultCount: 10
     NeuralNetworkSettings:
-      NeuronsCount: 1c0000001e0000001e0000001e0000001e0000001e0000001400000006000000
+      NeuronsCount: 1d0000001e0000001e0000001e0000001e0000001e000000140000000c000000
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
     EyeNeuralNetworkSettings:
@@ -114,7 +114,7 @@ MonoBehaviour:
       Padding: 0
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
-    RespawnAllFood: 1
+    RespawnAllFood: 0
   _carSpawner: {fileID: 2906127046113145003}
   _foodSpawners: []
   _lifeResults: []

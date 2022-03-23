@@ -634,38 +634,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67e2e81c9572e41b8501b5b3af3f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TorqueBySpeedCurve:
+  MaxTorque: 400
+  MaxForwardsSpeed: 10
+  MaxBackwardsSpeed: 5
+  MaxSteeringAngle: 45
+  _torqueBySpeedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1.000061
-      inSlope: -0.12270865
-      outSlope: -0.12270865
+      time: -1
+      value: 0.5
+      inSlope: -0.06469973
+      outSlope: -0.06469973
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.11121702
+    - serializedVersion: 3
+      time: 0
+      value: 1.000061
+      inSlope: 0.023071524
+      outSlope: 0.023071524
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16531758
       outWeight: 0.3802484
     - serializedVersion: 3
       time: 1
-      value: 0.007683575
-      inSlope: -2.9731696
-      outSlope: -2.9731696
+      value: 0.5
+      inSlope: -1.5362017
+      outSlope: -1.5362017
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.039953113
+      inWeight: 0.038306475
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxTorque: 400
-  MaxSpeed: 10
-  MaxSteeringAngle: 45
-  Rigidbody: {fileID: 998564928589763612}
-  FrontLeft: {fileID: 7120031490449023744}
-  FrontRight: {fileID: 2098202073735238370}
-  RearLeft: {fileID: 1495220301960796110}
-  RearRight: {fileID: 9152484781016059030}
+  _rigidbody: {fileID: 998564928589763612}
+  _frontLeft: {fileID: 7120031490449023744}
+  _frontRight: {fileID: 2098202073735238370}
+  _rearLeft: {fileID: 1495220301960796110}
+  _rearRight: {fileID: 9152484781016059030}
 --- !u!54 &998564928589763612
 Rigidbody:
   m_ObjectHideFlags: 0
