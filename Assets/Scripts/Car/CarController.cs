@@ -4,40 +4,54 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralModule
 {
-	public AnimationCurve TorqueBySpeedCurve;
-
 	public float MaxTorque;
-	public float MaxSpeed;
+	public float MaxForwardsSpeed;
+	public float MaxBackwardsSpeed;
 	public float MaxSteeringAngle;
 
-	public Rigidbody Rigidbody;
-	public Wheel FrontLeft;
-	public Wheel FrontRight;
-	public Wheel RearLeft;
-	public Wheel RearRight;
+	[SerializeField] public AnimationCurve _torqueBySpeedCurve;
+	[SerializeField] private Rigidbody _rigidbody;
+	[SerializeField] private Wheel _frontLeft;
+	[SerializeField] private Wheel _frontRight;
+	[SerializeField] private Wheel _rearLeft;
+	[SerializeField] private Wheel _rearRight;
 
-	public void SetSpeed(WheelType wheel, float normalizedSpeed)
+	private void Update()
 	{
-		float maxTorque = GetMaxTorque(GetTotalNormalizedSpeed());
-		float torque = normalizedSpeed * maxTorque;
+		float speed = GetSpeed();
+		float forwardSpeed = GetForwardsNormalizedSpeed();
+		float backwardSpeed = GetBackwardsNormalizedSpeed();
+		Debug.Log($"{speed} = {forwardSpeed}; {backwardSpeed}");
+	}
+
+	public void SetTorque(WheelType wheel, float normalizedTorque)
+	{
+		float normalizedSpeed = GetNormalizedSpeed();
+		float maxTorque = GetTorque(normalizedSpeed);
+		float torque = normalizedTorque * maxTorque;
 
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				FrontLeft.SetTorque(torque);
+				_frontLeft.SetTorque(torque);
 				break;
 			case WheelType.FrontRight:
-				FrontRight.SetTorque(torque);
+				_frontRight.SetTorque(torque);
 				break;
 			case WheelType.RearLeft:
-				RearLeft.SetTorque(torque);
+				_rearLeft.SetTorque(torque);
 				break;
 			case WheelType.RearRight:
-				RearRight.SetTorque(torque);
+				_rearRight.SetTorque(torque);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
 		}
+	}
+
+	public float GetTorque(float normalizedSpeed)
+	{
+		return _torqueBySpeedCurve.Evaluate(normalizedSpeed) * MaxTorque;
 	}
 
 	public void SetBrake(WheelType wheel, float normalizedBrakeForce)
@@ -47,16 +61,16 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				FrontLeft.SetBrake(brakeForce);
+				_frontLeft.SetBrake(brakeForce);
 				break;
 			case WheelType.FrontRight:
-				FrontRight.SetBrake(brakeForce);
+				_frontRight.SetBrake(brakeForce);
 				break;
 			case WheelType.RearLeft:
-				RearLeft.SetBrake(brakeForce);
+				_rearLeft.SetBrake(brakeForce);
 				break;
 			case WheelType.RearRight:
-				RearRight.SetBrake(brakeForce);
+				_rearRight.SetBrake(brakeForce);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
@@ -70,39 +84,50 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				FrontLeft.SetSteeringAngle(steeringAngle);
+				_frontLeft.SetSteeringAngle(steeringAngle);
 				break;
 			case WheelType.FrontRight:
-				FrontRight.SetSteeringAngle(steeringAngle);
+				_frontRight.SetSteeringAngle(steeringAngle);
 				break;
 			case WheelType.RearLeft:
-				RearLeft.SetSteeringAngle(steeringAngle);
+				_rearLeft.SetSteeringAngle(steeringAngle);
 				break;
 			case WheelType.RearRight:
-				RearRight.SetSteeringAngle(steeringAngle);
+				_rearRight.SetSteeringAngle(steeringAngle);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
 		}
 	}
 
-	public float GetMaxTorque(float normalizedSpeed)
+	public float GetNormalizedSpeed()
 	{
-		return TorqueBySpeedCurve.Evaluate(normalizedSpeed) * MaxTorque;
+		return GetForwardsNormalizedSpeed() - GetBackwardsNormalizedSpeed();
 	}
 
-	public float GetTotalNormalizedSpeed()
+	public float GetForwardsNormalizedSpeed()
 	{
-		return GetTotalSpeed() / MaxSpeed;
+		float speed = GetSpeed();
+		float forwardsSpeed = Mathf.Max(0, speed);
+
+		return forwardsSpeed / MaxForwardsSpeed;
 	}
 
-	public float GetTotalSpeed()
+	public float GetBackwardsNormalizedSpeed()
 	{
-		if (!Rigidbody) //TODO hack
+		float speed = GetSpeed();
+		float backwardsSpeed = -Mathf.Min(0, speed);
+
+		return backwardsSpeed / MaxBackwardsSpeed;
+	}
+
+	public float GetSpeed()
+	{
+		if (!_rigidbody) //TODO hack
 			return 0;
 
-		Vector3 forward = Rigidbody.transform.forward;
-		Vector3 projectedVelocity = Vector3.Project(Rigidbody.velocity, forward);
+		Vector3 forward = _rigidbody.transform.forward;
+		Vector3 projectedVelocity = Vector3.Project(_rigidbody.velocity, forward);
 		float speed = Vector3.Dot(projectedVelocity, forward) < 0 ? -projectedVelocity.magnitude : projectedVelocity.magnitude;
 
 		return speed;
@@ -112,9 +137,8 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 
 	public IEnumerable<float> GetInput()
 	{
-		float speed = GetTotalNormalizedSpeed();
-		float forwardSpeed = Mathf.Max(0, speed);
-		float backwardSpeed = Mathf.Max(0, -speed);
+		float forwardSpeed = GetForwardsNormalizedSpeed();
+		float backwardSpeed = GetBackwardsNormalizedSpeed();
 
 		yield return forwardSpeed;
 		yield return backwardSpeed;
@@ -138,10 +162,10 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 		float frontRightSteeringRight = output[startingIndex + 10];
 		float frontRightSteeringLeft = output[startingIndex + 11];
 
-		SetSpeed(WheelType.FrontLeft, frontLeftForward - frontLeftBackward);
-		SetSpeed(WheelType.FrontRight, frontRightForward - frontRightBackward);
-		SetSpeed(WheelType.RearLeft, rearLeftForward - rearLeftBackward);
-		SetSpeed(WheelType.RearRight, rearRightForward - rearRightBackward);
+		SetTorque(WheelType.FrontLeft, frontLeftForward - frontLeftBackward);
+		SetTorque(WheelType.FrontRight, frontRightForward - frontRightBackward);
+		SetTorque(WheelType.RearLeft, rearLeftForward - rearLeftBackward);
+		SetTorque(WheelType.RearRight, rearRightForward - rearRightBackward);
 
 		SetSteering(WheelType.FrontLeft, frontLeftSteeringRight - frontLeftSteeringLeft);
 		SetSteering(WheelType.FrontRight, frontRightSteeringRight - frontRightSteeringLeft);

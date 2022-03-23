@@ -114,7 +114,7 @@ MonoBehaviour:
       Padding: 0
       MinRandomErrorCoefficient: 0.1
       MaxRandomErrorCoefficient: 1
-    RespawnAllFood: 1
+    RespawnAllFood: 0
   _carSpawner: {fileID: 2906127046113145003}
   _foodSpawners: []
   _lifeResults: []

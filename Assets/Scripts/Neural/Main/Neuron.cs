@@ -12,7 +12,7 @@ public class Neuron
 	public const float MemoryDecay = 0.0001f;
 
 	[JsonProperty("weights")] public float[] Weights;
-	//public float[] Memory;
+	public float[] Memory;
 
 	private Func<float, float> _activationFunction;
 
@@ -21,12 +21,12 @@ public class Neuron
 		if (weightsCount == 0)
 		{
 			Weights = null;
-			//Memory = null;
+			Memory = null;
 		}
 		else
 		{
 			Weights = new float[weightsCount];
-			//Memory = new float[weightsCount];
+			Memory = new float[weightsCount];
 		}
 
 		_activationFunction = activationFunction;
@@ -37,12 +37,12 @@ public class Neuron
 		if (neuron.Weights == null)
 		{
 			Weights = null;
-			//Memory = null;
+			Memory = null;
 		}
 		else
 		{
 			Weights = (float[]) neuron.Weights.Clone();
-			//Memory = new float[Weights.Length];
+			Memory = new float[Weights.Length];
 		}
 
 		_activationFunction = neuron._activationFunction;
@@ -66,11 +66,11 @@ public class Neuron
 
 		for (int i = 0; i < input.Length; i++)
 		{
-			//float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
-			//sum += input[i] * weight;
-			sum += input[i] * Weights[i];
-			//float memory = Memory[i] + MemoryActivation(sum) - MemoryDecay;
-			//Memory[i] = Mathf.Clamp(memory, 0f, 1.0f);
+			float weight = Mathf.Clamp(Weights[i] + Memory[i], -MaxWeight, MaxWeight);
+			sum += input[i] * weight;
+			//sum += input[i] * Weights[i];
+			float memory = Memory[i] + MemoryActivation(sum) - MemoryDecay;
+			Memory[i] = Mathf.Clamp(memory, 0f, 1.0f);
 		}
 
 		return _activationFunction(sum);
