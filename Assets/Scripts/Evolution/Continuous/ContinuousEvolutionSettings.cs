@@ -11,5 +11,5 @@ public class ContinuousEvolutionSettings
 	public int StoredLifeResultCount;
 	public NeuralNetworkSettings NeuralNetworkSettings;
 	public ConvolutionalNeuralNetworkSettings EyeNeuralNetworkSettings;
-	public bool RespawnAllFood;
+	public bool EmergencyRespawnAllFood;
 }

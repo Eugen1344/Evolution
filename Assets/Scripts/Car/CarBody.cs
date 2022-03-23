@@ -3,6 +3,7 @@
 public class CarBody : MonoBehaviour
 {
 	public Color Color { get; private set; }
+	
 	[SerializeField] private MeshRenderer _renderer;
 	[SerializeField] private TrailRenderer _trail;
 

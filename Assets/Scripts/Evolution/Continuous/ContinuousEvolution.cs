@@ -68,7 +68,7 @@ public class ContinuousEvolution : MonoBehaviour
 			newCar.SetGenome(newGenome);
 		}
 
-		TryRespawnAllFood();
+		RespawnAllFood();
 	}
 
 	private Car SpawnCar(string name)
@@ -139,17 +139,15 @@ public class ContinuousEvolution : MonoBehaviour
 
 		_lifeResults.Clear();
 
-		TryRespawnAllFood();
+		if (Settings.EmergencyRespawnAllFood)
+			RespawnAllFood();
 	}
 
-	public void TryRespawnAllFood()
+	public void RespawnAllFood()
 	{
-		if (Settings.RespawnAllFood)
+		foreach (FoodSpawner spawner in _foodSpawners)
 		{
-			foreach (FoodSpawner spawner in _foodSpawners)
-			{
-				spawner.SpawnMaxObjects();
-			}
+			spawner.SpawnMaxObjects();
 		}
 	}
 
@@ -218,6 +216,6 @@ public class ContinuousEvolution : MonoBehaviour
 			car.SetGenome(genome);
 		}
 
-		TryRespawnAllFood();
+		RespawnAllFood();
 	}
 }
