@@ -16,14 +16,6 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 	[SerializeField] private Wheel _rearLeft;
 	[SerializeField] private Wheel _rearRight;
 
-	private void Update()
-	{
-		float speed = GetSpeed();
-		float forwardSpeed = GetForwardsNormalizedSpeed();
-		float backwardSpeed = GetBackwardsNormalizedSpeed();
-		Debug.Log($"{speed} = {forwardSpeed}; {backwardSpeed}");
-	}
-
 	public void SetTorque(WheelType wheel, float normalizedTorque)
 	{
 		float normalizedSpeed = GetNormalizedSpeed();
