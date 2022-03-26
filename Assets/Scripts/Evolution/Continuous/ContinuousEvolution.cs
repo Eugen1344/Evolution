@@ -12,7 +12,7 @@ public class ContinuousEvolution : MonoBehaviour
 	[SerializeField] private List<FoodSpawner> _foodSpawners;
 
 	private List<Car> _currentPopulation = new List<Car>();
-	[SerializeField] private List<CarLifeResult> _lifeResults = new List<CarLifeResult>();
+	[SerializeField] private Stack<CarLifeResult> _lifeResults = new Stack<CarLifeResult>();
 	private int _lastCarIndex = 0;
 	private Task _updateCarsTask;
 
@@ -114,24 +114,16 @@ public class ContinuousEvolution : MonoBehaviour
 
 	private void AddLifeResult(Car car)
 	{
-		_lifeResults.Add(new CarLifeResult {Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index});
-		_lifeResults.Sort((first, second) => second.TotalAcquiredFood.CompareTo(first.TotalAcquiredFood));
-
-		if (_lifeResults.Count > Settings.StoredLifeResultCount)
-		{
-			int excessElements = _lifeResults.Count - Settings.StoredLifeResultCount;
-
-			_lifeResults = _lifeResults.SkipLast(excessElements).ToList();
-		}
+		_lifeResults.Push(new CarLifeResult {Genome = car.GetGenome(), TotalAcquiredFood = car.Food.TotalAcquiredFood, Index = car.Index});
 	}
 
 	private void EmergencyRespawn()
 	{
 		for (int i = 0; i < Settings.EmergencyRespawnCount; i++)
 		{
-			CarGenome bestGenome = _lifeResults[i].Genome;
+			CarLifeResult lifeResult = _lifeResults.Pop();
 
-			CarGenome genome = new CarGenome(bestGenome);
+			CarGenome genome = new CarGenome(lifeResult.Genome);
 			Car clone = SpawnCar(_lastCarIndex.ToString());
 
 			genome.IntroduceRandomError();
