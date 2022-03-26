@@ -7,6 +7,8 @@ public class EvolutionManager : MonoBehaviour
 {
 	public List<ContinuousEvolution> Evolutions;
 	public bool SpeedRewardEnabled;
+	public bool SpeedPenaltyEnabled;
+	public float SpeedFoodRatio;
 	[SerializeField] private SaveManager _saveManager = new SaveManager();
 	public event Action OnInitialSpawn;
 
@@ -28,6 +30,8 @@ public class EvolutionManager : MonoBehaviour
 
 		Commands.AddStringField("Experiment Name", () => ExperimentName, val => ExperimentName = val);
 		Commands.AddCheckbox("Reward speed", () => SpeedRewardEnabled, val => SpeedRewardEnabled = val);
+		Commands.AddCheckbox("Punish speed", () => SpeedPenaltyEnabled, val => SpeedPenaltyEnabled = val);
+		Commands.AddFloatField("Speed to food ratio", () => SpeedFoodRatio, val => SpeedFoodRatio = val);
 	}
 
 	public void InitialSpawn()

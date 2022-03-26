@@ -82,7 +82,9 @@ public class ContinuousEvolution : MonoBehaviour
 
 		_currentPopulation.Add(newCar);
 
-		newCar.Food.SpeedRewardEnabled = _manager.SpeedRewardEnabled;
+		newCar.Food.SpeedRewardEnabled = _manager.SpeedRewardEnabled; //TODO move to config
+		newCar.Food.SpeedPenaltyEnabled = _manager.SpeedPenaltyEnabled;
+		newCar.Food.SpeedFoodRatio = _manager.SpeedFoodRatio;
 
 		return newCar;
 	}

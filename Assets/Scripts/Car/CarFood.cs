@@ -10,6 +10,8 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 	public float FoodDecayPerSecond;
 	public Car Car;
 	public bool SpeedRewardEnabled;
+	public bool SpeedPenaltyEnabled;
+	public float SpeedFoodRatio;
 
 	[SerializeField] private float _currentFood;
 
@@ -100,7 +102,10 @@ public class CarFood : MonoBehaviour, IInputNeuralModule
 	public float GetFoodReward(float speed)
 	{
 		if (SpeedRewardEnabled)
-			return speed * FoodDecayPerSecond / 10.0f;
+			return speed * FoodDecayPerSecond / SpeedFoodRatio;
+		
+		if (SpeedPenaltyEnabled)
+			return -Mathf.Abs(speed) * FoodDecayPerSecond / SpeedFoodRatio;
 
 		return 0;
 	}

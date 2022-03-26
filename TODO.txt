@@ -1,11 +1,13 @@
 [TODO]
-command bar
-console
-RGB eyesight
-carnivorous cars
+fix emergency respawn not picking the best cars all the time
+add neural network visualizer
 cluster computing
 spend food on movement
 
 [DONE]
 mark selected car
 two eyes
+RGB eyesight
+carnivorous cars
+command bar
+console

@@ -82,5 +82,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarnivorousCar
       objectReference: {fileID: 0}
+    - target: {fileID: 7249546690472652996, guid: d2652bce968b16241875cde7867ec6be,
+        type: 3}
+      propertyPath: MaxForwardsSpeed
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2652bce968b16241875cde7867ec6be, type: 3}
