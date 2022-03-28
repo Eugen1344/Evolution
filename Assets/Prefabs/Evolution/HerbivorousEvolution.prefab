@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRadiusMin: 60
   SpawnRadiusMax: 150
-  ObjectsCountMax: 40
+  ObjectsCountMax: 20
   AutoSpawn: 1
-  SpawnIntervalSeconds: 10
+  SpawnIntervalSeconds: 5
   Prefab: {fileID: 3644957702750299681, guid: b833c2977d67e00418842000c7c3f17d, type: 3}
 --- !u!1 &8060053633402222073
 GameObject:
