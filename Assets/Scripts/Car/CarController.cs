@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralModule
 {
-	public float MaxTorque;
 	public float MaxForwardsSpeed;
 	public float MaxBackwardsSpeed;
-	public float MaxSteeringAngle;
 
-	[SerializeField] public AnimationCurve _torqueBySpeedCurve;
 	[SerializeField] private Rigidbody _rigidbody;
 	[SerializeField] private Wheel _frontLeft;
 	[SerializeField] private Wheel _frontRight;
@@ -19,77 +16,77 @@ public class CarController : MonoBehaviour, IInputNeuralModule, IOutputNeuralMod
 	public void SetTorque(WheelType wheel, float normalizedTorque)
 	{
 		float normalizedSpeed = GetNormalizedSpeed();
-		float maxTorque = GetTorque(normalizedSpeed);
-		float torque = normalizedTorque * maxTorque;
 
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				_frontLeft.SetTorque(torque);
+				_frontLeft.SetTorque(normalizedTorque, normalizedSpeed);
 				break;
 			case WheelType.FrontRight:
-				_frontRight.SetTorque(torque);
+				_frontRight.SetTorque(normalizedTorque, normalizedSpeed);
 				break;
 			case WheelType.RearLeft:
-				_rearLeft.SetTorque(torque);
+				_rearLeft.SetTorque(normalizedTorque, normalizedSpeed);
 				break;
 			case WheelType.RearRight:
-				_rearRight.SetTorque(torque);
+				_rearRight.SetTorque(normalizedTorque, normalizedSpeed);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
 		}
 	}
 
-	public float GetTorque(float normalizedSpeed)
+	public void SetBrakeForce(WheelType wheel, float normalizedBrakeForce)
 	{
-		return _torqueBySpeedCurve.Evaluate(normalizedSpeed) * MaxTorque;
-	}
-
-	public void SetBrake(WheelType wheel, float normalizedBrakeForce)
-	{
-		float brakeForce = MaxTorque * normalizedBrakeForce;
-
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				_frontLeft.SetBrake(brakeForce);
+				_frontLeft.SetBrakeForce(normalizedBrakeForce);
 				break;
 			case WheelType.FrontRight:
-				_frontRight.SetBrake(brakeForce);
+				_frontRight.SetBrakeForce(normalizedBrakeForce);
 				break;
 			case WheelType.RearLeft:
-				_rearLeft.SetBrake(brakeForce);
+				_rearLeft.SetBrakeForce(normalizedBrakeForce);
 				break;
 			case WheelType.RearRight:
-				_rearRight.SetBrake(brakeForce);
+				_rearRight.SetBrakeForce(normalizedBrakeForce);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
 		}
 	}
 
-	public void SetSteering(WheelType wheel, float normalizedSteeringFactor)
+	public void SetSteering(WheelType wheel, float normalizedSteeringAngle)
 	{
-		float steeringAngle = MaxSteeringAngle * normalizedSteeringFactor;
-
 		switch (wheel)
 		{
 			case WheelType.FrontLeft:
-				_frontLeft.SetSteeringAngle(steeringAngle);
+				_frontLeft.SetSteeringAngle(normalizedSteeringAngle);
 				break;
 			case WheelType.FrontRight:
-				_frontRight.SetSteeringAngle(steeringAngle);
+				_frontRight.SetSteeringAngle(normalizedSteeringAngle);
 				break;
 			case WheelType.RearLeft:
-				_rearLeft.SetSteeringAngle(steeringAngle);
+				_rearLeft.SetSteeringAngle(normalizedSteeringAngle);
 				break;
 			case WheelType.RearRight:
-				_rearRight.SetSteeringAngle(steeringAngle);
+				_rearRight.SetSteeringAngle(normalizedSteeringAngle);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(wheel), wheel, "Did you invent a new wheel?");
 		}
+	}
+
+	public float GetOverallNormalizedTorque()
+	{
+		float frontLeft = Mathf.Abs(_frontLeft.LastNormalizedTorque);
+		float frontRight = Mathf.Abs(_frontRight.LastNormalizedTorque);
+		float rearLeft = Mathf.Abs(_rearLeft.LastNormalizedTorque);
+		float rearRight = Mathf.Abs(_rearRight.LastNormalizedTorque);
+		float overallNormalizedTorque = (frontLeft + frontRight + rearLeft + rearRight) / 4.0f;
+
+		return overallNormalizedTorque;
 	}
 
 	public float GetNormalizedSpeed()

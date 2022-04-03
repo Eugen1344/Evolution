@@ -99,14 +99,14 @@ public class CarInput : MonoBehaviour
 
 	private void SetLeftBrakes(float speed)
 	{
-		Controller.SetBrake(WheelType.FrontLeft, speed);
-		Controller.SetBrake(WheelType.RearLeft, speed);
+		Controller.SetBrakeForce(WheelType.FrontLeft, speed);
+		Controller.SetBrakeForce(WheelType.RearLeft, speed);
 	}
 
 	private void SetRightBrakes(float speed)
 	{
-		Controller.SetBrake(WheelType.FrontRight, speed);
-		Controller.SetBrake(WheelType.RearRight, speed);
+		Controller.SetBrakeForce(WheelType.FrontRight, speed);
+		Controller.SetBrakeForce(WheelType.RearRight, speed);
 	}
 
 	private void SetLeftSteering(float steering)

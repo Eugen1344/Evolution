@@ -3,41 +3,40 @@ using UnityEngine;
 
 public class Wheel : MonoBehaviour
 {
-	public WheelController Controller;
+	[SerializeField] private float _maxTorque;
+	[SerializeField] private float _maxSteeringAngle;
+	[SerializeField] public AnimationCurve _torqueBySpeedCurve;
+	[SerializeField] private WheelController _controller;
 
 	private Quaternion _originalRotation;
 
-	private void Awake()
+	public WheelController Controller => _controller;
+	public float LastNormalizedTorque { get; private set; }
+
+	public void SetTorque(float normalizedTorque, float normalizedSpeed)
 	{
-		_originalRotation = transform.localRotation;
+		float torque = CalculateTorque(normalizedTorque, normalizedSpeed);
+		_controller.motorTorque = torque;
+
+		LastNormalizedTorque = normalizedTorque;
 	}
 
-	private void FixedUpdate()
+	private float CalculateTorque(float normalizedTorque, float normalizedSpeed)
 	{
-		//UpdateWheelModel();
+		float actualNormalizedTorque = _torqueBySpeedCurve.Evaluate(normalizedSpeed) * normalizedTorque;
+		float actualTorque = Mathf.Clamp(actualNormalizedTorque, -1, 1) * _maxTorque;
+		return actualTorque;
 	}
 
-	private void UpdateWheelModel()
+	public void SetSteeringAngle(float normalizedSteeringAngle)
 	{
-		Vector3 position;
-		Quaternion rotation;
-		Controller.GetWorldPose(out position, out rotation);
-
-		transform.rotation = rotation * _originalRotation;
+		float steeringAngle = normalizedSteeringAngle * _maxSteeringAngle;
+		_controller.steerAngle = steeringAngle;
 	}
 
-	public void SetTorque(float torque)
+	public void SetBrakeForce(float normalizedBrakeForce)
 	{
-		Controller.motorTorque = torque;
-	}
-
-	public void SetBrake(float brakeTorque)
-	{
-		Controller.brakeTorque = brakeTorque;
-	}
-
-	public void SetSteeringAngle(float steeringAngle)
-	{
-		Controller.steerAngle = steeringAngle;
+		float brakeForce = normalizedBrakeForce * _maxTorque;
+		_controller.brakeTorque = brakeForce;
 	}
 }

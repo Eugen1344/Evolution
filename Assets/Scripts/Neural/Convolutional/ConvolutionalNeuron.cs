@@ -93,7 +93,8 @@ public class ConvolutionalNeuron
 			}
 		}
 
-		return Activation(sum);
+		float average = sum / (WeightsLengthX * WeightsLengthY * WeightsLengthZ);
+		return Activation(average);
 	}
 
 	private float Activation(float value)

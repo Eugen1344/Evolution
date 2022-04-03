@@ -200,7 +200,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e314698dc06018346978ba9d805e9d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 7363670250954933048}
+  _maxTorque: 400
+  _maxSteeringAngle: 45
+  _torqueBySpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: 0.5
+      inSlope: -0.06469973
+      outSlope: -0.06469973
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.11121702
+    - serializedVersion: 3
+      time: -0.3040013
+      value: 0.76809245
+      inSlope: 0.10823395
+      outSlope: 0.10823395
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07669646
+      outWeight: 0.07975752
+    - serializedVersion: 3
+      time: 0
+      value: 1.000061
+      inSlope: 0.005920405
+      outSlope: 0.005920405
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16531758
+      outWeight: 0.045666922
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: -1.5362017
+      outSlope: -1.5362017
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.038306475
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _controller: {fileID: 7363670250954933048}
 --- !u!1001 &3689652632831603956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,15 +339,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c30ff9c5c237bb4d8797129df0094cf, type: 3}
---- !u!1 &4608640735092017573 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c30ff9c5c237bb4d8797129df0094cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 3689652632831603956}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3800755477227131679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c30ff9c5c237bb4d8797129df0094cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3689652632831603956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4608640735092017573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7c30ff9c5c237bb4d8797129df0094cf,
     type: 3}
   m_PrefabInstance: {fileID: 3689652632831603956}
   m_PrefabAsset: {fileID: 0}

@@ -634,52 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67e2e81c9572e41b8501b5b3af3f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxTorque: 400
   MaxForwardsSpeed: 10
   MaxBackwardsSpeed: 5
-  MaxSteeringAngle: 45
-  _torqueBySpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -1
-      value: 0.5
-      inSlope: -0.06469973
-      outSlope: -0.06469973
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.11121702
-    - serializedVersion: 3
-      time: -0.3040013
-      value: 0.76809245
-      inSlope: 0.10823395
-      outSlope: 0.10823395
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07669646
-      outWeight: 0.07975752
-    - serializedVersion: 3
-      time: 0
-      value: 1.000061
-      inSlope: 0.005920405
-      outSlope: 0.005920405
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.16531758
-      outWeight: 0.045666922
-    - serializedVersion: 3
-      time: 1
-      value: 0.5
-      inSlope: -1.5362017
-      outSlope: -1.5362017
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.038306475
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _rigidbody: {fileID: 998564928589763612}
   _frontLeft: {fileID: 7120031490449023744}
   _frontRight: {fileID: 2098202073735238370}
@@ -797,6 +753,8 @@ MonoBehaviour:
   FoodDecayPerSecond: 1
   Car: {fileID: 4432495669392959698}
   SpeedRewardEnabled: 0
+  SpeedPenaltyEnabled: 0
+  SpeedFoodRatio: 0
   _currentFood: 0
   _storedFood: 0
 --- !u!114 &5592629631474966632
