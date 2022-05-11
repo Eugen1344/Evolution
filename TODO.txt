@@ -1,8 +1,9 @@
 [TODO]
-fix emergency respawn not picking the best cars all the time
 add neural network visualizer
 cluster computing
-spend food on movement
+fix carnivorous cars failing because hebrivorous cars run into them
+add physics to cars
+add damage with physics
 
 [DONE]
 mark selected car
@@ -11,3 +12,5 @@ RGB eyesight
 carnivorous cars
 command bar
 console
+spend food on movement
+fix emergency respawn not picking the best cars all the time
